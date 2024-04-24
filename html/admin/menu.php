@@ -1,0 +1,195 @@
+ <!-- Menu -->
+ <aside id="layout-menu" class="layout-menu-horizontal menu-horizontal menu bg-menu-theme flex-grow-0">
+     <div class="container-xxl d-flex h-100">
+         <ul class="menu-inner">
+             <!-- Dashboards -->
+             <li class="menu-item">
+                 <a href="javascript:void(0)" class="menu-link ">
+                     <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                     <div data-i18n="Dashboards">Dashboards</div>
+                 </a>
+
+             </li>
+
+             <!-- Analytics -->
+             <li class="menu-item">
+                 <a href="index.php" class="menu-link">
+                     <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                     <div data-i18n="Analytics">Analytics</div>
+                 </a>
+             </li>
+
+             <!-- User -->
+             <li class="menu-item">
+                 <a href="javascript:void(0)" class="menu-link menu-toggle ">
+                     <i class="menu-icon tf-icons ti ti-layout-grid-add"></i>
+                     <div data-i18n="Users">Users</div>
+                 </a>
+                 <ul class="menu-sub">
+                     <li class="menu-item">
+                         <a href="admin_list.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-mail"></i>
+                             <div data-i18n="Admin User">Admin User</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="end-user_list.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-messages"></i>
+                             <div data-i18n="End-User">End-User</div>
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+
+             <!-- Items -->
+             <li class="menu-item">
+                 <a href="javascript:void(0)" class="menu-link menu-toggle">
+                     <i class="menu-icon tf-icons ti ti-layout-grid-add"></i>
+                     <div data-i18n="Items">Items</div>
+                 </a>
+                 <ul class="menu-sub">
+                     <li class="menu-item">
+                         <a href="found_list.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-mail"></i>
+                             <div data-i18n="Found">Found</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="lost_list.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-messages"></i>
+                             <div data-i18n="Lost">Lost</div>
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+
+             <!-- Reports -->
+             <li class="menu-item">
+                 <a href="javascript:void(0)" class="menu-link menu-toggle">
+                     <i class="menu-icon tf-icons ti ti-layout-grid-add"></i>
+                     <div data-i18n="Reports">Reports</div>
+                 </a>
+                 <ul class="menu-sub">
+                     <li class="menu-item">
+                         <a href="analytics_reports.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-mail"></i>
+                             <div data-i18n="Analytics Reports">Analytics Reports</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="item_reports.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-messages"></i>
+                             <div data-i18n="Item Reports">Item Reports</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="user_reports.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-messages"></i>
+                             <div data-i18n="User Reports">User Reports</div>
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+
+             <!-- Settings -->
+             <li class="menu-item">
+                 <a href="javascript:void(0)" class="menu-link menu-toggle">
+                     <i class="menu-icon tf-icons ti ti-layout-grid-add"></i>
+                     <div data-i18n="Settings">Settings</div>
+                 </a>
+                 <ul class="menu-sub">
+                     <li class="menu-item">
+                         <a href="profile_settings.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-mail"></i>
+                             <div data-i18n="Profile Settings">Profile Settings</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="type_list.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-messages"></i>
+                             <div data-i18n="Type Settings">Type Settings</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="category_list.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-messages"></i>
+                             <div data-i18n="Category Settings">Category Settings</div>
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+
+             <!-- Tables -->
+             <li class="menu-item">
+                 <a href="javascript:void(0)" class="menu-link menu-toggle">
+                     <i class="menu-icon tf-icons ti ti-layout-grid"></i>
+                     <div data-i18n="Help & Support">Help & Support</div>
+                 </a>
+                 <ul class="menu-sub">
+                     <!-- Tables -->
+                     <li class="menu-item">
+                         <a href="knowledge_base.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-table"></i>
+                             <div data-i18n="Knowledge Base">Knowledge Base</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="contact_support.php" class="menu-link ">
+                             <i class="menu-icon tf-icons ti ti-layout-grid"></i>
+                             <div data-i18n="Contact Support">Contact Support</div>
+                         </a>
+                        
+                     </li>
+                     <li class="menu-item">
+                         <a href="release_notes.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-layout-grid"></i>
+                             <div data-i18n="Release Notes">Release Notes</div>
+                         </a>
+                        
+                     </li>
+                 </ul>
+             </li>
+
+            
+                 </ul>
+             </li>
+         </ul>
+     </div>
+     <script>
+ 
+    // Get the current page URL
+    var currentPageUrl = window.location.href;
+
+    // Get all the menu links
+    var menuLinks = document.querySelectorAll('.menu-link');
+
+    // Loop through each menu link
+    menuLinks.forEach(function(menuLink) {
+        // Get the href attribute of the menu link
+        var menuLinkUrl = menuLink.getAttribute('href');
+
+        // Check if the current page URL matches the menu link URL
+        if (currentPageUrl.includes(menuLinkUrl)) {
+            // Find the parent menu-item element
+            var menuItem = menuLink.closest('.menu-item');
+            // Add the 'active' class to the parent menu-item element
+            menuItem.classList.add('active');
+
+            // Find the parent menu-sub element
+            var menuSub = menuItem.closest('.menu-sub');
+            // Add the 'active' class to the parent menu-sub element
+            if(menuSub){
+                menuSub.closest('.menu-item').classList.add('active');
+            }
+        }
+    });
+</script>
+ </aside>
+ 
+ 
+
+
+
+ 
+
+ <!-- / Menu -->
