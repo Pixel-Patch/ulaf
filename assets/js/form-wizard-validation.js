@@ -32,12 +32,12 @@
         formValidationUsername: {
           validators: {
             notEmpty: {
-              message: 'The username is required'
+              message: 'The name is required'
             },
             stringLength: {
               min: 6,
               max: 30,
-              message: 'The username must be more than 6 and less than 30 characters long'
+              message: 'The name must be more than 6 and less than 30 characters long'
             },
             regexp: {
               regexp: /^[a-zA-Z0-9 ]+$/,
@@ -45,30 +45,6 @@
             }
           }
         },
-        formValidationFullname: {
-          validators: {
-            notEmpty: {
-              message: 'The full name is required'
-            },
-            regexp: {
-              regexp: /^[a-zA-Z\sñÑáÁéÉíÍóÓúÚ.-]+(?:\s[a-zA-Z\sñÑáÁéÉíÍóÓúÚ.-]+)*$/, // Adjusted regex
-              message: 'Please enter a valid full name'
-            }
-          }
-        },
-        formValidationUserID: {
-          validators: {
-            notEmpty: {
-              message: 'The User ID is required'
-            },
-            regexp: {
-              regexp: /^\d{2}-\d{4}$/, // Strict regex for XX-XXXX format
-              message: 'Please enter a valid User ID in the format 00-0000'
-            }
-          }
-        },
-        
-        
         formValidationEmail: {
           validators: {
             notEmpty: {
@@ -106,7 +82,7 @@
           // Use this for enabling/changing valid/invalid class
           // eleInvalidClass: '',
           eleValidClass: '',
-          rowSelector: '.col-sm-6, .col-sm-12'
+          rowSelector: '.col-sm-6'
         }),
         autoFocus: new FormValidation.plugins.AutoFocus(),
         submitButton: new FormValidation.plugins.SubmitButton()
@@ -162,7 +138,7 @@
           // Use this for enabling/changing valid/invalid class
           // eleInvalidClass: '',
           eleValidClass: '',
-          rowSelector:  '.col-sm-6, .col-sm-12'
+          rowSelector: '.col-sm-6'
         }),
         autoFocus: new FormValidation.plugins.AutoFocus(),
         submitButton: new FormValidation.plugins.SubmitButton()
@@ -215,7 +191,7 @@
         formValidationFacebook: {
           validators: {
             notEmpty: {
-              message: 'The Facebook URLvxcvcxv is required'
+              message: 'The Facebook URL is required'
             },
             uri: {
               message: 'The URL is not proper'
@@ -249,7 +225,7 @@
           // Use this for enabling/changing valid/invalid class
           // eleInvalidClass: '',
           eleValidClass: '',
-          rowSelector:  '.col-sm-6, .col-sm-12'
+          rowSelector: '.col-sm-6'
         }),
         autoFocus: new FormValidation.plugins.AutoFocus(),
         submitButton: new FormValidation.plugins.SubmitButton()

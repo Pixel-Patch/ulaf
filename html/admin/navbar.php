@@ -3,7 +3,7 @@
 <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
     <div class="container-xxl">
         <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
-            <a href="index.html" class="app-brand-link gap-2">
+            <a href="index.php" class="app-brand-link gap-2">
                 <span class="app-brand-logo demo">
                     <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z" fill="#7367F0" />
@@ -27,37 +27,7 @@
         </div>
 
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-            <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                        <i class="ti ti-language rounded-circle ti-md"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="javascript:void(0);" data-language="en" data-text-direction="ltr">
-                                <span class="align-middle">English</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
-                                <span class="align-middle">French</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
-                                <span class="align-middle">Arabic</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
-                                <span class="align-middle">German</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!--/ Language -->
-
+            <ul class="navbar-nav flex-row align-items-center ms-auto"> 
                 <!-- Search -->
                 <li class="nav-item navbar-search-wrapper me-2 me-xl-0">
                     <a class="nav-link search-toggler" href="javascript:void(0);">
@@ -109,14 +79,14 @@
                                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                         <i class="ti ti-calendar fs-4"></i>
                                     </span>
-                                    <a href="app-calendar.html" class="stretched-link">Calendar</a>
+                                    <a href="app-calendar.php" class="stretched-link">Calendar</a>
                                     <small class="text-muted mb-0">Appointments</small>
                                 </div>
                                 <div class="dropdown-shortcuts-item col">
                                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                         <i class="ti ti-file-invoice fs-4"></i>
                                     </span>
-                                    <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
+                                    <a href="app-invoice-list.php" class="stretched-link">Invoice App</a>
                                     <small class="text-muted mb-0">Manage Accounts</small>
                                 </div>
                             </div>
@@ -125,14 +95,14 @@
                                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                         <i class="ti ti-users fs-4"></i>
                                     </span>
-                                    <a href="app-user-list.html" class="stretched-link">User App</a>
+                                    <a href="app-user-list.php" class="stretched-link">User App</a>
                                     <small class="text-muted mb-0">Manage Users</small>
                                 </div>
                                 <div class="dropdown-shortcuts-item col">
                                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                         <i class="ti ti-lock fs-4"></i>
                                     </span>
-                                    <a href="app-access-roles.html" class="stretched-link">Role Management</a>
+                                    <a href="app-access-roles.php" class="stretched-link">Role Management</a>
                                     <small class="text-muted mb-0">Permission</small>
                                 </div>
                             </div>
@@ -141,14 +111,14 @@
                                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                         <i class="ti ti-chart-bar fs-4"></i>
                                     </span>
-                                    <a href="index.html" class="stretched-link">Dashboard</a>
+                                    <a href="index.php" class="stretched-link">Dashboard</a>
                                     <small class="text-muted mb-0">User Profile</small>
                                 </div>
                                 <div class="dropdown-shortcuts-item col">
                                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                         <i class="ti ti-settings fs-4"></i>
                                     </span>
-                                    <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
+                                    <a href="pages-account-settings-account.php" class="stretched-link">Setting</a>
                                     <small class="text-muted mb-0">Account Settings</small>
                                 </div>
                             </div>
@@ -157,14 +127,14 @@
                                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                         <i class="ti ti-help fs-4"></i>
                                     </span>
-                                    <a href="pages-faq.html" class="stretched-link">FAQs</a>
+                                    <a href="pages-faq.php" class="stretched-link">FAQs</a>
                                     <small class="text-muted mb-0">FAQs & Articles</small>
                                 </div>
                                 <div class="dropdown-shortcuts-item col">
                                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                         <i class="ti ti-square fs-4"></i>
                                     </span>
-                                    <a href="modal-examples.html" class="stretched-link">Modals</a>
+                                    <a href="modal-examples.php" class="stretched-link">Modals</a>
                                     <small class="text-muted mb-0">Useful Popups</small>
                                 </div>
                             </div>
@@ -370,7 +340,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="pages-account-settings-account.html">
+                            <a class="dropdown-item" href="pages-account-settings-account.php">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
@@ -388,19 +358,19 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="pages-profile-user.html">
+                            <a class="dropdown-item" href="papp-user-view-account.php">
                                 <i class="ti ti-user-check me-2 ti-sm"></i>
                                 <span class="align-middle">My Profile</span>
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="pages-account-settings-account.html">
+                            <a class="dropdown-item" href="pages-account-settings-account.php">
                                 <i class="ti ti-settings me-2 ti-sm"></i>
                                 <span class="align-middle">Settings</span>
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="pages-account-settings-billing.html">
+                            <a class="dropdown-item" href="pages-account-settings-billing.php">
                                 <span class="d-flex align-items-center align-middle">
                                     <i class="flex-shrink-0 ti ti-credit-card me-2 ti-sm"></i>
                                     <span class="flex-grow-1 align-middle">Billing</span>
@@ -412,13 +382,13 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="pages-faq.html">
+                            <a class="dropdown-item" href="pages-faq.php">
                                 <i class="ti ti-help me-2 ti-sm"></i>
                                 <span class="align-middle">FAQ</span>
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="pages-pricing.html">
+                            <a class="dropdown-item" href="pages-pricing.php">
                                 <i class="ti ti-currency-dollar me-2 ti-sm"></i>
                                 <span class="align-middle">Pricing</span>
                             </a>

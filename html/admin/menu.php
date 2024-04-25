@@ -99,7 +99,7 @@
                  </a>
                  <ul class="menu-sub">
                      <li class="menu-item">
-                         <a href="profile_settings.php" class="menu-link">
+                         <a href="app-user-view-account.php" class="menu-link">
                              <i class="menu-icon tf-icons ti ti-mail"></i>
                              <div data-i18n="Profile Settings">Profile Settings</div>
                          </a>
@@ -119,7 +119,7 @@
                  </ul>
              </li>
 
-             <!-- Tables -->
+             <!-- Help & Support -->
              <li class="menu-item">
                  <a href="javascript:void(0)" class="menu-link menu-toggle">
                      <i class="menu-icon tf-icons ti ti-layout-grid"></i>
@@ -134,62 +134,81 @@
                          </a>
                      </li>
                      <li class="menu-item">
-                         <a href="contact_support.php" class="menu-link ">
+                         <a href="landing-page.php#landingContact" class="menu-link ">
                              <i class="menu-icon tf-icons ti ti-layout-grid"></i>
                              <div data-i18n="Contact Support">Contact Support</div>
                          </a>
-                        
-                     </li>
-                     <li class="menu-item">
-                         <a href="release_notes.php" class="menu-link">
-                             <i class="menu-icon tf-icons ti ti-layout-grid"></i>
-                             <div data-i18n="Release Notes">Release Notes</div>
-                         </a>
-                        
                      </li>
                  </ul>
              </li>
 
-            
+             <!-- View -->
+             <li class="menu-item">
+                 <a href="javascript:void(0)" class="menu-link menu-toggle">
+                     <i class="menu-icon tf-icons ti ti-layout-grid-add"></i>
+                     <div data-i18n="View">View</div>
+                 </a>
+                 <ul class="menu-sub">
+                     <li class="menu-item">
+                         <a href="index2.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-mail"></i>
+                             <div data-i18n="Profile Settings">Admin Staff View</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="../user/landing-page.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-messages"></i>
+                             <div data-i18n="End-User View">End-User View</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="../user/landing-page.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-messages"></i>
+                             <div data-i18n="Visitor View">Visitor View</div>
+                         </a>
+                     </li>
                  </ul>
              </li>
+
+
+         </ul>
+         </li>
          </ul>
      </div>
      <script>
- 
-    // Get the current page URL
-    var currentPageUrl = window.location.href;
+         // Get the current page URL
+         var currentPageUrl = window.location.href;
 
-    // Get all the menu links
-    var menuLinks = document.querySelectorAll('.menu-link');
+         // Get all the menu links
+         var menuLinks = document.querySelectorAll('.menu-link');
 
-    // Loop through each menu link
-    menuLinks.forEach(function(menuLink) {
-        // Get the href attribute of the menu link
-        var menuLinkUrl = menuLink.getAttribute('href');
+         // Loop through each menu link
+         menuLinks.forEach(function(menuLink) {
+             // Get the href attribute of the menu link
+             var menuLinkUrl = menuLink.getAttribute('href');
 
-        // Check if the current page URL matches the menu link URL
-        if (currentPageUrl.includes(menuLinkUrl)) {
-            // Find the parent menu-item element
-            var menuItem = menuLink.closest('.menu-item');
-            // Add the 'active' class to the parent menu-item element
-            menuItem.classList.add('active');
+             // Check if the current page URL matches the menu link URL
+             if (currentPageUrl.includes(menuLinkUrl)) {
+                 // Find the parent menu-item element
+                 var menuItem = menuLink.closest('.menu-item');
+                 // Add the 'active' class to the parent menu-item element
+                 menuItem.classList.add('active');
 
-            // Find the parent menu-sub element
-            var menuSub = menuItem.closest('.menu-sub');
-            // Add the 'active' class to the parent menu-sub element
-            if(menuSub){
-                menuSub.closest('.menu-item').classList.add('active');
-            }
-        }
-    });
-</script>
+                 // Find the parent menu-sub element
+                 var menuSub = menuItem.closest('.menu-sub');
+                 // Add the 'active' class to the parent menu-sub element
+                 if (menuSub) {
+                     menuSub.closest('.menu-item').classList.add('active');
+                 }
+             }
+         });
+     </script>
  </aside>
- 
- 
 
 
 
- 
+
+
+
 
  <!-- / Menu -->

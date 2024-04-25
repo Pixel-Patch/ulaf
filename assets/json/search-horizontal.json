@@ -318,7 +318,7 @@
     {
       "name": "Login Cover",
       "icon": "ti-login",
-      "url": "auth-login-cover.php"
+      "url": "auth-login-cover.html"
     },
     {
       "name": "Register Basic",
@@ -328,7 +328,7 @@
     {
       "name": "Register Cover",
       "icon": "ti-user-plus",
-      "url": "auth-register-cover.php"
+      "url": "auth-register-cover.html"
     },
     {
       "name": "Register Multi-steps",
@@ -363,7 +363,7 @@
     {
       "name": "Forgot Password Cover",
       "icon": "ti-question-mark",
-      "url": "auth-forgot-password-cover.php"
+      "url": "auth-forgot-password-cover.html"
     },
     {
       "name": "Two Steps Verification Basic",

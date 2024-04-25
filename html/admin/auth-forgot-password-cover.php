@@ -68,7 +68,7 @@
         <div class="w-px-400 mx-auto">
           <!-- Logo -->
           <div class="app-brand mb-4">
-            <a href="index.html" class="app-brand-link gap-2">
+            <a href="index.php" class="app-brand-link gap-2">
               <span class="app-brand-logo demo">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z" fill="#7367F0" />
@@ -82,7 +82,7 @@
           <!-- /Logo -->
           <h3 class="mb-1">Forgot Password? 🔒</h3>
           <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
-          <form id="formAuthentication" class="mb-3" action="auth-reset-password-cover.html" method="GET">
+          <form id="formAuthentication" class="mb-3" action="auth-reset-password-cover.php" method="GET">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
               <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus />

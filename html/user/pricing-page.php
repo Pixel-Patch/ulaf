@@ -13,7 +13,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Payment Page - Front Pages | ULAF Admin</title>
+    <title>Pricing - Front Pages | ULAF Admin</title>
 
     <meta name="description" content="" />
 
@@ -38,8 +38,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
 
     <!-- Page CSS -->
-
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/front-page-payment.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/front-page-pricing.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -72,7 +71,7 @@
               <i class="ti ti-menu-2 ti-sm align-middle"></i>
             </button>
             <!-- Mobile menu toggle: End-->
-            <a href="landing-page.html" class="app-brand-link">
+            <a href="landing-page.php" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -150,26 +149,26 @@
                         <span class="ps-1">Other</span>
                       </div>
                       <ul class="nav flex-column">
-                        <li class="nav-item">
-                          <a class="nav-link mega-dropdown-link" href="pricing-page.html">
+                        <li class="nav-item active">
+                          <a class="nav-link mega-dropdown-link" href="pricing-page.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Pricing">Pricing</span>
                           </a>
                         </li>
-                        <li class="nav-item active">
-                          <a class="nav-link mega-dropdown-link" href="payment-page.html">
+                        <li class="nav-item">
+                          <a class="nav-link mega-dropdown-link" href="payment-page.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Payment">Payment</span>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link mega-dropdown-link" href="checkout-page.html">
+                          <a class="nav-link mega-dropdown-link" href="checkout-page.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Checkout">Checkout</span>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link mega-dropdown-link" href="help-center-landing.html">
+                          <a class="nav-link mega-dropdown-link" href="help-center-landing.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Help Center">Help Center</span>
                           </a>
@@ -187,7 +186,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-login-basic.html"
+                            href="../vertical-menu-template/auth-login-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Login (Basic)
@@ -205,7 +204,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-register-basic.html"
+                            href="../vertical-menu-template/auth-register-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Register (Basic)
@@ -223,7 +222,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-register-multisteps.html"
+                            href="../vertical-menu-template/auth-register-multisteps.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Register (Multi-steps)
@@ -232,7 +231,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-forgot-password-basic.html"
+                            href="../vertical-menu-template/auth-forgot-password-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Forgot Password (Basic)
@@ -250,7 +249,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-reset-password-basic.html"
+                            href="../vertical-menu-template/auth-reset-password-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Reset Password (Basic)
@@ -259,7 +258,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-reset-password-cover.html"
+                            href="../vertical-menu-template/auth-reset-password-cover.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Reset Password (Cover)
@@ -280,7 +279,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-error.html"
+                            href="../vertical-menu-template/pages-misc-error.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Error
@@ -289,7 +288,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-under-maintenance.html"
+                            href="../vertical-menu-template/pages-misc-under-maintenance.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Under Maintenance
@@ -298,7 +297,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-comingsoon.html"
+                            href="../vertical-menu-template/pages-misc-comingsoon.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Coming Soon
@@ -307,7 +306,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-not-authorized.html"
+                            href="../vertical-menu-template/pages-misc-not-authorized.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Not Authorized
@@ -316,7 +315,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-verify-email-basic.html"
+                            href="../vertical-menu-template/auth-verify-email-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Verify Email (Basic)
@@ -325,7 +324,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-verify-email-cover.html"
+                            href="../vertical-menu-template/auth-verify-email-cover.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Verify Email (Cover)
@@ -334,7 +333,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-two-steps-basic.html"
+                            href="../vertical-menu-template/auth-two-steps-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Two Steps (Basic)
@@ -343,7 +342,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-two-steps-cover.html"
+                            href="../vertical-menu-template/auth-two-steps-cover.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Two Steps (Cover)
@@ -363,7 +362,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-medium" href="../vertical-menu-template/index.html" target="_blank">Admin</a>
+                <a class="nav-link fw-medium" href="../vertical-menu-template/index.php" target="_blank">Admin</a>
               </li>
             </ul>
           </div>
@@ -413,356 +412,436 @@
 
     <!-- Sections:Start -->
 
-    <section class="section-py bg-body first-section-pt">
-      <div class="container mt-2">
-        <div class="card px-3">
-          <div class="row">
-            <div class="col-lg-7 card-body border-end">
-              <h4 class="mb-2">Checkout</h4>
-              <p class="mb-0">
-                All plans include 40+ advanced tools and features to boost your product. <br />
-                Choose the best plan to fit your needs.
-              </p>
-              <div class="row py-4 my-2">
-                <div class="col-md mb-md-0 mb-2">
-                  <div class="form-check custom-option custom-option-basic checked">
-                    <label
-                      class="form-check-label custom-option-content form-check-input-payment d-flex gap-3 align-items-center"
-                      for="customRadioVisa">
-                      <input
-                        name="customRadioTemp"
-                        class="form-check-input"
-                        type="radio"
-                        value="credit-card"
-                        id="customRadioVisa"
-                        checked />
-                      <span class="custom-option-body">
-                        <img
-                          src="../../assets/img/icons/payments/visa-light.png"
-                          alt="visa-card"
-                          width="58"
-                          data-app-light-img="icons/payments/visa-light.png"
-                          data-app-dark-img="icons/payments/visa-dark.png" />
-                        <span class="ms-3">Credit Card</span>
-                      </span>
-                    </label>
+    <!-- Pricing Plans -->
+    <section class="section-py first-section-pt">
+      <div class="container">
+        <h2 class="text-center mb-2">Pricing Plans</h2>
+        <p class="text-center">
+          Get started with us - it's perfect for individuals and teams. Choose a subscription plan that meets your
+          needs.
+        </p>
+        <div class="d-flex align-items-center justify-content-center flex-wrap gap-2 pb-5 pt-3 mb-0 mb-md-4">
+          <label class="switch switch-primary ms-3 ms-sm-0 mt-2">
+            <span class="switch-label">Monthly</span>
+            <input type="checkbox" class="switch-input price-duration-toggler" checked />
+            <span class="switch-toggle-slider">
+              <span class="switch-on"></span>
+              <span class="switch-off"></span>
+            </span>
+            <span class="switch-label">Annual</span>
+          </label>
+          <div class="mt-n5 ms-n5 d-none d-sm-block">
+            <i class="ti ti-corner-left-down ti-sm text-muted me-1 scaleX-n1-rtl"></i>
+            <span class="badge badge-sm bg-label-primary">Save up to 10%</span>
+          </div>
+        </div>
+
+        <div class="row mx-0 gy-3 px-lg-5">
+          <!-- Basic -->
+          <div class="col-lg mb-md-0 mb-4">
+            <div class="card border rounded shadow-none">
+              <div class="card-body">
+                <div class="my-3 pt-2 text-center">
+                  <img src="../../assets/img/illustrations/page-pricing-basic.png" alt="Basic Image" height="140" />
+                </div>
+                <h3 class="card-title text-center text-capitalize mb-1">Basic</h3>
+                <p class="text-center">A simple start for everyone</p>
+                <div class="text-center">
+                  <div class="d-flex justify-content-center">
+                    <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup>
+                    <h1 class="display-4 mb-0 text-primary">0</h1>
+                    <sub class="h6 pricing-duration mt-auto mb-2 text-muted fw-normal">/month</sub>
                   </div>
-                </div>
-                <div class="col-md mb-md-0 mb-2">
-                  <div class="form-check custom-option custom-option-basic">
-                    <label
-                      class="form-check-label custom-option-content form-check-input-payment d-flex gap-3 align-items-center"
-                      for="customRadioPaypal">
-                      <input
-                        name="customRadioTemp"
-                        class="form-check-input"
-                        type="radio"
-                        value="paypal"
-                        id="customRadioPaypal" />
-                      <span class="custom-option-body">
-                        <img
-                          src="../../assets/img/icons/payments/paypal-light.png"
-                          alt="paypal"
-                          width="58"
-                          data-app-light-img="icons/payments/paypal-light.png"
-                          data-app-dark-img="icons/payments/paypal-dark.png" />
-                        <span class="ms-3">Paypal</span>
-                      </span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <h4 class="mt-2 mb-4">Billing Details</h4>
-              <form>
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label class="form-label" for="billings-email">Email Address</label>
-                    <input type="text" id="billings-email" class="form-control" placeholder="john.doe@gmail.com" />
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label" for="billings-password">Password</label>
-                    <input type="password" id="billings-password" class="form-control" placeholder="Password" />
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label" for="billings-country">Country</label>
-                    <select id="billings-country" class="form-select" data-allow-clear="true">
-                      <option value="">Select</option>
-                      <option value="Australia">Australia</option>
-                      <option value="Brazil">Brazil</option>
-                      <option value="Canada">Canada</option>
-                      <option value="China">China</option>
-                      <option value="France">France</option>
-                      <option value="Germany">Germany</option>
-                      <option value="India">India</option>
-                      <option value="Turkey">Turkey</option>
-                      <option value="Ukraine">Ukraine</option>
-                      <option value="United Arab Emirates">United Arab Emirates</option>
-                      <option value="United Kingdom">United Kingdom</option>
-                      <option value="United States">United States</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label" for="billings-zip">Billing Zip / Postal Code</label>
-                    <input
-                      type="text"
-                      id="billings-zip"
-                      class="form-control billings-zip-code"
-                      placeholder="Zip / Postal Code" />
-                  </div>
-                </div>
-              </form>
-              <div id="form-credit-card">
-                <h4 class="mt-4 pt-2">Credit Card Info</h4>
-                <form>
-                  <div class="row g-3">
-                    <div class="col-12">
-                      <label class="form-label" for="billings-card-num">Card number</label>
-                      <div class="input-group input-group-merge">
-                        <input
-                          type="text"
-                          id="billings-card-num"
-                          class="form-control billing-card-mask"
-                          placeholder="7465 8374 5837 5067"
-                          aria-describedby="paymentCard" />
-                        <span class="input-group-text cursor-pointer p-1" id="paymentCard"
-                          ><span class="card-type"></span
-                        ></span>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label" for="billings-card-name">Name</label>
-                      <input type="text" id="billings-card-name" class="form-control" placeholder="John Doe" />
-                    </div>
-                    <div class="col-md-3">
-                      <label class="form-label" for="billings-card-date">EXP. Date</label>
-                      <input
-                        type="text"
-                        id="billings-card-date"
-                        class="form-control billing-expiry-date-mask"
-                        placeholder="MM/YY" />
-                    </div>
-                    <div class="col-md-3">
-                      <label class="form-label" for="billings-card-cvv">CVV</label>
-                      <input
-                        type="text"
-                        id="billings-card-cvv"
-                        class="form-control billing-cvv-mask"
-                        maxlength="3"
-                        placeholder="965" />
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div class="col-lg-5 card-body">
-              <h4 class="mb-2">Order Summary</h4>
-              <p class="pb-2 mb-0">
-                It can help you manage and service orders before,<br />
-                during and after fulfilment.
-              </p>
-              <div class="bg-lighter p-4 rounded mt-4">
-                <p class="mb-1">A simple start for everyone</p>
-                <div class="d-flex align-items-center">
-                  <h1 class="text-heading display-5 mb-1">$59.99</h1>
-                  <sub>/month</sub>
-                </div>
-                <div class="d-grid">
-                  <button
-                    type="button"
-                    data-bs-target="#pricingModal"
-                    data-bs-toggle="modal"
-                    class="btn btn-label-primary">
-                    Change Plan
-                  </button>
-                </div>
-              </div>
-              <div>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <p class="mb-0">Subtotal</p>
-                  <h6 class="mb-0">$85.99</h6>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <p class="mb-0">Tax</p>
-                  <h6 class="mb-0">$4.99</h6>
-                </div>
-                <hr />
-                <div class="d-flex justify-content-between align-items-center mt-3 pb-1">
-                  <p class="mb-0">Total</p>
-                  <h6 class="mb-0">$90.98</h6>
-                </div>
-                <div class="d-grid mt-3">
-                  <button class="btn btn-success">
-                    <span class="me-2">Proceed with Payment</span>
-                    <i class="ti ti-arrow-right scaleX-n1-rtl"></i>
-                  </button>
+                  <small class="price-yearly price-yearly-toggle text-muted">$ 0 / year</small>
                 </div>
 
-                <p class="mt-4 pt-2">
-                  By continuing, you accept to our Terms of Services and Privacy Policy. Please note that payments are
-                  non-refundable.
-                </p>
+                <ul class="ps-0 my-4 pt-2 circle-bullets">
+                  <li class="mb-2 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>100 responses a month</li>
+                  <li class="mb-2 d-flex align-items-center">
+                    <i class="ti ti-point ti-lg"></i>Unlimited forms and surveys
+                  </li>
+                  <li class="mb-2 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>Unlimited fields</li>
+                  <li class="mb-2 d-flex align-items-center">
+                    <i class="ti ti-point ti-lg"></i>Basic form creation tools
+                  </li>
+                  <li class="mb-0 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>Up to 2 subdomains</li>
+                </ul>
+                <a href="payment-page.php" class="btn btn-label-success d-grid w-100">Your Current Plan</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pro -->
+          <div class="col-lg mb-md-0 mb-4">
+            <div class="card border-primary border shadow-none">
+              <div class="card-body position-relative">
+                <div class="position-absolute end-0 me-4 top-0 mt-4">
+                  <span class="badge bg-label-primary">Popular</span>
+                </div>
+                <div class="my-3 pt-2 text-center">
+                  <img
+                    src="../../assets/img/illustrations/page-pricing-standard.png"
+                    alt="Standard Image"
+                    height="140" />
+                </div>
+                <h3 class="card-title text-center text-capitalize mb-1">Pro</h3>
+                <p class="text-center">For small to medium businesses</p>
+                <div class="text-center">
+                  <div class="d-flex justify-content-center">
+                    <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup>
+                    <h1 class="price-toggle price-yearly display-4 text-primary mb-0">7</h1>
+                    <h1 class="price-toggle price-monthly display-4 text-primary mb-0 d-none">9</h1>
+                    <sub class="h6 text-muted pricing-duration mt-auto mb-2 fw-normal">/month</sub>
+                  </div>
+                  <small class="price-yearly price-yearly-toggle text-muted">$ 90 / year</small>
+                </div>
+
+                <ul class="ps-0 my-4 pt-2 circle-bullets">
+                  <li class="mb-2 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>Up to 5 users</li>
+                  <li class="mb-2 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>120+ components</li>
+                  <li class="mb-2 d-flex align-items-center">
+                    <i class="ti ti-point ti-lg"></i>Basic support on Github
+                  </li>
+                  <li class="mb-2 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>Monthly updates</li>
+                  <li class="mb-0 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>Integrations</li>
+                </ul>
+
+                <a href="payment-page.php" class="btn btn-primary d-grid w-100">Upgrade</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Enterprise -->
+          <div class="col-lg">
+            <div class="card border rounded shadow-none">
+              <div class="card-body">
+                <div class="my-3 pt-2 text-center">
+                  <img
+                    src="../../assets/img/illustrations/page-pricing-enterprise.png"
+                    alt="Enterprise Image"
+                    height="140" />
+                </div>
+                <h3 class="card-title text-center text-capitalize mb-1">Enterprise</h3>
+                <p class="text-center">Solution for big organizations</p>
+
+                <div class="text-center">
+                  <div class="d-flex justify-content-center">
+                    <sup class="h6 text-primary pricing-currency mt-3 mb-0 me-1">$</sup>
+                    <h1 class="price-toggle price-yearly display-4 text-primary mb-0">16</h1>
+                    <h1 class="price-toggle price-monthly display-4 text-primary mb-0 d-none">19</h1>
+                    <sub class="h6 pricing-duration mt-auto mb-2 fw-normal text-muted">/month</sub>
+                  </div>
+                  <small class="price-yearly price-yearly-toggle text-muted">$ 190 / year</small>
+                </div>
+
+                <ul class="ps-0 my-4 pt-2 circle-bullets">
+                  <li class="mb-2 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>Up to 10 users</li>
+                  <li class="mb-2 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>150+ components</li>
+                  <li class="mb-2 d-flex align-items-center">
+                    <i class="ti ti-point ti-lg"></i>Basic support on Github
+                  </li>
+                  <li class="mb-2 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>Monthly updates</li>
+                  <li class="mb-0 d-flex align-items-center"><i class="ti ti-point ti-lg"></i>Speedy build tooling</li>
+                </ul>
+
+                <a href="payment-page.php" class="btn btn-label-primary d-grid w-100">Upgrade</a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Modal -->
-    <!-- Pricing Modal -->
-    <div class="modal fade" id="pricingModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-xl modal-simple modal-pricing">
-        <div class="modal-content p-2 p-md-5">
-          <div class="modal-body">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <!-- Pricing Plans -->
-            <div class="py-0 rounded-top">
-              <h2 class="text-center mb-2">Pricing Plans</h2>
-              <p class="text-center">
-                Get started with us - it's perfect for individuals and teams. Choose a subscription plan that meets your
-                needs.
-              </p>
-              <div class="d-flex align-items-center justify-content-center flex-wrap gap-2 pt-3 mb-4">
-                <label class="switch switch-primary ms-3 ms-sm-0 mt-2">
-                  <span class="switch-label">Monthly</span>
-                  <input type="checkbox" class="switch-input price-duration-toggler" checked />
-                  <span class="switch-toggle-slider">
-                    <span class="switch-on"></span>
-                    <span class="switch-off"></span>
-                  </span>
-                  <span class="switch-label">Annual</span>
-                </label>
-                <div class="mt-n5 ms-n5 d-none d-sm-block">
-                  <i class="ti ti-corner-left-down ti-sm text-muted me-1 scaleX-n1-rtl"></i>
-                  <span class="badge badge-sm bg-label-primary">Save up to 10%</span>
-                </div>
-              </div>
-              <div class="row mx-0 gy-3">
-                <!-- Basic -->
-                <div class="col-xl mb-md-0 mb-4">
-                  <div class="card border rounded shadow-none">
-                    <div class="card-body">
-                      <div class="my-3 pt-2 text-center">
-                        <img
-                          src="../../assets/img/illustrations/page-pricing-basic.png"
-                          alt="Basic Image"
-                          height="140" />
-                      </div>
-                      <h3 class="card-title text-center text-capitalize mb-1">Basic</h3>
-                      <p class="text-center">A simple start for everyone</p>
-                      <div class="text-center h-px-100 mb-2">
-                        <div class="d-flex justify-content-center">
-                          <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup>
-                          <h1 class="display-4 mb-0 text-primary">0</h1>
-                          <sub class="h6 pricing-duration mt-auto mb-2 text-muted fw-normal">/month</sub>
-                        </div>
-                        <small class="price-yearly price-yearly-toggle text-muted">$ 0 / year</small>
-                      </div>
-
-                      <ul class="list-group ps-3 my-4">
-                        <li class="mb-2">100 responses a month</li>
-                        <li class="mb-2">Unlimited forms and surveys</li>
-                        <li class="mb-2">Unlimited fields</li>
-                        <li class="mb-2">Basic form creation tools</li>
-                        <li class="mb-0">Up to 2 subdomains</li>
-                      </ul>
-
-                      <button type="button" class="btn btn-label-success d-grid w-100 mt-3" data-bs-dismiss="modal">
-                        Your Current Plan
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Pro -->
-                <div class="col-xl mb-md-0 mb-4">
-                  <div class="card border-primary border shadow-none">
-                    <div class="card-body position-relative">
-                      <div class="position-absolute end-0 me-4 top-0 mt-4">
-                        <span class="badge bg-label-primary">Popular</span>
-                      </div>
-                      <div class="my-3 pt-2 text-center">
-                        <img
-                          src="../../assets/img/illustrations/page-pricing-standard.png"
-                          alt="Standard Image"
-                          height="140" />
-                      </div>
-                      <h3 class="card-title text-center text-capitalize mb-1">Pro</h3>
-                      <p class="text-center">For small to medium businesses</p>
-                      <div class="text-center h-px-100 mb-2">
-                        <div class="d-flex justify-content-center">
-                          <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup>
-                          <h1 class="price-toggle price-yearly display-4 text-primary mb-0">7</h1>
-                          <h1 class="price-toggle price-monthly display-4 text-primary mb-0 d-none">9</h1>
-                          <sub class="h6 text-muted pricing-duration mt-auto mb-2 fw-normal">/month</sub>
-                        </div>
-                        <small class="price-yearly price-yearly-toggle text-muted">$ 90 / year</small>
-                      </div>
-
-                      <ul class="list-group ps-3 my-4">
-                        <li class="mb-2">Up to 5 users</li>
-                        <li class="mb-2">120+ components</li>
-                        <li class="mb-2">Basic support on Github</li>
-                        <li class="mb-2">Monthly updates</li>
-                        <li class="mb-0">Integrations</li>
-                      </ul>
-
-                      <button type="button" class="btn btn-primary d-grid w-100 mt-3" data-bs-dismiss="modal">
-                        Upgrade
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Enterprise -->
-                <div class="col-xl">
-                  <div class="card border rounded shadow-none">
-                    <div class="card-body">
-                      <div class="my-3 pt-2 text-center">
-                        <img
-                          src="../../assets/img/illustrations/page-pricing-enterprise.png"
-                          alt="Enterprise Image"
-                          height="140" />
-                      </div>
-                      <h3 class="card-title text-center text-capitalize mb-1">Enterprise</h3>
-                      <p class="text-center">Solution for big organizations</p>
-
-                      <div class="text-center h-px-100 mb-2">
-                        <div class="d-flex justify-content-center">
-                          <sup class="h6 text-primary pricing-currency mt-3 mb-0 me-1">$</sup>
-                          <h1 class="price-toggle price-yearly display-4 text-primary mb-0">16</h1>
-                          <h1 class="price-toggle price-monthly display-4 text-primary mb-0 d-none">19</h1>
-                          <sub class="h6 pricing-duration mt-auto mb-2 fw-normal text-muted">/month</sub>
-                        </div>
-                        <small class="price-yearly price-yearly-toggle text-muted">$ 190 / year</small>
-                      </div>
-
-                      <ul class="list-group ps-3 my-4">
-                        <li class="mb-2">Up to 10 users</li>
-                        <li class="mb-2">150+ components</li>
-                        <li class="mb-2">Basic support on Github</li>
-                        <li class="mb-2">Monthly updates</li>
-                        <li class="mb-0">Speedy build tooling</li>
-                      </ul>
-
-                      <button type="button" class="btn btn-label-primary d-grid w-100 mt-3" data-bs-dismiss="modal">
-                        Upgrade
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <!--/ Pricing Plans -->
+    <!-- Pricing Free Trial -->
+    <section class="pricing-free-trial bg-label-primary">
+      <div class="container">
+        <div class="position-relative">
+          <div class="d-flex justify-content-between flex-column-reverse flex-lg-row align-items-center py-4 px-5">
+            <div class="text-center text-lg-start mt-2 ms-3">
+              <h3 class="text-primary mb-1">Still not convinced? Start with a 14-day FREE trial!</h3>
+              <p class="text-body mb-1">You will get full access to with all the features for 14 days.</p>
+              <a href="payment-page.php" class="btn btn-primary mt-4 mb-2">Start 14-day FREE trial</a>
             </div>
-            <!--/ Pricing Plans -->
+            <!-- image -->
+            <div class="text-center">
+              <img
+                src="../../assets/img/illustrations/girl-with-laptop.png"
+                class="img-fluid me-lg-5 pe-lg-1 mb-3 mb-lg-0"
+                alt="Api Key Image"
+                width="202" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!--/ Pricing Modal -->
+    </section>
+    <!--/ Pricing Free Trial -->
+    <!-- Plans Comparison -->
+    <section class="section-py pricing-plans-comparison">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mb-4">
+            <h2 class="mb-2">Pick a plan that works best for you</h2>
+            <p class="mb-1">Stay cool, we have a 48-hour money back guarantee!</p>
+          </div>
+        </div>
+        <div class="row mx-4">
+          <div class="col-12">
+            <div class="table-responsive border rounded">
+              <table class="table table-striped text-center mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <p class="mb-1">Features</p>
+                      <small class="text-muted fw-normal text-capitalize">Native front features</small>
+                    </th>
+                    <th scope="col">
+                      <p class="mb-1">Starter</p>
+                      <small class="text-muted fw-normal text-capitalize">Free</small>
+                    </th>
+                    <th scope="col">
+                      <p class="mb-1 position-relative">
+                        Pro
+                        <span class="badge badge-center rounded-pill bg-primary position-absolute mt-n2 ms-1"
+                          ><i class="ti ti-star"></i
+                        ></span>
+                      </p>
+                      <small class="text-muted fw-normal text-capitalize">$7.5/month</small>
+                    </th>
+                    <th scope="col">
+                      <p class="mb-1">Enterprise</p>
+                      <small class="text-muted fw-normal text-capitalize">$16/month</small>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>14-days free trial</td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>No user limit</td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-secondary">
+                        <i class="ti ti-x"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-secondary">
+                        <i class="ti ti-x"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Product Support</td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-secondary">
+                        <i class="ti ti-x"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Email Support</td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-secondary">
+                        <i class="ti ti-x"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge bg-label-primary badge-sm text-uppercase">Add-on Available</span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Integrations</td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-secondary">
+                        <i class="ti ti-x"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Removal of Front branding</td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-secondary">
+                        <i class="ti ti-x"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge bg-label-primary badge-sm text-uppercase">Add-on Available</span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Active maintenance & support</td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-secondary">
+                        <i class="ti ti-x"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-secondary">
+                        <i class="ti ti-x"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Data storage for 365 days</td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-secondary">
+                        <i class="ti ti-x"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-secondary">
+                        <i class="ti ti-x"></i>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge badge-center rounded-pill w-px-20 h-px-20 bg-label-primary">
+                        <i class="ti ti-check"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>
+                      <a href="payment-page.php" class="btn text-nowrap btn-label-primary">Choose Plan</a>
+                    </td>
+                    <td>
+                      <a href="payment-page.php" class="btn text-nowrap btn-primary">Choose Plan</a>
+                    </td>
+                    <td>
+                      <a href="payment-page.php" class="btn text-nowrap btn-label-primary">Choose Plan</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--/ Plans Comparison -->
+    <!-- FAQS -->
+    <section class="section-py pricing-faqs rounded-bottom bg-body">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="mb-2">FAQs</h2>
+          <p>Let us help answer the most common questions you might have.</p>
+        </div>
+        <div id="faq" class="accordion accordion-without-arrow">
+          <div class="card accordion-item">
+            <h6 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq-2"
+                aria-expanded="false"
+                aria-controls="faq-2">
+                How do you process payments?
+              </button>
+            </h6>
+            <div id="faq-2" class="accordion-collapse collapse" data-bs-parent="#faq">
+              <div class="accordion-body">
+                We accept Visa®, MasterCard®, American Express®, and PayPal®. So you can be confident that your
+                credit card information will be kept safe and secure.
+              </div>
+            </div>
+          </div>
 
-    <script src="../../assets//js/pages-pricing.js"></script>
+          <div class="card accordion-item">
+            <h6 class="accordion-header">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                aria-expanded="true"
+                data-bs-target="#faq-1"
+                aria-controls="faq-1">
+                What counts towards the 100 responses limit?
+              </button>
+            </h6>
 
-    <!-- /Modal -->
+            <div id="faq-1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+              <div class="accordion-body">
+                We count all responses submitted through all your forms in a month. If you already received 100
+                responses this month, you won’t be able to receive any more of them until next month when the counter
+                resets.
+              </div>
+            </div>
+          </div>
+
+          <div class="card accordion-item">
+            <h6 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq-3"
+                aria-expanded="false"
+                aria-controls="faq-3">
+                What payment methods do you accept?
+              </button>
+            </h6>
+            <div id="faq-3" class="accordion-collapse collapse" data-bs-parent="#faq">
+              <div class="accordion-body">2Checkout accepts all types of credit and debit cards.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--/ FAQS -->
 
     <!-- / Sections:End -->
 
@@ -778,7 +857,7 @@
         <div class="container">
           <div class="row gx-0 gy-4 g-md-5">
             <div class="col-lg-5">
-              <a href="landing-page.html" class="app-brand-link mb-4">
+              <a href="landing-page.php" class="app-brand-link mb-4">
                 <span class="app-brand-logo demo">
                   <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -852,18 +931,18 @@
               <h6 class="footer-title mb-4">Pages</h6>
               <ul class="list-unstyled">
                 <li class="mb-3">
-                  <a href="pricing-page.html" class="footer-link">Pricing</a>
+                  <a href="pricing-page.php" class="footer-link">Pricing</a>
                 </li>
                 <li class="mb-3">
-                  <a href="payment-page.html" class="footer-link"
+                  <a href="payment-page.php" class="footer-link"
                     >Payment<span class="badge rounded bg-primary ms-2">New</span></a
                   >
                 </li>
                 <li class="mb-3">
-                  <a href="checkout-page.html" class="footer-link">Checkout</a>
+                  <a href="checkout-page.php" class="footer-link">Checkout</a>
                 </li>
                 <li class="mb-3">
-                  <a href="help-center-landing.html" class="footer-link">Help Center</a>
+                  <a href="help-center-landing.php" class="footer-link">Help Center</a>
                 </li>
                 <li class="mb-3">
                   <a href="../vertical-menu-template/auth-login-cover.php" target="_blank" class="footer-link"
@@ -941,13 +1020,11 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/front-main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/pages-pricing.js"></script>
-    <script src="../../assets/js/front-page-payment.js"></script>
+    <script src="../../assets/js/front-page-pricing.js"></script>
   </body>
 </html>

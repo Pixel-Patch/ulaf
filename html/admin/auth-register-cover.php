@@ -63,7 +63,7 @@
       <!-- /Left Text -->
 
       <!-- Register -->
-      <div class="d-flex col-12 col-lg-5 align-items-center p-sm-6 p-4">
+      <div class="d-flex col-12 col-lg-6 align-items-center p-sm-6 p-4">
 
 
         <div id="wizard-validation" class="bs-stepper mt-2">

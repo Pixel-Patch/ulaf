@@ -71,7 +71,7 @@
               <i class="ti ti-menu-2 ti-sm align-middle"></i>
             </button>
             <!-- Mobile menu toggle: End-->
-            <a href="landing-page.html" class="app-brand-link">
+            <a href="landing-page.php" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -150,25 +150,25 @@
                       </div>
                       <ul class="nav flex-column">
                         <li class="nav-item">
-                          <a class="nav-link mega-dropdown-link" href="pricing-page.html">
+                          <a class="nav-link mega-dropdown-link" href="pricing-page.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Pricing">Pricing</span>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link mega-dropdown-link" href="payment-page.html">
+                          <a class="nav-link mega-dropdown-link" href="payment-page.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Payment">Payment</span>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link mega-dropdown-link" href="checkout-page.html">
+                          <a class="nav-link mega-dropdown-link" href="checkout-page.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Checkout">Checkout</span>
                           </a>
                         </li>
                         <li class="nav-item active">
-                          <a class="nav-link mega-dropdown-link" href="help-center-landing.html">
+                          <a class="nav-link mega-dropdown-link" href="help-center-landing.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Help Center">Help Center</span>
                           </a>
@@ -186,7 +186,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-login-basic.html"
+                            href="../vertical-menu-template/auth-login-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Login (Basic)
@@ -204,7 +204,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-register-basic.html"
+                            href="../vertical-menu-template/auth-register-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Register (Basic)
@@ -222,7 +222,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-register-multisteps.html"
+                            href="../vertical-menu-template/auth-register-multisteps.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Register (Multi-steps)
@@ -231,7 +231,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-forgot-password-basic.html"
+                            href="../vertical-menu-template/auth-forgot-password-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Forgot Password (Basic)
@@ -249,7 +249,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-reset-password-basic.html"
+                            href="../vertical-menu-template/auth-reset-password-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Reset Password (Basic)
@@ -258,7 +258,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-reset-password-cover.html"
+                            href="../vertical-menu-template/auth-reset-password-cover.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Reset Password (Cover)
@@ -279,7 +279,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-error.html"
+                            href="../vertical-menu-template/pages-misc-error.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Error
@@ -288,7 +288,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-under-maintenance.html"
+                            href="../vertical-menu-template/pages-misc-under-maintenance.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Under Maintenance
@@ -297,7 +297,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-comingsoon.html"
+                            href="../vertical-menu-template/pages-misc-comingsoon.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Coming Soon
@@ -306,7 +306,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-not-authorized.html"
+                            href="../vertical-menu-template/pages-misc-not-authorized.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Not Authorized
@@ -315,7 +315,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-verify-email-basic.html"
+                            href="../vertical-menu-template/auth-verify-email-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Verify Email (Basic)
@@ -324,7 +324,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-verify-email-cover.html"
+                            href="../vertical-menu-template/auth-verify-email-cover.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Verify Email (Cover)
@@ -333,7 +333,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-two-steps-basic.html"
+                            href="../vertical-menu-template/auth-two-steps-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Two Steps (Basic)
@@ -342,7 +342,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-two-steps-cover.html"
+                            href="../vertical-menu-template/auth-two-steps-cover.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Two Steps (Cover)
@@ -362,7 +362,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-medium" href="../vertical-menu-template/index.html" target="_blank">Admin</a>
+                <a class="nav-link fw-medium" href="../vertical-menu-template/index.php" target="_blank">Admin</a>
               </li>
             </ul>
           </div>
@@ -468,7 +468,7 @@
 
                     <h5 class="my-2">Getting Started</h5>
                     <p>Whether you're new or you're a power user, this article will…</p>
-                    <a class="btn btn-sm btn-label-primary" href="help-center-article.html">Read More</a>
+                    <a class="btn btn-sm btn-label-primary" href="help-center-article.php">Read More</a>
                   </div>
                 </div>
               </div>
@@ -501,7 +501,7 @@
 
                     <h5 class="my-2">First Steps</h5>
                     <p>Are you a new customer wondering how to get started?</p>
-                    <a class="btn btn-sm btn-label-primary" href="help-center-article.html">Read More</a>
+                    <a class="btn btn-sm btn-label-primary" href="help-center-article.php">Read More</a>
                   </div>
                 </div>
               </div>
@@ -534,7 +534,7 @@
 
                     <h5 class="my-2">Add External Content</h5>
                     <p>This article will show you how to expand the functionality of...</p>
-                    <a class="btn btn-sm btn-label-primary" href="help-center-article.html">Read More</a>
+                    <a class="btn btn-sm btn-label-primary" href="help-center-article.php">Read More</a>
                   </div>
                 </div>
               </div>
@@ -564,7 +564,7 @@
                     <ul class="list-unstyled my-4">
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> What are Favourites? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -572,7 +572,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How do I purchase an item? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -580,7 +580,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How do i add or change my details? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -588,7 +588,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How do refunds work? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -596,7 +596,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Can I Get A Refund? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -604,7 +604,7 @@
                       </li>
                       <li>
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> I'm trying to find a specific item </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -612,7 +612,7 @@
                       </li>
                     </ul>
                     <p class="mb-0 fw-medium mt-4">
-                      <a href="help-center-article.html" class="d-flex align-items-center">
+                      <a href="help-center-article.php" class="d-flex align-items-center">
                         <span class="me-2">See all 10 articles</span>
                         <i class="ti ti-arrow-right scaleX-n1-rtl"></i>
                       </a>
@@ -632,7 +632,7 @@
                     <ul class="list-unstyled my-4">
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> What is Item Support? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -640,7 +640,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How to contact an author </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -648,7 +648,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Where Is My Purchase Code? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -656,7 +656,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Extend or renew Item Support </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -664,7 +664,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Item Support FAQ </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -672,7 +672,7 @@
                       </li>
                       <li>
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Why has my item been removed? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -680,7 +680,7 @@
                       </li>
                     </ul>
                     <p class="mb-0 fw-medium mt-4">
-                      <a href="help-center-article.html" class="d-flex align-items-center">
+                      <a href="help-center-article.php" class="d-flex align-items-center">
                         <span class="me-2">See all 14 articles</span>
                         <i class="ti ti-arrow-right scaleX-n1-rtl ms-2"></i>
                       </a>
@@ -700,7 +700,7 @@
                     <ul class="list-unstyled my-4">
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-heading d-flex justify-content-between align-items-center">
                           <span class="text-truncate me-1">
                             Can I use the same license for the same item on multiple sites?
@@ -710,7 +710,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How do licenses work for any plugins </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -718,7 +718,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> For logo what license do I need? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -726,7 +726,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-heading d-flex justify-content-between align-items-center">
                           <span class="text-truncate me-1">
                             I’m making a test site - it’s not for a client. Which license do I need?
@@ -736,7 +736,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> which license do I need? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -744,7 +744,7 @@
                       </li>
                       <li>
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> I want to make multiple end products </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -752,7 +752,7 @@
                       </li>
                     </ul>
                     <p class="mb-0 fw-medium mt-4">
-                      <a href="help-center-article.html" class="d-flex align-items-center">
+                      <a href="help-center-article.php" class="d-flex align-items-center">
                         <span class="me-2">See all 8 articles</span>
                         <i class="ti ti-arrow-right scaleX-n1-rtl"></i>
                       </a>
@@ -772,7 +772,7 @@
                     <ul class="list-unstyled my-4">
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Template Kits </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -780,7 +780,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-heading d-flex justify-content-between align-items-center">
                           <span class="text-truncate me-1"> Elementor Template Kits: PHP Zip File Missing </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -788,7 +788,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-heading d-flex justify-content-between align-items-center">
                           <span class="text-truncate me-1"> Template Kits - Imported template is blank or broken </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -796,7 +796,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Troubleshooting Import Problems </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -804,7 +804,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How to use the WordPress Plugin </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -812,7 +812,7 @@
                       </li>
                       <li>
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-heading d-flex justify-content-between align-items-center">
                           <span class="text-truncate me-1"> How to use the Template Kit Importer Plugin </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -820,7 +820,7 @@
                       </li>
                     </ul>
                     <p class="mb-0 fw-medium mt-4">
-                      <a href="help-center-article.html" class="d-flex align-items-center">
+                      <a href="help-center-article.php" class="d-flex align-items-center">
                         <span class="me-2">See all 5 articles</span>
                         <i class="ti ti-arrow-right scaleX-n1-rtl"></i>
                       </a>
@@ -838,7 +838,7 @@
                     <ul class="list-unstyled my-4">
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Signing in with a social account </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -846,7 +846,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Locked Out of Account </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -854,7 +854,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> I'm not receiving the verification email </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -862,7 +862,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Forgotten Username Or Password </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -870,7 +870,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> New password not accepted </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -878,7 +878,7 @@
                       </li>
                       <li>
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> What is Sign In Verification? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -886,7 +886,7 @@
                       </li>
                     </ul>
                     <p class="mb-0 fw-medium mt-4">
-                      <a href="help-center-article.html" class="d-flex align-items-center">
+                      <a href="help-center-article.php" class="d-flex align-items-center">
                         <span class="me-2">See all 16 articles</span>
                         <i class="ti ti-arrow-right scaleX-n1-rtl"></i>
                       </a>
@@ -904,7 +904,7 @@
                     <ul class="list-unstyled my-4">
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How do I change my password? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -912,7 +912,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How do I change my username? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -920,7 +920,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How do I close my account? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -928,7 +928,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How do I change my email address? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -936,7 +936,7 @@
                       </li>
                       <li class="mb-2">
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> How can I regain access to my account? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -944,7 +944,7 @@
                       </li>
                       <li>
                         <a
-                          href="help-center-article.html"
+                          href="help-center-article.php"
                           class="text-body d-flex justify-content-between align-item-center">
                           <span class="text-truncate me-2 me-lg-4"> Are RSS feeds available on Market? </span>
                           <i class="ti ti-chevron-right scaleX-n1-rtl text-muted"></i>
@@ -952,7 +952,7 @@
                       </li>
                     </ul>
                     <p class="mb-0 fw-medium mt-4">
-                      <a href="help-center-article.html" class="d-flex align-items-center">
+                      <a href="help-center-article.php" class="d-flex align-items-center">
                         <span class="me-2">See all 12 articles</span>
                         <i class="ti ti-arrow-right scaleX-n1-rtl"></i>
                       </a>
@@ -1122,7 +1122,7 @@
         <div class="container">
           <div class="row gx-0 gy-4 g-md-5">
             <div class="col-lg-5">
-              <a href="landing-page.html" class="app-brand-link mb-4">
+              <a href="landing-page.php" class="app-brand-link mb-4">
                 <span class="app-brand-logo demo">
                   <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -1196,18 +1196,18 @@
               <h6 class="footer-title mb-4">Pages</h6>
               <ul class="list-unstyled">
                 <li class="mb-3">
-                  <a href="pricing-page.html" class="footer-link">Pricing</a>
+                  <a href="pricing-page.php" class="footer-link">Pricing</a>
                 </li>
                 <li class="mb-3">
-                  <a href="payment-page.html" class="footer-link"
+                  <a href="payment-page.php" class="footer-link"
                     >Payment<span class="badge rounded bg-primary ms-2">New</span></a
                   >
                 </li>
                 <li class="mb-3">
-                  <a href="checkout-page.html" class="footer-link">Checkout</a>
+                  <a href="checkout-page.php" class="footer-link">Checkout</a>
                 </li>
                 <li class="mb-3">
-                  <a href="help-center-landing.html" class="footer-link">Help Center</a>
+                  <a href="help-center-landing.php" class="footer-link">Help Center</a>
                 </li>
                 <li class="mb-3">
                   <a href="../vertical-menu-template/auth-login-cover.php" target="_blank" class="footer-link"
