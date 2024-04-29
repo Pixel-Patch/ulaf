@@ -1,0 +1,236 @@
+[27-Apr-2024 12:17:50 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:17:50 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:17:50 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:17:50 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:17:51 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:17:51 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:17:51 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:17:51 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:18:06 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:18:06 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:18:06 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:18:06 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:18:07 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:18:07 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:18:07 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:18:07 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:18:20 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:18:20 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:18:20 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:18:20 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:24:23 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:24:23 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:24:23 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:24:23 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:24:23 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:24:23 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:24:24 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:24:24 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:24:24 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:24:24 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:24:24 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:24:24 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:24:42 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:24:50 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:24:50 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:24:51 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:24:51 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:24:51 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:24:51 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:25:39 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:25:39 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:25:39 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:25:39 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:25:39 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:25:39 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:25:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:25:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:25:57 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ulaf\html\admin\navbar.php:1) in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 2
+[27-Apr-2024 12:25:57 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:25:57 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:25:57 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:25:57 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:25:57 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:26:26 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:26:26 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:26:26 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:26:26 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:26:26 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:26:48 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:28:03 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:29:04 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:31:21 Europe/Berlin] PHP Warning:  file_put_contents(\assets\json\user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 38
+[27-Apr-2024 12:33:02 Europe/Berlin] PHP Warning:  file_put_contents(./assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 36
+[27-Apr-2024 12:33:29 Europe/Berlin] PHP Warning:  file_put_contents(./assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 36
+[27-Apr-2024 12:33:30 Europe/Berlin] PHP Warning:  file_put_contents(./assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 36
+[27-Apr-2024 12:42:03 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 2
+[27-Apr-2024 12:42:03 Europe/Berlin] PHP Warning:  Constant DB_USERNAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 3
+[27-Apr-2024 12:42:03 Europe/Berlin] PHP Warning:  Constant DB_PASSWORD already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 4
+[27-Apr-2024 12:42:03 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\xampp\htdocs\ulaf\html\admin\config.php on line 5
+[27-Apr-2024 12:42:03 Europe/Berlin] PHP Warning:  Undefined array key "draw" in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 13
+[27-Apr-2024 12:42:03 Europe/Berlin] PHP Warning:  file_put_contents(./assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 36
+[27-Apr-2024 12:42:03 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli object is already closed in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php:76
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(76): mysqli->query('SELECT User_ID,...')
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 76
+[27-Apr-2024 12:42:15 Europe/Berlin] PHP Warning:  Undefined array key "draw" in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 13
+[27-Apr-2024 12:42:15 Europe/Berlin] PHP Warning:  file_put_contents(./assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 36
+[27-Apr-2024 12:42:55 Europe/Berlin] PHP Warning:  Undefined array key "draw" in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 13
+[27-Apr-2024 12:42:55 Europe/Berlin] PHP Warning:  file_put_contents(.../.../assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 36
+[27-Apr-2024 12:44:53 Europe/Berlin] PHP Warning:  mkdir(): File exists in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 44
+[27-Apr-2024 12:44:53 Europe/Berlin] PHP Warning:  file_put_contents(.../.../assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 47
+[27-Apr-2024 12:46:37 Europe/Berlin] PHP Warning:  mkdir(): File exists in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 44
+[27-Apr-2024 12:46:37 Europe/Berlin] PHP Warning:  file_put_contents(.../.../assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 47
+[27-Apr-2024 12:52:25 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:52:46 Europe/Berlin] PHP Warning:  include(fetch-users.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 69
+[27-Apr-2024 12:52:46 Europe/Berlin] PHP Warning:  include(): Failed opening 'fetch-users.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\ulaf\html\admin\end-user_list.php on line 69
+[27-Apr-2024 12:55:59 Europe/Berlin] PHP Warning:  require_once(db-connection.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 18
+[27-Apr-2024 12:55:59 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'db-connection.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php:18
+Stack trace:
+#0 C:\xampp\htdocs\ulaf\html\admin\end-user_list.php(69): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 18
+[27-Apr-2024 12:56:14 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:56:33 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:56:33 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:56:33 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:57:42 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 13
+[27-Apr-2024 12:57:43 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 13
+[27-Apr-2024 12:57:57 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:57:57 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:57:58 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:57:58 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:57:58 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:58:55 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:58:55 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:58:55 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 12:58:55 Europe/Berlin] PHP Warning:  chmod(): No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 14
+[27-Apr-2024 13:02:12 Europe/Berlin] PHP Warning:  file_put_contents(./assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 35
+[27-Apr-2024 13:02:31 Europe/Berlin] PHP Warning:  file_put_contents(.../.../assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 35
+[27-Apr-2024 13:02:34 Europe/Berlin] PHP Warning:  file_put_contents(.../.../assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 35
+[27-Apr-2024 13:02:37 Europe/Berlin] PHP Warning:  file_put_contents(.../.../assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 35
+[27-Apr-2024 13:03:03 Europe/Berlin] PHP Warning:  file_put_contents(.../.../assets/json/user-list.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\ulaf\html\admin\fetch-users.php on line 35
