@@ -47,6 +47,7 @@
   <script src="../../assets/vendor/js/template-customizer.js"></script>
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="../../assets/js/config.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -70,101 +71,11 @@
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
-            <div class="row g-4 mb-4">
-              <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between">
-                      <div class="content-left">
-                        <span>Session</span>
-                        <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">21,459</h3>
-                          <p class="text-success mb-0">(+29%)</p>
-                        </div>
-                        <p class="mb-0">Total Users</p>
-                      </div>
-                      <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-primary">
-                          <i class="ti ti-user ti-sm"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between">
-                      <div class="content-left">
-                        <span>Paid Users</span>
-                        <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">4,567</h3>
-                          <p class="text-success mb-0">(+18%)</p>
-                        </div>
-                        <p class="mb-0">Last week analytics</p>
-                      </div>
-                      <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-danger">
-                          <i class="ti ti-user-plus ti-sm"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between">
-                      <div class="content-left">
-                        <span>Active Users</span>
-                        <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">19,860</h3>
-                          <p class="text-danger mb-0">(-14%)</p>
-                        </div>
-                        <p class="mb-0">Last week analytics</p>
-                      </div>
-                      <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-success">
-                          <i class="ti ti-user-check ti-sm"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between">
-                      <div class="content-left">
-                        <span>Pending Users</span>
-                        <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">237</h3>
-                          <p class="text-success mb-0">(+42%)</p>
-                        </div>
-                        <p class="mb-0">Last week analytics</p>
-                      </div>
-                      <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-warning">
-                          <i class="ti ti-user-exclamation ti-sm"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
             <!-- Users List Table -->
             <div class="card">
               <div class="card-header border-bottom">
-                <h5 class="card-title mb-3">Search Filter</h5>
-                <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
-                  <div class="col-md-4 user_role"></div>
-                  <div class="col-md-4 user_plan"></div>
-                  <div class="col-md-4 user_status"></div>
-                </div>
+                <h5 class="card-title mb-3">Admin User List</h5>
               </div>
               <div class="card-datatable table-responsive">
                 <table class="datatables-users table">
@@ -173,14 +84,15 @@
                       <th></th>
                       <th>User</th>
                       <th>Role</th>
-                      <th>Plan</th>
-                      <th>Billing</th>
-                      <th>Status</th>
+                      <th>Username</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                 </table>
               </div>
+
+
+
               <!-- Offcanvas to add new user -->
               <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel">
                 <div class="offcanvas-header">
@@ -188,77 +100,91 @@
                   <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
-                  <form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false">
+                  <form class="add-new-user pt-0" id="addNewUserForm" action="add_employee.php" method="POST">
+
                     <div class="mb-3">
-                      <label class="form-label" for="add-user-fullname">Full Name</label>
-                      <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name="userFullname" aria-label="John Doe" />
+                      <label class="form-label" for="user-role">User Role</label>
+                      <select id="user-role" name="userRole" class="form-select">
+                        <option value="">Select a user role</option>
+                        <option value="admin">Admin</option>
+                        <option value="admin_staff">Admin Staff</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="add-user-IDnumber">ID Number</label>
+                      <input type="text" class="form-control" id="add-user-IDnumber" placeholder="24-0001" name="userIDnumber" aria-label="IDnumber" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="add-user-username">Username</label>
+                      <input type="text" class="form-control" id="add-user-username" placeholder="John Doe" name="userUsername" aria-label="John Doe" />
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="add-user-email">Email</label>
                       <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="userEmail" />
                     </div>
                     <div class="mb-3">
-                      <label class="form-label" for="add-user-contact">Contact</label>
-                      <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+1 (609) 988-44-11" aria-label="john.doe@example.com" name="userContact" />
+                      <label class="form-label" for="add-user-password">Password</label>
+                      <input type="password" id="formValidationPass" class="form-control" placeholder="Password" aria-label="formValidationPass2" name="formValidationPass" />
                     </div>
                     <div class="mb-3">
-                      <label class="form-label" for="add-user-company">Company</label>
-                      <input type="text" id="add-user-company" class="form-control" placeholder="Web Developer" aria-label="jdoe1" name="companyName" />
+                      <label class="form-label" for="add-user-password">Confirm Password</label>
+                      <input type="password" id="formValidationConfirmPass" class="form-control" placeholder="Confirm Password" aria-label="formValidationConfirmPass2" name="formValidationConfirmPass" />
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="country">Country</label>
-                      <select id="country" class="select2 form-select">
-                        <option value="">Select</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Bangladesh">Bangladesh</option>
-                        <option value="Belarus">Belarus</option>
-                        <option value="Brazil">Brazil</option>
-                        <option value="Canada">Canada</option>
-                        <option value="China">China</option>
-                        <option value="France">France</option>
-                        <option value="Germany">Germany</option>
-                        <option value="India">India</option>
-                        <option value="Indonesia">Indonesia</option>
-                        <option value="Israel">Israel</option>
-                        <option value="Italy">Italy</option>
-                        <option value="Japan">Japan</option>
-                        <option value="Korea">Korea, Republic of</option>
-                        <option value="Mexico">Mexico</option>
-                        <option value="Philippines">Philippines</option>
-                        <option value="Russia">Russian Federation</option>
-                        <option value="South Africa">South Africa</option>
-                        <option value="Thailand">Thailand</option>
-                        <option value="Turkey">Turkey</option>
-                        <option value="Ukraine">Ukraine</option>
-                        <option value="United Arab Emirates">United Arab Emirates</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="United States">United States</option>
-                      </select>
-                    </div>
+
+                    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Add New User</button>
+                    <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                  </form>
+
+                </div>
+              </div>
+
+              <!-- Offcanvas to Edit User -->
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditUser" aria-labelledby="offcanvasEditUserLabel">
+                <div class="offcanvas-header">
+                  <h5 id="offcanvasEditUserLabel" class="offcanvas-title">Edit User</h5>
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
+                  <form class="add-new-user pt-0" id="editUserForm" onsubmit="return false">
                     <div class="mb-3">
                       <label class="form-label" for="user-role">User Role</label>
-                      <select id="user-role" class="form-select">
-                        <option value="subscriber">Subscriber</option>
-                        <option value="editor">Editor</option>
-                        <option value="maintainer">Maintainer</option>
-                        <option value="author">Author</option>
+                      <select id="user-role" name="userRole" class="form-select">
+                        <option value="">Select a user role</option>
                         <option value="admin">Admin</option>
+                        <option value="admin_staff">Admin Staff</option>
                       </select>
                     </div>
-                    <div class="mb-4">
-                      <label class="form-label" for="user-plan">Select Plan</label>
-                      <select id="user-plan" class="form-select">
-                        <option value="basic">Basic</option>
-                        <option value="enterprise">Enterprise</option>
-                        <option value="company">Company</option>
-                        <option value="team">Team</option>
-                      </select>
+
+                    <div class="mb-3">
+                      <label class="form-label" for="add-user-IDnumber">ID Number</label>
+                      <input type="text" class="form-control" id="add-user-IDnumber" placeholder="24-0001" name="userIDnumber" aria-label="IDnumber" />
                     </div>
-                    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+                    <div class="mb-3">
+                      <label class="form-label" for="add-user-username">Username</label>
+                      <input type="text" class="form-control" id="add-user-username" placeholder="John Doe" name="userUsername" aria-label="John Doe" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="add-user-email">Email</label>
+                      <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="userEmail" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="add-user-password">Password</label>
+                      <input type="text" id="formValidationPass" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-label="formValidationPass2" name="formValidationPass" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="add-user-password">Confirm Password</label>
+                      <input type="text" id="formValidationConfirmPass" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-label="formValidationConfirmPass2" name="formValidationConfirmPass" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Edit User</button>
                     <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                   </form>
                 </div>
               </div>
+
+
+
+
             </div>
           </div>
           <!--/ Content -->
@@ -314,7 +240,66 @@
   <script src="../../assets/js/main.js"></script>
 
   <!-- Page JS -->
-  <script src="../../assets/js/app-user-list.js"></script>
+  <script src="../../assets/js/app-user-admin-list.js"></script>
+  <?php
+  require 'dbconn.php';
+
+  $sql = "SELECT e.role, e.username, e.password, u.user_id, u.fullname, u.password, u.user_type, u.email, u.avatar_image, u.college, u.course, u.clsu_id_image, u.home_address, u.clsu_address, u.contact, u.social_links
+          FROM employee e
+          INNER JOIN users u ON e.user_id = u.user_id";
+  $result = $conn->query($sql);
+
+  $data = array();
+
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      $links = explode(',', $row['social_links']);
+      $social_links = array();
+      foreach ($links as $link) {
+        if (preg_match('~me\.me/~', $link)) {
+          $social_links['messenger'] = $link;
+        } elseif (preg_match('~t\.me/~', $link)) {
+          $social_links['telegram'] = $link;
+        } elseif (preg_match('~viber\.com/~', $link)) {
+          $social_links['viber'] = $link;
+        } elseif (preg_match('~wa\.me/~', $link)) {
+          $social_links['whatsapp'] = $link;
+        } elseif (preg_match('~linkedin\.com/~', $link)) {
+          $social_links['linkedin'] = $link;
+        } elseif (preg_match('~facebook\.com/~', $link)) {
+          $social_links['facebook'] = $link;
+        } elseif (preg_match('~twitter\.com/~', $link)) {
+          $social_links['twitter'] = $link;
+        } elseif (preg_match('~instagram\.com/~', $link)) {
+          $social_links['instagram'] = $link;
+        }
+      }
+      unset($row['social_links']);
+      $row['social_links'] = $social_links;
+      $data[] = $row;
+    }
+  } else {
+    echo "0 results";
+  }
+  $conn->close();
+
+  // Convert the array to a JSON object
+  $json_data = json_encode(array('data' => $data));
+
+  // Write the JSON data to a file
+  $success = file_put_contents('../../assets/json/employee-list.json', $json_data);
+  if (!$success) {
+    echo "Error: Unable to write JSON data to file.";
+  }
+
+  // For debugging purposes, print the JSON data
+  echo $json_data;
+  ?>
+
+
+
+
+
 </body>
 
 </html>

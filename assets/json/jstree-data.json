@@ -52,15 +52,15 @@
     ]
   },
   {
-    "text": "index.html",
+    "text": "index.php",
     "type": "html"
   },
   {
-    "text": "page-one.html",
+    "text": "page-one.php",
     "type": "html"
   },
   {
-    "text": "page-two.html",
+    "text": "page-two.php",
     "type": "html"
   }
 ]

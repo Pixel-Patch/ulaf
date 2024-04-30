@@ -837,7 +837,7 @@
           render: function (data, type, full, meta) {
             var $invoice_id = full['invoice_id'];
             // Creates full output for row
-            var $row_output = '<a href="app-invoice-preview.html"><span>#' + $invoice_id + '</span></a>';
+            var $row_output = '<a href="app-invoice-preview.php"><span>#' + $invoice_id + '</span></a>';
             return $row_output;
           }
         },
@@ -890,7 +890,7 @@
             return (
               '<div class="d-flex align-items-center">' +
               '<a href="javascript:;" class="text-body" data-bs-toggle="tooltip" title="Send Mail"><i class="ti ti-mail me-2 ti-sm"></i></a>' +
-              '<a href="app-invoice-preview.html" class="text-body" data-bs-toggle="tooltip" title="Preview"><i class="ti ti-eye mx-2 ti-sm"></i></a>' +
+              '<a href="app-invoice-preview.php" class="text-body" data-bs-toggle="tooltip" title="Preview"><i class="ti ti-eye mx-2 ti-sm"></i></a>' +
               '<div class="d-inline-block">' +
               '<a href="javascript:;" class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm lh-1"></i></a>' +
               '<div class="dropdown-menu dropdown-menu-end m-0">' +
