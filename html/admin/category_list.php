@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>User List - Pages | ULAF Admin</title>
+  <title>eCommerce Category List - Apps | Vuexy - Bootstrap Admin Template</title>
 
   <meta name="description" content="" />
 
@@ -37,8 +37,13 @@
   <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
   <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
   <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/form-validation.css" />
+  <link rel="stylesheet" href="../../assets/vendor/libs/quill/typography.css" />
+  <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
+  <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
 
   <!-- Page CSS -->
+
+  <link rel="stylesheet" href="../../assets/vendor/css/pages/app-ecommerce.css" />
 
   <!-- Helpers -->
   <script src="../../assets/vendor/js/helpers.js"></script>
@@ -62,7 +67,6 @@
       <div class="layout-page">
         <!-- Content wrapper -->
         <div class="content-wrapper">
-
           <!-- Menu -->
           <?php require 'menu.php'; ?>
           <!-- / Menu -->
@@ -70,192 +74,171 @@
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
-            <div class="row g-4 mb-4">
-              <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between">
-                      <div class="content-left">
-                        <span>Session</span>
-                        <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">21,459</h3>
-                          <p class="text-success mb-0">(+29%)</p>
-                        </div>
-                        <p class="mb-0">Total Users</p>
-                      </div>
-                      <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-primary">
-                          <i class="ti ti-user ti-sm"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+            <h4 class="py-3 mb-2"><span class="text-muted fw-light">Settings /</span> Category List</h4>
+
+            <div class="app-ecommerce-category">
+              <!-- Category List Table -->
+              <div class="card">
+                <div class="card-datatable table-responsive">
+                  <table class="datatables-category-list table border-top">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Categories</th> 
+                        <th class="text-lg-center">Actions</th>
+                      </tr>
+                    </thead>
+                  </table>
                 </div>
               </div>
-              <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between">
-                      <div class="content-left">
-                        <span>Paid Users</span>
-                        <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">4,567</h3>
-                          <p class="text-success mb-0">(+18%)</p>
-                        </div>
-                        <p class="mb-0">Last week analytics</p>
-                      </div>
-                      <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-danger">
-                          <i class="ti ti-user-plus ti-sm"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+              <!-- Offcanvas to add new category -->
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddCategoryList" aria-labelledby="offcanvasAddCategoryListLabel">
+                <!-- Offcanvas Header -->
+                <div class="offcanvas-header py-4">
+                  <h5 id="offcanvasAddCategoryListLabel" class="offcanvas-title">Add Category</h5>
+                  <button type="button" class="btn-close bg-label-secondary text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-              </div>
-              <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between">
-                      <div class="content-left">
-                        <span>Active Users</span>
-                        <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">19,860</h3>
-                          <p class="text-danger mb-0">(-14%)</p>
-                        </div>
-                        <p class="mb-0">Last week analytics</p>
-                      </div>
-                      <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-success">
-                          <i class="ti ti-user-check ti-sm"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between">
-                      <div class="content-left">
-                        <span>Pending Users</span>
-                        <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">237</h3>
-                          <p class="text-success mb-0">(+42%)</p>
-                        </div>
-                        <p class="mb-0">Last week analytics</p>
-                      </div>
-                      <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-warning">
-                          <i class="ti ti-user-exclamation ti-sm"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Users List Table -->
-            <div class="card">
-              <div class="card-header border-bottom">
-                <h5 class="card-title mb-3">Search Filter</h5>
-                <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
-                  <div class="col-md-4 user_role"></div>
-                  <div class="col-md-4 user_plan"></div>
-                  <div class="col-md-4 user_status"></div>
-                </div>
-              </div>
-              <div class="card-datatable table-responsive">
-                <table class="datatables-users table">
-                  <thead class="border-top">
-                    <tr>
-                      <th></th>
-                      <th>User</th>
-                      <th>Role</th>
-                      <th>Plan</th>
-                      <th>Billing</th>
-                      <th>Status</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
-              <!-- Offcanvas to add new user -->
-              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel">
-                <div class="offcanvas-header">
-                  <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add User</h5>
-                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
-                  <form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false">
+                <!-- Offcanvas Body -->
+                <div class="offcanvas-body border-top">
+                  <form class="pt-0" id="eCommerceCategoryListForm" onsubmit="return true">
+                    <!-- Title -->
                     <div class="mb-3">
-                      <label class="form-label" for="add-user-fullname">Full Name</label>
-                      <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name="userFullname" aria-label="John Doe" />
+                      <label class="form-label" for="ecommerce-category-title">Title</label>
+                      <input type="text" class="form-control" id="ecommerce-category-title" placeholder="Enter category title" name="categoryTitle" aria-label="category title" />
                     </div>
+                    <!-- Slug -->
                     <div class="mb-3">
-                      <label class="form-label" for="add-user-email">Email</label>
-                      <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="userEmail" />
+                      <label class="form-label" for="ecommerce-category-slug">Slug</label>
+                      <input type="text" id="ecommerce-category-slug" class="form-control" placeholder="Enter slug" aria-label="slug" name="slug" />
                     </div>
+                    <!-- Image -->
                     <div class="mb-3">
-                      <label class="form-label" for="add-user-contact">Contact</label>
-                      <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+1 (609) 988-44-11" aria-label="john.doe@example.com" name="userContact" />
+                      <label class="form-label" for="ecommerce-category-image">Attachment</label>
+                      <input class="form-control" type="file" id="ecommerce-category-image" />
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="add-user-company">Company</label>
-                      <input type="text" id="add-user-company" class="form-control" placeholder="Web Developer" aria-label="jdoe1" name="companyName" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="country">Country</label>
-                      <select id="country" class="select2 form-select">
-                        <option value="">Select</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Bangladesh">Bangladesh</option>
-                        <option value="Belarus">Belarus</option>
-                        <option value="Brazil">Brazil</option>
-                        <option value="Canada">Canada</option>
-                        <option value="China">China</option>
-                        <option value="France">France</option>
-                        <option value="Germany">Germany</option>
-                        <option value="India">India</option>
-                        <option value="Indonesia">Indonesia</option>
-                        <option value="Israel">Israel</option>
-                        <option value="Italy">Italy</option>
-                        <option value="Japan">Japan</option>
-                        <option value="Korea">Korea, Republic of</option>
-                        <option value="Mexico">Mexico</option>
-                        <option value="Philippines">Philippines</option>
-                        <option value="Russia">Russian Federation</option>
-                        <option value="South Africa">South Africa</option>
-                        <option value="Thailand">Thailand</option>
-                        <option value="Turkey">Turkey</option>
-                        <option value="Ukraine">Ukraine</option>
-                        <option value="United Arab Emirates">United Arab Emirates</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="United States">United States</option>
+                    <!-- Parent category -->
+                    <div class="mb-3 ecommerce-select2-dropdown">
+                      <label class="form-label" for="ecommerce-category-parent-category">Parent category</label>
+                      <select id="ecommerce-category-parent-category" class="select2 form-select" data-placeholder="Select parent category">
+                        <option value="">Select parent Category</option>
+                        <option value="Household">Household</option>
+                        <option value="Management">Management</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Office">Office</option>
+                        <option value="Automotive">Automotive</option>
                       </select>
                     </div>
+                    <!-- Description -->
                     <div class="mb-3">
-                      <label class="form-label" for="user-role">User Role</label>
-                      <select id="user-role" class="form-select">
-                        <option value="subscriber">Subscriber</option>
-                        <option value="editor">Editor</option>
-                        <option value="maintainer">Maintainer</option>
-                        <option value="author">Author</option>
-                        <option value="admin">Admin</option>
+                      <label class="form-label">Description</label>
+                      <div class="form-control p-0 py-1">
+                        <div class="comment-editor border-0" id="ecommerce-category-description"></div>
+                        <div class="comment-toolbar border-0">
+                          <div class="d-flex justify-content-end">
+                            <span class="ql-formats me-0">
+                              <button class="ql-bold"></button>
+                              <button class="ql-italic"></button>
+                              <button class="ql-underline"></button>
+                              <button class="ql-list" value="ordered"></button>
+                              <button class="ql-list" value="bullet"></button>
+                              <button class="ql-link"></button>
+                              <button class="ql-image"></button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Status -->
+                    <div class="mb-4 ecommerce-select2-dropdown">
+                      <label class="form-label">Select category status</label>
+                      <select id="ecommerce-category-status" class="select2 form-select" data-placeholder="Select category status">
+                        <option value="">Select category status</option>
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Publish">Publish</option>
+                        <option value="Inactive">Inactive</option>
                       </select>
                     </div>
-                    <div class="mb-4">
-                      <label class="form-label" for="user-plan">Select Plan</label>
-                      <select id="user-plan" class="form-select">
-                        <option value="basic">Basic</option>
-                        <option value="enterprise">Enterprise</option>
-                        <option value="company">Company</option>
-                        <option value="team">Team</option>
+                    <!-- Submit and reset -->
+                    <div class="mb-3">
+                      <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Add</button>
+                      <button type="reset" class="btn bg-label-danger" data-bs-dismiss="offcanvas">Discard</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Offcanvas to edit category -->
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditCategoryList" aria-labelledby="offcanvasEditCategoryListLabel">
+                <!-- Offcanvas Header -->
+                <div class="offcanvas-header py-4">
+                  <h5 id="offcanvasEditCategoryListLabel" class="offcanvas-title">Edit Category</h5>
+                  <button type="button" class="btn-close bg-label-secondary text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <!-- Offcanvas Body -->
+                <div class="offcanvas-body border-top">
+                  <form class="pt-0" id="eCommerceCategoryListForm" onsubmit="return true">
+                    <!-- Title -->
+                    <div class="mb-3">
+                      <label class="form-label" for="ecommerce-category-title">Title</label>
+                      <input type="text" class="form-control" id="ecommerce-category-title" placeholder="Enter category title" name="categoryTitle" aria-label="category title" />
+                    </div>
+                    <!-- Slug -->
+                    <div class="mb-3">
+                      <label class="form-label" for="ecommerce-category-slug">Slug</label>
+                      <input type="text" id="ecommerce-category-slug" class="form-control" placeholder="Enter slug" aria-label="slug" name="slug" />
+                    </div>
+                    <!-- Image -->
+                    <div class="mb-3">
+                      <label class="form-label" for="ecommerce-category-image">Attachment</label>
+                      <input class="form-control" type="file" id="ecommerce-category-image" />
+                    </div>
+                    <!-- Parent category -->
+                    <div class="mb-3 ecommerce-select2-dropdown">
+                      <label class="form-label" for="ecommerce-category-parent-category">Parent category</label>
+                      <select id="ecommerce-category-parent-category" class="select2 form-select" data-placeholder="Select parent category">
+                        <option value="">Select parent Category</option>
+                        <option value="Household">Household</option>
+                        <option value="Management">Management</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Office">Office</option>
+                        <option value="Automotive">Automotive</option>
                       </select>
                     </div>
-                    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                    <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                    <!-- Description -->
+                    <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <div class="form-control p-0 py-1">
+                        <div class="comment-editor border-0" id="ecommerce-category-description"></div>
+                        <div class="comment-toolbar border-0">
+                          <div class="d-flex justify-content-end">
+                            <span class="ql-formats me-0">
+                              <button class="ql-bold"></button>
+                              <button class="ql-italic"></button>
+                              <button class="ql-underline"></button>
+                              <button class="ql-list" value="ordered"></button>
+                              <button class="ql-list" value="bullet"></button>
+                              <button class="ql-link"></button>
+                              <button class="ql-image"></button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Status -->
+                    <div class="mb-4 ecommerce-select2-dropdown">
+                      <label class="form-label">Select category status</label>
+                      <select id="ecommerce-category-status" class="select2 form-select" data-placeholder="Select category status">
+                        <option value="">Select category status</option>
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Publish">Publish</option>
+                        <option value="Inactive">Inactive</option>
+                      </select>
+                    </div>
+                    <!-- Submit and reset -->
+                    <div class="mb-3">
+                      <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Add</button>
+                      <button type="reset" class="btn bg-label-danger" data-bs-dismiss="offcanvas">Discard</button>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -264,8 +247,28 @@
           <!--/ Content -->
 
           <!-- Footer -->
-          <?php require 'footer.php'; ?>
+          <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl">
+              <div class="footer-container d-flex align-items-center justify-content-between py-2 flex-md-row flex-column">
+                <div>
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , made with ❤️ by
+                  <a href="https://pixinvent.com" target="_blank" class="footer-link text-primary fw-medium">Pixinvent</a>
+                </div>
+                <div class="d-none d-lg-inline-block">
+                  <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank">License</a>
+                  <a href="https://1.envato.market/pixinvent_portfolio" target="_blank" class="footer-link me-4">More Themes</a>
 
+                  <a href="https://demos.pixinvent.com/vuexy-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
+
+                  <a href="https://pixinvent.ticksy.com/" target="_blank" class="footer-link d-none d-sm-inline-block">Support</a>
+                </div>
+              </div>
+            </div>
+          </footer>
           <!-- / Footer -->
 
           <div class="content-backdrop fade"></div>
@@ -307,14 +310,14 @@
   <script src="../../assets/vendor/libs/@form-validation/popular.js"></script>
   <script src="../../assets/vendor/libs/@form-validation/bootstrap5.js"></script>
   <script src="../../assets/vendor/libs/@form-validation/auto-focus.js"></script>
-  <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-  <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+  <script src="../../assets/vendor/libs/quill/katex.js"></script>
+  <script src="../../assets/vendor/libs/quill/quill.js"></script>
 
   <!-- Main JS -->
   <script src="../../assets/js/main.js"></script>
 
   <!-- Page JS -->
-  <script src="../../assets/js/app-user-list.js"></script>
+  <script src="../../assets/js/app-ecommerce-category-list.js"></script>
 </body>
 
 </html>

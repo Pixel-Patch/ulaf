@@ -41,7 +41,7 @@ $(function () {
           render: function (data, type, full, meta) {
             var $invoice_id = full['invoice_id'];
             // Creates full output for row
-            var $row_output = '<a href="app-invoice-preview.html">#' + $invoice_id + '</a>';
+            var $row_output = '<a href="app-invoice-preview.php">#' + $invoice_id + '</a>';
             return $row_output;
           }
         },
@@ -110,7 +110,7 @@ $(function () {
               '</div>' +
               '</div>' +
               '<div class="d-flex flex-column">' +
-              '<a href="pages-profile-user.html" class="text-body text-truncate"><span class="fw-medium">' +
+              '<a href="pages-profile-user.php" class="text-body text-truncate"><span class="fw-medium">' +
               $name +
               '</span></a>' +
               '<small class="text-truncate text-muted">' +
@@ -172,12 +172,12 @@ $(function () {
             return (
               '<div class="d-flex align-items-center">' +
               '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top" title="Send Mail"><i class="ti ti-mail mx-2 ti-sm"></i></a>' +
-              '<a href="app-invoice-preview.html" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top" title="Preview Invoice"><i class="ti ti-eye mx-2 ti-sm"></i></a>' +
+              '<a href="app-invoice-preview.php" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top" title="Preview Invoice"><i class="ti ti-eye mx-2 ti-sm"></i></a>' +
               '<div class="dropdown">' +
               '<a href="javascript:;" class="btn dropdown-toggle hide-arrow text-body p-0" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm"></i></a>' +
               '<div class="dropdown-menu dropdown-menu-end">' +
               '<a href="javascript:;" class="dropdown-item">Download</a>' +
-              '<a href="app-invoice-edit.html" class="dropdown-item">Edit</a>' +
+              '<a href="app-invoice-edit.php" class="dropdown-item">Edit</a>' +
               '<a href="javascript:;" class="dropdown-item">Duplicate</a>' +
               '<div class="dropdown-divider"></div>' +
               '<a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>' +

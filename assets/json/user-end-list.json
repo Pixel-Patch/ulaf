@@ -1,0 +1,70 @@
+{
+  "data": [
+    {
+      "user_id": "24-0001",
+      "role": "End-User",
+      "username": "gslixby0",
+      "full_name": "Galen Slihjkhjkxby",
+      "password": "password123",
+      "user_type": "Student",
+      "email": "gslixby0@abc.net.au",
+      "avatar_image": "avatar.jpg",
+      "college": "College of Engineering",
+      "course": "Bachelor of Science in Information Technology",
+      "clsu_id_image": "clsu_id.jpg",
+      "home_address": "123 Main St, Anytown, USA",
+      "clsu_address": "456 University Ave, CLSU City, PH",
+      "contact": "+639768888888",
+      "social_links": {
+        "messenger": "https://me.m/gslixby0",
+        "telegram": "https://t.me/gslixby0",
+        "viber": "https://viber.com/gslixby0",
+        "whatsapp": "https://wa.me/+0987654321"
+      }
+    },
+    {
+      "user_id": "24-0002",
+      "role": "End-User",
+      "username": "jdoe",
+      "full_name": "John Doe",
+      "password": "password123",
+      "user_type": "Faculty",
+      "email": "jdoe@example.com",
+      "avatar_image": "avatar.jpg",
+      "college": "College of Engineering",
+      "course": "N/A",
+      "clsu_id_image": "clsu_id.jpg",
+      "home_address": "789 Oak St, Anytown, USA",
+      "clsu_address": "456 University Ave, CLSU City, PH",
+      "contact": "+639768888888",
+      "social_links": {
+        "messenger": "https://me.m/jdoe",
+        "telegram": "https://t.me/jdoe",
+        "viber": "https://viber.com/jdoe",
+        "whatsapp": "https://wa.me/+0987654321"
+      }
+    },
+    {
+      "user_id": "24-0003",
+      "role": "End-User",
+      "username": "jsmith",
+      "full_name": "Jane Smith",
+      "password": "password123",
+      "user_type": "Staff",
+      "email": "jsmith@example.com",
+      "avatar_image": "avatar.jpg",
+      "college": "College of Engineering",
+      "course": "N/A",
+      "clsu_id_image": "clsu_id.jpg",
+      "home_address": "321 Elm St, Anytown, USA",
+      "clsu_address": "456 University Ave, CLSU City, PH",
+      "contact": "+639768888888",
+      "social_links": {
+        "messenger": "https://me.m/jsmith",
+        "telegram": "https://t.me/jsmith",
+        "viber": "https://viber.com/jsmith",
+        "whatsapp": "https://wa.me/+0987654321"
+      }
+    }
+  ]
+}

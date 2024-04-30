@@ -43,24 +43,10 @@
 
              <!-- Items -->
              <li class="menu-item">
-                 <a href="javascript:void(0)" class="menu-link menu-toggle">
+                 <a href="item_list.php" class="menu-link  ">
                      <i class="menu-icon tf-icons ti ti-layout-grid-add"></i>
                      <div data-i18n="Items">Items</div>
                  </a>
-                 <ul class="menu-sub">
-                     <li class="menu-item">
-                         <a href="found_list.php" class="menu-link">
-                             <i class="menu-icon tf-icons ti ti-mail"></i>
-                             <div data-i18n="Found">Found</div>
-                         </a>
-                     </li>
-                     <li class="menu-item">
-                         <a href="lost_list.php" class="menu-link">
-                             <i class="menu-icon tf-icons ti ti-messages"></i>
-                             <div data-i18n="Lost">Lost</div>
-                         </a>
-                     </li>
-                 </ul>
              </li>
 
              <!-- Reports -->
@@ -103,13 +89,7 @@
                              <i class="menu-icon tf-icons ti ti-mail"></i>
                              <div data-i18n="Profile Settings">Profile Settings</div>
                          </a>
-                     </li>
-                     <li class="menu-item">
-                         <a href="type_list.php" class="menu-link">
-                             <i class="menu-icon tf-icons ti ti-messages"></i>
-                             <div data-i18n="Type Settings">Type Settings</div>
-                         </a>
-                     </li>
+                     </li> 
                      <li class="menu-item">
                          <a href="category_list.php" class="menu-link">
                              <i class="menu-icon tf-icons ti ti-messages"></i>
