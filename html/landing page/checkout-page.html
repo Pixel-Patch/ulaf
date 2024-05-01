@@ -77,7 +77,7 @@
               <i class="ti ti-menu-2 ti-sm align-middle"></i>
             </button>
             <!-- Mobile menu toggle: End-->
-            <a href="landing-page.html" class="app-brand-link">
+            <a href="landing-page.php" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -156,25 +156,25 @@
                       </div>
                       <ul class="nav flex-column">
                         <li class="nav-item">
-                          <a class="nav-link mega-dropdown-link" href="pricing-page.html">
+                          <a class="nav-link mega-dropdown-link" href="pricing-page.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Pricing">Pricing</span>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link mega-dropdown-link" href="payment-page.html">
+                          <a class="nav-link mega-dropdown-link" href="payment-page.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Payment">Payment</span>
                           </a>
                         </li>
                         <li class="nav-item active">
-                          <a class="nav-link mega-dropdown-link" href="checkout-page.html">
+                          <a class="nav-link mega-dropdown-link" href="checkout-page.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Checkout">Checkout</span>
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link mega-dropdown-link" href="help-center-landing.html">
+                          <a class="nav-link mega-dropdown-link" href="help-center-landing.php">
                             <i class="ti ti-circle me-1"></i>
                             <span data-i18n="Help Center">Help Center</span>
                           </a>
@@ -192,7 +192,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-login-basic.html"
+                            href="../vertical-menu-template/auth-login-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Login (Basic)
@@ -210,7 +210,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-register-basic.html"
+                            href="../vertical-menu-template/auth-register-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Register (Basic)
@@ -228,7 +228,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-register-multisteps.html"
+                            href="../vertical-menu-template/auth-register-multisteps.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Register (Multi-steps)
@@ -237,7 +237,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-forgot-password-basic.html"
+                            href="../vertical-menu-template/auth-forgot-password-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Forgot Password (Basic)
@@ -255,7 +255,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-reset-password-basic.html"
+                            href="../vertical-menu-template/auth-reset-password-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Reset Password (Basic)
@@ -264,7 +264,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-reset-password-cover.html"
+                            href="../vertical-menu-template/auth-reset-password-cover.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Reset Password (Cover)
@@ -285,7 +285,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-error.html"
+                            href="../vertical-menu-template/pages-misc-error.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Error
@@ -294,7 +294,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-under-maintenance.html"
+                            href="../vertical-menu-template/pages-misc-under-maintenance.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Under Maintenance
@@ -303,7 +303,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-comingsoon.html"
+                            href="../vertical-menu-template/pages-misc-comingsoon.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Coming Soon
@@ -312,7 +312,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/pages-misc-not-authorized.html"
+                            href="../vertical-menu-template/pages-misc-not-authorized.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Not Authorized
@@ -321,7 +321,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-verify-email-basic.html"
+                            href="../vertical-menu-template/auth-verify-email-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Verify Email (Basic)
@@ -330,7 +330,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-verify-email-cover.html"
+                            href="../vertical-menu-template/auth-verify-email-cover.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Verify Email (Cover)
@@ -339,7 +339,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-two-steps-basic.html"
+                            href="../vertical-menu-template/auth-two-steps-basic.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Two Steps (Basic)
@@ -348,7 +348,7 @@
                         <li class="nav-item">
                           <a
                             class="nav-link mega-dropdown-link"
-                            href="../vertical-menu-template/auth-two-steps-cover.html"
+                            href="../vertical-menu-template/auth-two-steps-cover.php"
                             target="_blank">
                             <i class="ti ti-circle me-1"></i>
                             Two Steps (Cover)
@@ -368,7 +368,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-medium" href="../vertical-menu-template/index.html" target="_blank">Admin</a>
+                <a class="nav-link fw-medium" href="../vertical-menu-template/index.php" target="_blank">Admin</a>
               </li>
             </ul>
           </div>
@@ -1417,7 +1417,7 @@
         <div class="container">
           <div class="row gx-0 gy-4 g-md-5">
             <div class="col-lg-5">
-              <a href="landing-page.html" class="app-brand-link mb-4">
+              <a href="landing-page.php" class="app-brand-link mb-4">
                 <span class="app-brand-logo demo">
                   <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -1491,18 +1491,18 @@
               <h6 class="footer-title mb-4">Pages</h6>
               <ul class="list-unstyled">
                 <li class="mb-3">
-                  <a href="pricing-page.html" class="footer-link">Pricing</a>
+                  <a href="pricing-page.php" class="footer-link">Pricing</a>
                 </li>
                 <li class="mb-3">
-                  <a href="payment-page.html" class="footer-link"
+                  <a href="payment-page.php" class="footer-link"
                     >Payment<span class="badge rounded bg-primary ms-2">New</span></a
                   >
                 </li>
                 <li class="mb-3">
-                  <a href="checkout-page.html" class="footer-link">Checkout</a>
+                  <a href="checkout-page.php" class="footer-link">Checkout</a>
                 </li>
                 <li class="mb-3">
-                  <a href="help-center-landing.html" class="footer-link">Help Center</a>
+                  <a href="help-center-landing.php" class="footer-link">Help Center</a>
                 </li>
                 <li class="mb-3">
                   <a href="../vertical-menu-template/auth-login-cover.php" target="_blank" class="footer-link"

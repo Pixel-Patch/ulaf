@@ -292,8 +292,7 @@
     echo "Error: Unable to write JSON data to file.";
   }
 
-  // For debugging purposes, print the JSON data
-  echo $json_data;
+
   ?>
 
 

@@ -190,25 +190,33 @@
                   <div class="divider text-start-center">
                     <div class="divider-text">Account Details</div>
                   </div>
-                  <form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false">
-                    <div class="row g-3">
+                  <form class="add-new-user pt-0" id="addNewUserForm" action="add_user.php" method="POST" enctype="multipart/form-data">
 
+                    <div class="row g-3">
                       <div class="col-sm-6">
-                        <label class="form-label" for="add-user-username">Username</label>
-                        <input type="text" class="form-control" id="add-user-username" placeholder="jdoe1" aria-label="jdoe1" name="username" />
+                        <label class="form-label" for="add-user-userID">User ID</label>
+                        <input type="text" class="form-control" id="add-user-userID" placeholder="24-0001" aria-label="24-0001" name="userID" />
                       </div>
                       <div class="col-sm-6">
                         <label class="form-label" for="add-user-role">User Type</label>
-                        <select id="add-user-role" class="form-select">
+                        <select id="userType" name="userType" class="form-select">
+                          <option value="">Select a user type</option>
                           <option value="Student">Student</option>
                           <option value="Faculty">Faculty</option>
                           <option value="Staff">Staff</option>
                         </select>
                       </div>
-                      <div class="col-sm-12">
+                      <div class="col-sm-6">
                         <label class="form-label" for="add-user-fullname">Full Name</label>
                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name="userFullname" aria-label="John Doe" />
                       </div>
+
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-username">Username</label>
+                        <input type="text" class="form-control" id="add-user-username" placeholder="jdoe1" aria-label="jdoe1" name="username" />
+                      </div>
+
+
                       <div class="col-sm-6">
                         <label class="form-label" for="add-user-password">Password</label>
                         <input type="password" id="add-user-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-label="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" name="password" />
@@ -317,9 +325,10 @@
                       </div>
                       <div class="col-sm-6">
                         <label class="form-label" for="add-user-role">User Type</label>
-                        <select id="add-user-role" class="form-select">
+                        <select id="userType" class="form-select">
+                          <option value="">Select a user type</option>
                           <option value="Student">Student</option>
-                          <option value="Faculty">Fadsfsdfsdfculty</option>
+                          <option value="Faculty">Faculty</option>
                           <option value="Staff">Staff</option>
                         </select>
                       </div>
@@ -677,8 +686,7 @@
     echo "Error: Unable to write JSON data to file.";
   }
 
-  // For debugging purposes, print the JSON data
-  echo $json_data;
+
   ?>
 
 

@@ -21,7 +21,7 @@ $(function () {
   // Variable declaration for table
   var dt_user_table = $('.datatables-users'),
     select2 = $('.select2'),
-    userView = 'app-user-view-account.html',
+    userView = 'app-user-view-account.php',
     statusObj = {
       1: { title: 'Pending', class: 'bg-label-warning' },
       2: { title: 'Active', class: 'bg-label-success' },
@@ -69,11 +69,11 @@ if (dt_user_table.length) {
         render: function (data, type, full, meta) {
           var $name = full['fullname'],
             $email = full['email'],
-            $image = full['avatar'];
+            $image = full['avatar_image'];
           if ($image) {
             // For Avatar image
             var $output =
-              '<img src="' + assetsPath + 'img/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
+              '<img src="' + assetsPath + 'uploads/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
           } else {
             // For Avatar badge
             var stateNum = Math.floor(Math.random() * 6);
@@ -396,7 +396,7 @@ if (dt_user_table.length) {
           .every(function () {
             var column = this;
             var select = $(
-              '<select id="UserCourse" class="form-select text-capitalize"><option value=""> Select Plan </option></select>'
+              '<select id="UserCourse" class="form-select text-capitalize"><option value=""> Select Course </option></select>'
             )
               .appendTo('.user_course')
               .on('change', function () {
@@ -457,10 +457,9 @@ if (dt_user_table.length) {
   }, 300);
 });
 
+
 (function () {
-  const phoneMaskList = document.querySelectorAll('.phone-mask'),
-    addNewUserForm = document.getElementById('addNewUserForm'),
-    editUserForm = document.getElementById('editUserForm');
+  const phoneMaskList = document.querySelectorAll('.phone-mask');
 
   // Phone Number
   if (phoneMaskList) {
@@ -471,160 +470,155 @@ if (dt_user_table.length) {
       });
     });
   }
-  // Add New User Form Validation
-  const fvAddNewUser = FormValidation.formValidation(addNewUserForm, {
-    fields: {
-      userRole: {
-        validators: {
-          notEmpty: {
-            message: 'Please select a user role'
-          }
-        }
-      },
-      userIDnumber: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter a username'
-          }
-        }
-      },
-      userUsername: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter a username'
-          }
-        }
-      },
-      userEmail: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter your email'
-          },
-          emailAddress: {
-            message: 'The value is not a valid email address'
-          }
-        }
-      },
-      formValidationPass: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter a password'
-          },
-          identical: {
-            compare: function() {
-              return document.getElementById('formValidationConfirmPass').value;
-            },
-            message: 'The password and its confirm are not the same'
-          }
-        }
-      },
-      formValidationConfirmPass: {
-        validators: {
-          notEmpty: {
-            message: 'Please confirm the password'
-          },
-          identical: {
-            compare: function() {
-              return document.getElementById('formValidationPass').value;
-            },
-            message: 'The password and its confirm are not the same'
-          }
-        }
-      }
-    },
-    plugins: {
-      trigger: new FormValidation.plugins.Trigger(),
-      bootstrap5: new FormValidation.plugins.Bootstrap5({
-        // Use this for enabling/changing valid/invalid class
-        eleValidClass: '',
-        rowSelector: function (field, ele) {
-          // field is the field name & ele is the field element
-          return '.col-sm-6';
-        }
-      }),
-      submitButton: new FormValidation.plugins.SubmitButton(),
-      // Submit the form when all fields are valid
-      // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-      autoFocus: new FormValidation.plugins.AutoFocus()
-    }
-  });
 
-  // Edit User Form Validation
-  const fvEditUser = FormValidation.formValidation(editUserForm, {
-    fields: {
-      userRole: {
-        validators: {
-          notEmpty: {
-            message: 'Please select a user role'
+  // Function to handle form validation
+  const handleFormValidation = (formId) => {
+    const form = document.getElementById(formId);
+
+    const fv = FormValidation.formValidation(form, {
+      fields: {
+        userID: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a ID Number'
+            }
           }
-        }
-      },
-      userIDnumber: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter a username'
+        },
+        username: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a username'
+            }
           }
-        }
-      },
-      userUsername: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter a username'
+        },
+        userFullname: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter your full name'
+            }
           }
-        }
-      },
-      userEmail: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter your email'
-          },
-          emailAddress: {
-            message: 'The value is not a valid email address'
-          }
-        }
-      },
-    
-      formValidationPass: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter a password'
-          },
-          identical: {
-            compare: function() {
-              return document.getElementById('formValidationConfirmPass').value;
+        },
+        password: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a password'
             },
-            message: 'The password and its confirm are not the same'
+            identical: {
+              compare: function() {
+                return document.getElementById('add-user-confirm-password').value;
+              },
+              message: 'Passwords do not match'
+            }
+          }
+        },
+        confirmPassword: {
+          validators: {
+            notEmpty: {
+              message: 'Please confirm your password'
+            },
+            identical: {
+              compare: function() {
+                return document.getElementById('add-user-password').value;
+              },
+              message: 'Passwords do not match'
+            }
+          }
+        },
+        userEmail: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter your email'
+            },
+            emailAddress: {
+              message: 'The value is not a valid email address'
+            }
+          }
+        },
+        userType: {
+          validators: {
+            notEmpty: {
+              message: 'Please select a user role'
+            }
+          }
+        },
+        clsuIdImage: {
+          validators: {
+            notEmpty: {
+              message: 'Please upload a CLSU ID image'
+            },
+            file: {
+              extension: 'jpeg,jpg,png,gif',
+              type: 'image/jpeg,image/png,image/gif',
+              message: 'The selected file is not a valid image. The allowed extensions are: jpeg, jpg, png, gif.'
+            }
+          }
+        },
+        clsuAddress: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a CLSU address'
+            }
+          }
+        },
+        avatarImage: {
+          validators: {
+            notEmpty: {
+              message: 'Please upload an avatar image'
+            },
+            file: {
+              extension: 'jpeg,jpg,png,gif',
+              type: 'image/jpeg,image/png,image/gif',
+              message: 'The selected file is not a valid image. The allowed extensions are: jpeg, jpg, png, gif.'
+            }
+          }
+        },
+        homeAddress: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a home address'
+            }
+          }
+        },
+        socialLinks: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter social links'
+            },
+            regexp: {
+              regexp: /^((https?:\/\/)?([\w]+\.)+[\w]{2,})(\/[\w-]*)*\/?([\w-.\/?%&=]*)?((#[\w-]*)?)?(,((https?:\/\/)?([\w]+\.)+[\w]{2,})(\/[\w-]*)*\/?([\w-.\/?%&=]*)?((#[\w-]*)?)?)*$/,
+              message: 'Please enter valid URLs separated by commas'
+            }
+          }
+        },
+        userContact: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a contact number'
+            },
+            phone: {
+              country: 'US',
+              message: 'The value is not a valid phone number'
+            }
           }
         }
       },
-      formValidationConfirmPass: {
-        validators: {
-          notEmpty: {
-            message: 'Please confirm the password'
-          },
-          identical: {
-            compare: function() {
-              return document.getElementById('formValidationPass').value;
-            },
-            message: 'The password and its confirm are not the same'
+      plugins: {
+        trigger: new FormValidation.plugins.Trigger(),
+        bootstrap5: new FormValidation.plugins.Bootstrap5({
+          eleValidClass: '',
+          rowSelector: function (field, ele) {
+            return '.col-sm-6, .col-sm-12';
           }
-        }
+        }),
+        submitButton: new FormValidation.plugins.SubmitButton(),
+        autoFocus: new FormValidation.plugins.AutoFocus()
       }
-    },
-    plugins: {
-      trigger: new FormValidation.plugins.Trigger(),
-      bootstrap5: new FormValidation.plugins.Bootstrap5({
-        // Use this for enabling/changing valid/invalid class
-        eleValidClass: '',
-        rowSelector: function (field, ele) {
-          // field is the field name & ele is the field element
-          return '.col-sm-6';
-        }
-      }),
-      submitButton: new FormValidation.plugins.SubmitButton(),
-      // Submit the form when all fields are valid
-      // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-      autoFocus: new FormValidation.plugins.AutoFocus()
-    }
-  });
+    });
+  };
+
+  // Call the function for addNewUserForm
+  handleFormValidation('addNewUserForm');
+
+  // Call the function for editUserForm
+  handleFormValidation('editUserForm');
 })();

@@ -470,13 +470,47 @@ $(function () {
       });
     });
   }
+
   // Add New User Form Validation
   const fv = FormValidation.formValidation(addNewUserForm, {
     fields: {
+      username: {
+        validators: {
+          notEmpty: {
+            message: 'Please enter a username'
+          }
+        }
+      },
       userFullname: {
         validators: {
           notEmpty: {
-            message: 'Please enter fullname '
+            message: 'Please enter your full name'
+          }
+        }
+      },
+      password: {
+        validators: {
+          notEmpty: {
+            message: 'Please enter a password'
+          },
+          identical: {
+            compare: function() {
+              return document.getElementById('add-user-confirm-password').value;
+            },
+            message: 'Passwords do not match'
+          }
+        }
+      },
+      confirmPassword: {
+        validators: {
+          notEmpty: {
+            message: 'Please confirm your password'
+          },
+          identical: {
+            compare: function() {
+              return document.getElementById('add-user-password').value;
+            },
+            message: 'Passwords do not match'
           }
         }
       },
@@ -489,21 +523,59 @@ $(function () {
             message: 'The value is not a valid email address'
           }
         }
+      },
+      clsuIdImage: {
+        validators: {
+          notEmpty: {
+            message: 'Please upload a CLSU ID image'
+          },
+          file: {
+            extension: 'jpeg,jpg,png,gif',
+            type: 'image/jpeg,image/png,image/gif',
+            message: 'The selected file is not a valid image. The allowed extensions are: jpeg, jpg, png, gif.'
+          }
+        }
+      },
+      avatarImage: {
+        validators: {
+          notEmpty: {
+            message: 'Please upload an avatar image'
+          },
+          file: {
+            extension: 'jpeg,jpg,png,gif',
+            type: 'image/jpeg,image/png,image/gif',
+            message: 'The selected file is not a valid image. The allowed extensions are: jpeg, jpg, png, gif.'
+          }
+        }
+      },
+      userContact: {
+        validators: {
+          notEmpty: {
+            message: 'Please enter a contact number'
+          },
+          phone: {
+            country: 'US',
+            message: 'The value is not a valid phone number'
+          }
+        }
+      },
+      socialLinks: {
+        validators: {
+          uri: {
+            message: 'The value is not a valid URL'
+          }
+        }
       }
     },
     plugins: {
       trigger: new FormValidation.plugins.Trigger(),
       bootstrap5: new FormValidation.plugins.Bootstrap5({
-        // Use this for enabling/changing valid/invalid class
         eleValidClass: '',
         rowSelector: function (field, ele) {
-          // field is the field name & ele is the field element
           return '.col-sm-6, .col-sm-12';
         }
       }),
       submitButton: new FormValidation.plugins.SubmitButton(),
-      // Submit the form when all fields are valid
-      // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
       autoFocus: new FormValidation.plugins.AutoFocus()
     }
   });
