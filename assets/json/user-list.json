@@ -1,1 +1,15 @@
-{"data":[["13","Nyawiii","student","PatriciaBagarra@CLSU.edu.ph","09667495688"],["14","Pedroro","staff","PedroRoxas@CLSU.edu.ph",""],["51","RichardK","faculty","RichardKlaus@hotmail.com","09667495688"],["56","ChrisL","staff","Chris.Lowe@alcoa.com","09667495688"]]}
+{
+  "data": [
+    {
+      "id": 1,
+      "full_name": "Galen Slixby",
+      "role": "Admin",
+      "username": "gslixby0",
+      "email": "gslixby0@abc.net.au",
+      "current_plan": "Enterprise",
+      "billing": "Manual - Credit Card",
+      "status": 3,
+      "avatar": ""
+    }
+  ]
+}

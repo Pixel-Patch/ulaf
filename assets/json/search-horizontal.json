@@ -3,732 +3,732 @@
     {
       "name": "Dashboard Analytics",
       "icon": "ti-smart-home",
-      "url": "index.html"
+      "url": "index.php"
     },
     {
       "name": "Dashboard CRM",
       "icon": "ti-smart-home",
-      "url": "dashboards-crm.html"
+      "url": "dashboards-crm.php"
     },
     {
       "name": "Layout Without menu",
       "icon": "ti-layout-sidebar",
-      "url": "layouts-without-menu.html"
+      "url": "layouts-without-menu.php"
     },
     {
       "name": "Layout Fluid",
       "icon": "ti-layout-sidebar",
-      "url": "layouts-fluid.html"
+      "url": "layouts-fluid.php"
     },
     {
       "name": "Layout Container",
       "icon": "ti-layout-sidebar",
-      "url": "layouts-container.html"
+      "url": "layouts-container.php"
     },
     {
       "name": "Layout Blank",
       "icon": "ti-layout-sidebar",
-      "url": "layouts-blank.html"
+      "url": "layouts-blank.php"
     },
     {
       "name": "Email",
       "icon": "ti-mail",
-      "url": "app-email.html"
+      "url": "app-email.php"
     },
     {
       "name": "Chat",
       "icon": "ti-messages",
-      "url": "app-chat.html"
+      "url": "app-chat.php"
     },
     {
       "name": "Calendar",
       "icon": "ti-calendar",
-      "url": "app-calendar.html"
+      "url": "app-calendar.php"
     },
     {
       "name": "Kanban",
       "icon": "ti-layout-kanban",
-      "url": "app-kanban.html"
+      "url": "app-kanban.php"
     },
     {
       "name": "eCommerce Dashboard",
       "icon": "ti-smart-home",
-      "url": "app-ecommerce-dashboard.html"
+      "url": "app-ecommerce-dashboard.php"
     },
     {
       "name": "eCommerce - Product",
       "icon": "ti-building-factory-2",
-      "url": "app-ecommerce-product-list.html"
+      "url": "app-ecommerce-product-list.php"
     },
     {
       "name": "eCommerce - Product List",
       "icon": "ti-list-details",
-      "url": "app-ecommerce-product-list.html"
+      "url": "app-ecommerce-product-list.php"
     },
     {
       "name": "eCommerce - Add Product",
       "icon": "ti-plus",
-      "url": "app-ecommerce-product-add.html"
+      "url": "app-ecommerce-product-add.php"
     },
     {
       "name": "eCommerce - Category List",
       "icon": "ti-list",
-      "url": "app-ecommerce-category-list.html"
+      "url": "app-ecommerce-category-list.php"
     },
     {
       "name": "eCommerce - Order List",
       "icon": "ti-list",
-      "url": "app-ecommerce-order-list.html"
+      "url": "app-ecommerce-order-list.php"
     },
     {
       "name": "eCommerce - Orders Details",
       "icon": "ti-list-check",
-      "url": "app-ecommerce-order-details.html"
+      "url": "app-ecommerce-order-details.php"
     },
     {
       "name": "eCommerce - Customers",
       "icon": "ti-user",
-      "url": "app-ecommerce-customer-all.html"
+      "url": "app-ecommerce-customer-all.php"
     },
     {
       "name": "eCommerce - Customers Overview",
       "icon": "ti-list-details",
-      "url": "app-ecommerce-customer-details-overview.html"
+      "url": "app-ecommerce-customer-details-overview.php"
     },
     {
       "name": "eCommerce - Customers Security",
       "icon": "ti-home-shield",
-      "url": "app-ecommerce-customer-details-security.html"
+      "url": "app-ecommerce-customer-details-security.php"
     },
     {
       "name": "eCommerce - Customers Address and Billing",
       "icon": "ti-map-pin",
-      "url": "app-ecommerce-customer-details-billing.html"
+      "url": "app-ecommerce-customer-details-billing.php"
     },
     {
       "name": "eCommerce - Customers Notifications",
       "icon": "ti-bell",
-      "url": "app-ecommerce-customer-details-notifications.html"
+      "url": "app-ecommerce-customer-details-notifications.php"
     },
     {
       "name": "eCommerce - Manage Reviews",
       "icon": "ti-quote",
-      "url": "app-ecommerce-manage-reviews.html"
+      "url": "app-ecommerce-manage-reviews.php"
     },
     {
       "name": "eCommerce - Referrals",
       "icon": "ti-building-factory-2",
-      "url": "app-ecommerce-referral.html"
+      "url": "app-ecommerce-referral.php"
     },
     {
       "name": "eCommerce - Settings Store Details",
       "icon": "ti-building-store",
-      "url": "app-ecommerce-settings-detail.html"
+      "url": "app-ecommerce-settings-detail.php"
     },
     {
       "name": "eCommerce - Settings Store Payments",
       "icon": "ti-currency-dollar",
-      "url": "app-ecommerce-settings-payments.html"
+      "url": "app-ecommerce-settings-payments.php"
     },
     {
       "name": "eCommerce - Settings Store Checkout",
       "icon": "ti-shopping-cart",
-      "url": "app-ecommerce-settings-checkout.html"
+      "url": "app-ecommerce-settings-checkout.php"
     },
     {
       "name": "eCommerce - Settings Shipping & Delivery",
       "icon": "ti-truck",
-      "url": "app-ecommerce-settings-shipping.html"
+      "url": "app-ecommerce-settings-shipping.php"
     },
     {
       "name": "eCommerce - Settings Locations",
       "icon": "ti-map-pin",
-      "url": "app-ecommerce-settings-locations.html"
+      "url": "app-ecommerce-settings-locations.php"
     },
     {
       "name": "eCommerce - Settings Notifications",
       "icon": "ti-bell-ringing",
-      "url": "app-ecommerce-settings-notifications.html"
+      "url": "app-ecommerce-settings-notifications.php"
     },
     {
       "name": "Academy - Dashboard",
       "icon": "ti-book",
-      "url": "app-academy-dashboard.html"
+      "url": "app-academy-dashboard.php"
     },
     {
       "name": "Academy - My Course",
       "icon": "ti-list",
-      "url": "app-academy-course.html"
+      "url": "app-academy-course.php"
     },
     {
       "name": "Academy - Course Details",
       "icon": "ti-list",
-      "url": "app-academy-course-details.html"
+      "url": "app-academy-course-details.php"
     },
     {
       "name": "User List",
       "icon": "ti-list-numbers",
-      "url": "app-user-list.html"
+      "url": "app-user-list.php"
     },
     {
       "name": "User View - Account",
       "icon": "ti-user",
-      "url": "app-user-view-account.html"
+      "url": "app-user-view-account.php"
     },
     {
       "name": "User View - Security",
       "icon": "ti-shield-chevron",
-      "url": "app-user-view-security.html"
+      "url": "app-user-view-security.php"
     },
     {
       "name": "User View - Billing & Plans",
       "icon": "ti-file-text",
-      "url": "app-user-view-billing.html"
+      "url": "app-user-view-billing.php"
     },
     {
       "name": "User View - Notifications",
       "icon": "ti-notification",
-      "url": "app-user-view-notifications.html"
+      "url": "app-user-view-notifications.php"
     },
     {
       "name": "User View - Connections",
       "icon": "ti-brand-google",
-      "url": "app-user-view-connections.html"
+      "url": "app-user-view-connections.php"
     },
     {
       "name": "Roles",
       "icon": "ti-shield-checkered",
-      "url": "app-access-roles.html"
+      "url": "app-access-roles.php"
     },
     {
       "name": "Permission",
       "icon": "ti-ban",
-      "url": "app-access-permission.html"
+      "url": "app-access-permission.php"
     },
     {
       "name": "Logistics Dashboard",
       "icon": "ti-truck",
-      "url": "app-logistics-dashboard.html"
+      "url": "app-logistics-dashboard.php"
     },
     {
       "name": "Logistics Fleet",
       "icon": "ti-car",
-      "url": "app-logistics-fleet.html"
+      "url": "app-logistics-fleet.php"
     },
     {
       "name": "Invoice List",
       "icon": "ti-list-numbers",
-      "url": "app-invoice-list.html"
+      "url": "app-invoice-list.php"
     },
     {
       "name": "Invoice Preview",
       "icon": "ti-file-text",
-      "url": "app-invoice-preview.html"
+      "url": "app-invoice-preview.php"
     },
     {
       "name": "Invoice Edit",
       "icon": "ti-pencil",
-      "url": "app-invoice-edit.html"
+      "url": "app-invoice-edit.php"
     },
     {
       "name": "Invoice Add",
       "icon": "ti-user-plus",
-      "url": "app-invoice-add.html"
+      "url": "app-invoice-add.php"
     },
     {
       "name": "User Profile",
       "icon": "ti-user-circle",
-      "url": "pages-profile-user.html"
+      "url": "pages-profile-user.php"
     },
     {
       "name": "User Profile - Teams",
       "icon": "ti-users",
-      "url": "pages-profile-teams.html"
+      "url": "pages-profile-teams.php"
     },
     {
       "name": "User Profile - Projects",
       "icon": "ti-layout-grid",
-      "url": "pages-profile-projects.html"
+      "url": "pages-profile-projects.php"
     },
     {
       "name": "User Profile - Connections",
       "icon": "ti-link",
-      "url": "pages-profile-connections.html"
+      "url": "pages-profile-connections.php"
     },
     {
       "name": "Account Settings - Account",
       "icon": "ti-user",
-      "url": "pages-account-settings-account.html"
+      "url": "pages-account-settings-account.php"
     },
     {
       "name": "Account Settings - Security",
       "icon": "ti-shield-chevron",
-      "url": "pages-account-settings-security.html"
+      "url": "pages-account-settings-security.php"
     },
     {
       "name": "Account Settings - Billing & Plans",
       "icon": "ti-file-text",
-      "url": "pages-account-settings-billing.html"
+      "url": "pages-account-settings-billing.php"
     },
     {
       "name": "Account Settings - Notifications",
       "icon": "ti-notification",
-      "url": "pages-account-settings-notifications.html"
+      "url": "pages-account-settings-notifications.php"
     },
     {
       "name": "Account Settings - Connections",
       "icon": "ti-link",
-      "url": "pages-account-settings-connections.html"
+      "url": "pages-account-settings-connections.php"
     },
     {
       "name": "FAQ",
       "icon": "ti-help",
-      "url": "pages-faq.html"
+      "url": "pages-faq.php"
     },
     {
       "name": "Pricing",
       "icon": "ti-diamond",
-      "url": "pages-pricing.html"
+      "url": "pages-pricing.php"
     },
     {
       "name": "Error",
       "icon": "ti-alert-circle",
-      "url": "pages-misc-error.html"
+      "url": "pages-misc-error.php"
     },
     {
       "name": "Under Maintenance",
       "icon": "ti-barrier-block",
-      "url": "pages-misc-under-maintenance.html"
+      "url": "pages-misc-under-maintenance.php"
     },
     {
       "name": "Coming Soon",
       "icon": "ti-clock",
-      "url": "pages-misc-comingsoon.html"
+      "url": "pages-misc-comingsoon.php"
     },
     {
       "name": "Not Authorized",
       "icon": "ti-user-x",
-      "url": "pages-misc-not-authorized.html"
+      "url": "pages-misc-not-authorized.php"
     },
     {
       "name": "Login Basic",
       "icon": "ti-login",
-      "url": "auth-login-basic.html"
+      "url": "auth-login-basic.php"
     },
     {
       "name": "Login Cover",
       "icon": "ti-login",
-      "url": "auth-login-cover.html"
+      "url": "auth-login-cover.php"
     },
     {
       "name": "Register Basic",
       "icon": "ti-user-plus",
-      "url": "auth-register-basic.html"
+      "url": "auth-register-basic.php"
     },
     {
       "name": "Register Cover",
       "icon": "ti-user-plus",
-      "url": "auth-register-cover.html"
+      "url": "auth-register-cover.php"
     },
     {
       "name": "Register Multi-steps",
       "icon": "ti-user-plus",
-      "url": "auth-register-multisteps.html"
+      "url": "auth-register-multisteps.php"
     },
     {
       "name": "Verify Email Basic",
       "icon": "ti-mail",
-      "url": "auth-verify-email-basic.html"
+      "url": "auth-verify-email-basic.php"
     },
     {
       "name": "Verify Email Cover",
       "icon": "ti-mail",
-      "url": "auth-verify-email-cover.html"
+      "url": "auth-verify-email-cover.php"
     },
     {
       "name": "Reset Password Basic",
       "icon": "ti-help",
-      "url": "auth-reset-password-basic.html"
+      "url": "auth-reset-password-basic.php"
     },
     {
       "name": "Reset Password Cover",
       "icon": "ti-help",
-      "url": "auth-reset-password-cover.html"
+      "url": "auth-reset-password-cover.php"
     },
     {
       "name": "Forgot Password Basic",
       "icon": "ti-question-mark",
-      "url": "auth-forgot-password-basic.html"
+      "url": "auth-forgot-password-basic.php"
     },
     {
       "name": "Forgot Password Cover",
       "icon": "ti-question-mark",
-      "url": "auth-forgot-password-cover.html"
+      "url": "auth-forgot-password-cover.php"
     },
     {
       "name": "Two Steps Verification Basic",
       "icon": "ti-question-mark",
-      "url": "auth-two-steps-basic.html"
+      "url": "auth-two-steps-basic.php"
     },
     {
       "name": "Two Steps Verification Cover",
       "icon": "ti-question-mark",
-      "url": "auth-two-steps-cover.html"
+      "url": "auth-two-steps-cover.php"
     },
     {
       "name": "Help Center Front",
       "icon": "ti-progress-help",
-      "url": "../front-pages/help-center-landing.html"
+      "url": "../front-pages/help-center-landing.php"
     },
     {
       "name": "Landing Front",
       "icon": "ti-files",
-      "url": "../front-pages/landing-page.html"
+      "url": "../front-pages/landing-page.php"
     },
     {
       "name": "Pricing Front",
       "icon": "ti-currency-dollar",
-      "url": "../front-pages/pricing-page.html"
+      "url": "../front-pages/pricing-page.php"
     },
     {
       "name": "Checkout Front",
       "icon": "ti-check",
-      "url": "../front-pages/checkout-page.html"
+      "url": "../front-pages/checkout-page.php"
     },
     {
       "name": "Payment Front",
       "icon": "ti-credit-card",
-      "url": "../front-pages/payment-page.html"
+      "url": "../front-pages/payment-page.php"
     },
     {
       "name": "Modal Examples",
       "icon": "ti-square",
-      "url": "modal-examples.html"
+      "url": "modal-examples.php"
     },
     {
       "name": "Checkout Wizard",
       "icon": "ti-shopping-cart",
-      "url": "wizard-ex-checkout.html"
+      "url": "wizard-ex-checkout.php"
     },
     {
       "name": "Property Listing Wizard",
       "icon": "ti-building-cottage",
-      "url": "wizard-ex-property-listing.html"
+      "url": "wizard-ex-property-listing.php"
     },
     {
       "name": "Create Deal Wizard",
       "icon": "ti-gift",
-      "url": "wizard-ex-create-deal.html"
+      "url": "wizard-ex-create-deal.php"
     },
     {
       "name": "Tabler",
       "icon": "ti-pencil",
-      "url": "icons-tabler.html"
+      "url": "icons-tabler.php"
     },
     {
       "name": "Font Awesome",
       "icon": "ti-typography",
-      "url": "icons-font-awesome.html"
+      "url": "icons-font-awesome.php"
     },
     {
       "name": "Basic Cards",
       "icon": "ti-credit-card",
-      "url": "cards-basic.html"
+      "url": "cards-basic.php"
     },
     {
       "name": "Advance Cards",
       "icon": "ti-id",
-      "url": "cards-advance.html"
+      "url": "cards-advance.php"
     },
     {
       "name": "Statistics Cards",
       "icon": "ti-chart-bar",
-      "url": "cards-statistics.html"
+      "url": "cards-statistics.php"
     },
     {
       "name": "Analytics Cards",
       "icon": "ti-chart-bar",
-      "url": "cards-analytics.html"
+      "url": "cards-analytics.php"
     },
     {
       "name": "Actions Cards",
       "icon": "ti-mouse-2",
-      "url": "cards-actions.html"
+      "url": "cards-actions.php"
     },
     {
       "name": "Accordion",
       "icon": "ti-arrows-maximize",
-      "url": "ui-accordion.html"
+      "url": "ui-accordion.php"
     },
     {
       "name": "Alerts",
       "icon": "ti-alert-triangle",
-      "url": "ui-alerts.html"
+      "url": "ui-alerts.php"
     },
     {
       "name": "Badges",
       "icon": "ti-badge",
-      "url": "ui-badges.html"
+      "url": "ui-badges.php"
     },
     {
       "name": "Buttons",
       "icon": "ti-circle-plus",
-      "url": "ui-buttons.html"
+      "url": "ui-buttons.php"
     },
     {
       "name": "Carousel",
       "icon": "ti-photo",
-      "url": "ui-carousel.html"
+      "url": "ui-carousel.php"
     },
     {
       "name": "Collapse",
       "icon": "ti-arrows-minimize",
-      "url": "ui-collapse.html"
+      "url": "ui-collapse.php"
     },
     {
       "name": "Dropdowns",
       "icon": "ti-arrow-autofit-height",
-      "url": "ui-dropdowns.html"
+      "url": "ui-dropdowns.php"
     },
     {
       "name": "Footer",
       "icon": "ti-layout-bottombar",
-      "url": "ui-footer.html"
+      "url": "ui-footer.php"
     },
     {
       "name": "List Groups",
       "icon": "ti-list-numbers",
-      "url": "ui-list-groups.html"
+      "url": "ui-list-groups.php"
     },
     {
       "name": "Modals",
       "icon": "ti-layout",
-      "url": "ui-modals.html"
+      "url": "ui-modals.php"
     },
     {
       "name": "Navbar",
       "icon": "ti-layout-navbar",
-      "url": "ui-navbar.html"
+      "url": "ui-navbar.php"
     },
     {
       "name": "Offcanvas",
       "icon": "ti-layout",
-      "url": "ui-offcanvas.html"
+      "url": "ui-offcanvas.php"
     },
     {
       "name": "Pagination & Breadcrumbs",
       "icon": "ti-chevrons-right",
-      "url": "ui-pagination-breadcrumbs.html"
+      "url": "ui-pagination-breadcrumbs.php"
     },
     {
       "name": "Progress",
       "icon": "ti-adjustments-horizontal",
-      "url": "ui-progress.html"
+      "url": "ui-progress.php"
     },
     {
       "name": "Spinners",
       "icon": "ti-loader-2",
-      "url": "ui-spinners.html"
+      "url": "ui-spinners.php"
     },
     {
       "name": "Tabs & Pills",
       "icon": "ti-server-2",
-      "url": "ui-tabs-pills.html"
+      "url": "ui-tabs-pills.php"
     },
     {
       "name": "Toasts",
       "icon": "ti-box-model",
-      "url": "ui-toasts.html"
+      "url": "ui-toasts.php"
     },
     {
       "name": "Tooltips & Popovers",
       "icon": "ti-message-2",
-      "url": "ui-tooltips-popovers.html"
+      "url": "ui-tooltips-popovers.php"
     },
     {
       "name": "Typography",
       "icon": "ti-typography",
-      "url": "ui-typography.html"
+      "url": "ui-typography.php"
     },
     {
       "name": "Avatar",
       "icon": "ti-user-circle",
-      "url": "extended-ui-avatar.html"
+      "url": "extended-ui-avatar.php"
     },
     {
       "name": "BlockUI",
       "icon": "ti-window-maximize",
-      "url": "extended-ui-blockui.html"
+      "url": "extended-ui-blockui.php"
     },
     {
       "name": "Drag & Drop",
       "icon": "ti-drag-drop",
-      "url": "extended-ui-drag-and-drop.html"
+      "url": "extended-ui-drag-and-drop.php"
     },
     {
       "name": "Media Player",
       "icon": "ti-music",
-      "url": "extended-ui-media-player.html"
+      "url": "extended-ui-media-player.php"
     },
     {
       "name": "Perfect Scrollbar",
       "icon": "ti-arrows-move-vertical",
-      "url": "extended-ui-perfect-scrollbar.html"
+      "url": "extended-ui-perfect-scrollbar.php"
     },
     {
       "name": "Star Ratings",
       "icon": "ti-star",
-      "url": "extended-ui-star-ratings.html"
+      "url": "extended-ui-star-ratings.php"
     },
     {
       "name": "SweetAlert2",
       "icon": "ti-alert-triangle",
-      "url": "extended-ui-sweetalert2.html"
+      "url": "extended-ui-sweetalert2.php"
     },
     {
       "name": "Text Divider",
       "icon": "ti-separator-horizontal",
-      "url": "extended-ui-text-divider.html"
+      "url": "extended-ui-text-divider.php"
     },
     {
       "name": "Timeline Basic",
       "icon": "ti-arrows-horizontal",
-      "url": "extended-ui-timeline-basic.html"
+      "url": "extended-ui-timeline-basic.php"
     },
     {
       "name": "Timeline Fullscreen",
       "icon": "ti-arrows-horizontal",
-      "url": "extended-ui-timeline-fullscreen.html"
+      "url": "extended-ui-timeline-fullscreen.php"
     },
     {
       "name": "Tour",
       "icon": "ti-brand-telegram",
-      "url": "extended-ui-tour.html"
+      "url": "extended-ui-tour.php"
     },
     {
       "name": "Treeview",
       "icon": "ti-git-fork rotate-180",
-      "url": "extended-ui-treeview.html"
+      "url": "extended-ui-treeview.php"
     },
     {
       "name": "Miscellaneous",
       "icon": "ti-sitemap",
-      "url": "extended-ui-misc.html"
+      "url": "extended-ui-misc.php"
     },
     {
       "name": "Basic Inputs",
       "icon": "ti-cursor-text",
-      "url": "forms-basic-inputs.html"
+      "url": "forms-basic-inputs.php"
     },
     {
       "name": "Input groups",
       "icon": "ti-arrow-autofit-content",
-      "url": "forms-input-groups.html"
+      "url": "forms-input-groups.php"
     },
     {
       "name": "Custom Options",
       "icon": "ti-circle",
-      "url": "forms-custom-options.html"
+      "url": "forms-custom-options.php"
     },
     {
       "name": "Editors",
       "icon": "ti-text-resize",
-      "url": "forms-editors.html"
+      "url": "forms-editors.php"
     },
     {
       "name": "File Upload",
       "icon": "ti-file-upload",
-      "url": "forms-file-upload.html"
+      "url": "forms-file-upload.php"
     },
     {
       "name": "Pickers",
       "icon": "ti-edit-circle",
-      "url": "forms-pickers.html"
+      "url": "forms-pickers.php"
     },
     {
       "name": "Select & Tags",
       "icon": "ti-select",
-      "url": "forms-selects.html"
+      "url": "forms-selects.php"
     },
     {
       "name": "Sliders",
       "icon": "ti-adjustments-alt rotate-90",
-      "url": "forms-sliders.html"
+      "url": "forms-sliders.php"
     },
     {
       "name": "Switches",
       "icon": "ti-toggle-right",
-      "url": "forms-switches.html"
+      "url": "forms-switches.php"
     },
     {
       "name": "Extras",
       "icon": "ti-circle-plus",
-      "url": "forms-extras.html"
+      "url": "forms-extras.php"
     },
     {
       "name": "Vertical Form",
       "icon": "ti-file-text",
-      "url": "form-layouts-vertical.html"
+      "url": "form-layouts-vertical.php"
     },
     {
       "name": "Horizontal Form",
       "icon": "ti-file-text",
-      "url": "form-layouts-horizontal.html"
+      "url": "form-layouts-horizontal.php"
     },
     {
       "name": "Sticky Actions",
       "icon": "ti-file-text",
-      "url": "form-layouts-sticky.html"
+      "url": "form-layouts-sticky.php"
     },
     {
       "name": "Numbered Wizard",
       "icon": "ti-text-wrap-disabled",
-      "url": "form-wizard-numbered.html"
+      "url": "form-wizard-numbered.php"
     },
     {
       "name": "Icons Wizard",
       "icon": "ti-text-wrap-disabled",
-      "url": "form-wizard-icons.html"
+      "url": "form-wizard-icons.php"
     },
     {
       "name": "Form Validation",
       "icon": "ti-checkbox",
-      "url": "form-validation.html"
+      "url": "form-validation.php"
     },
     {
       "name": "Tables",
       "icon": "ti-table",
-      "url": "tables-basic.html"
+      "url": "tables-basic.php"
     },
     {
       "name": "Datatable Basic",
       "icon": "ti-layout-grid",
-      "url": "tables-datatables-basic.html"
+      "url": "tables-datatables-basic.php"
     },
     {
       "name": "Datatable Advanced",
       "icon": "ti-layout-grid",
-      "url": "tables-datatables-advanced.html"
+      "url": "tables-datatables-advanced.php"
     },
     {
       "name": "Datatable Extensions",
       "icon": "ti-layout-grid",
-      "url": "tables-datatables-extensions.html"
+      "url": "tables-datatables-extensions.php"
     },
     {
       "name": "Apex Charts",
       "icon": "ti-chart-line",
-      "url": "charts-apex.html"
+      "url": "charts-apex.php"
     },
     {
       "name": "ChartJS",
       "icon": "ti-chart-bar",
-      "url": "charts-chartjs.html"
+      "url": "charts-chartjs.php"
     },
     {
       "name": "Leaflet Maps",
       "icon": "ti-map-pin",
-      "url": "maps-leaflet.html"
+      "url": "maps-leaflet.php"
     }
   ],
   "files": [
@@ -744,63 +744,63 @@
       "subtitle": "By William Budd",
       "src": "img/icons/misc/search-jpg.png",
       "meta": "35kb",
-      "url": "app-file-manager.html"
+      "url": "app-file-manager.php"
     },
     {
       "name": "Class Notes",
       "subtitle": "By Laurel Lance",
       "src": "img/icons/misc/search-doc.png",
       "meta": "153kb",
-      "url": "app-file-manager.html"
+      "url": "app-file-manager.php"
     },
     {
       "name": "Receipt",
       "subtitle": "By Donnie Darko",
       "src": "img/icons/misc/search-jpg.png",
       "meta": "25kb",
-      "url": "app-file-manager.html"
+      "url": "app-file-manager.php"
     },
     {
       "name": "Social Guide",
       "subtitle": "By Ryan Middleton",
       "src": "img/icons/misc/search-doc.png",
       "meta": "39kb",
-      "url": "app-file-manager.html"
+      "url": "app-file-manager.php"
     },
     {
       "name": "Expenses",
       "subtitle": "By Slade Wilson",
       "src": "img/icons/misc/search-xls.png",
       "meta": "15kb",
-      "url": "app-file-manager.html"
+      "url": "app-file-manager.php"
     },
     {
       "name": "Documentation",
       "subtitle": "By Walter White",
       "src": "img/icons/misc/search-doc.png",
       "meta": "200kb",
-      "url": "app-file-manager.html"
+      "url": "app-file-manager.php"
     },
     {
       "name": "Avatar",
       "subtitle": "By Ross Geller",
       "src": "img/icons/misc/search-jpg.png",
       "meta": "100kb",
-      "url": "app-file-manager.html"
+      "url": "app-file-manager.php"
     },
     {
       "name": "Data",
       "subtitle": "By Erik Foreman",
       "src": "img/icons/misc/search-xls.png",
       "meta": "5kb",
-      "url": "app-file-manager.html"
+      "url": "app-file-manager.php"
     },
     {
       "name": "Gardening Guide",
       "subtitle": "By Jerry Seinfeld",
       "src": "img/icons/misc/search-doc.png",
       "meta": "25kb",
-      "url": "app-file-manager.html"
+      "url": "app-file-manager.php"
     }
   ],
   "members": [
@@ -808,43 +808,43 @@
       "name": "John Doe",
       "subtitle": "Admin",
       "src": "img/avatars/1.png",
-      "url": "app-user-view-account.html"
+      "url": "app-user-view-account.php"
     },
     {
       "name": "Micheal Clarke",
       "subtitle": "Customer",
       "src": "img/avatars/2.png",
-      "url": "app-user-view-account.html"
+      "url": "app-user-view-account.php"
     },
     {
       "name": "Melina Gibson",
       "subtitle": "Staff",
       "src": "img/avatars/5.png",
-      "url": "app-user-view-account.html"
+      "url": "app-user-view-account.php"
     },
     {
       "name": "Anna Strong",
       "subtitle": "Staff",
       "src": "img/avatars/7.png",
-      "url": "app-user-view-account.html"
+      "url": "app-user-view-account.php"
     },
     {
       "name": "Stephanie Gould",
       "subtitle": "Customer",
       "src": "img/avatars/3.png",
-      "url": "app-user-view-account.html"
+      "url": "app-user-view-account.php"
     },
     {
       "name": "David Budd",
       "subtitle": "Admin",
       "src": "img/avatars/10.png",
-      "url": "app-user-view-account.html"
+      "url": "app-user-view-account.php"
     },
     {
       "name": "Mark Shepiro",
       "subtitle": "Admin",
       "src": "img/avatars/12.png",
-      "url": "app-user-view-account.html"
+      "url": "app-user-view-account.php"
     }
   ]
 }

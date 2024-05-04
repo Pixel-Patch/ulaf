@@ -1,0 +1,86 @@
+{
+    "data": [
+        {
+            "role": "Admin",
+            "username": "admin",
+            "password": "password1",
+            "user_id": "24-0001",
+            "fullname": "John Doe",
+            "user_type": "Staff",
+            "email": "johndoe@example.com",
+            "avatar_image": "avatar1.jpg",
+            "college": "CLSU",
+            "course": null,
+            "clsu_id_image": "CLSU_ID_1.jpg",
+            "home_address": "123 Main St",
+            "clsu_address": "CLSU Address 1",
+            "contact": "1234567890",
+            "social_links": {
+                "facebook": "https:\/\/www.facebook.com\/johndoe",
+                "linkedin": "https:\/\/www.linkedin.com\/in\/johndoe"
+            }
+        },
+        {
+            "role": "Admin Staff",
+            "username": "adminstaff",
+            "password": "password2",
+            "user_id": "24-0002",
+            "fullname": "Jane Smith",
+            "user_type": "Faculty",
+            "email": "janesmith@example.com",
+            "avatar_image": "avatar2.jpg",
+            "college": "CLSU",
+            "course": "Computer Science",
+            "clsu_id_image": "CLSU_ID_2.jpg",
+            "home_address": "456 Elm St",
+            "clsu_address": "CLSU Address 2",
+            "contact": "0987654321",
+            "social_links": {
+                "twitter": "https:\/\/twitter.com\/janesmith",
+                "linkedin": "https:\/\/www.linkedin.com\/in\/janesmith",
+                "instagram": "https:\/\/www.instagram.com\/janesmith"
+            }
+        },
+        {
+            "role": "Admin",
+            "username": "admin1",
+            "password": "password3",
+            "user_id": "24-0003",
+            "fullname": "Bob Johnson",
+            "user_type": "Student",
+            "email": "bobjohnson@example.com",
+            "avatar_image": "avatar3.jpg",
+            "college": "CLSU",
+            "course": "Business Administration",
+            "clsu_id_image": "CLSU_ID_3.jpg",
+            "home_address": "789 Oak St",
+            "clsu_address": "CLSU Address 3",
+            "contact": "1112223333",
+            "social_links": {
+                "linkedin": "https:\/\/www.linkedin.com\/in\/bobjohnson",
+                "facebook": "https:\/\/www.facebook.com\/bobjohnson"
+            }
+        },
+        {
+            "role": "Admin Staff",
+            "username": "adminstaff2",
+            "password": "password4",
+            "user_id": "24-0004",
+            "fullname": "Alice Williams",
+            "user_type": "Staff",
+            "email": "alicewilliams@example.com",
+            "avatar_image": "avatar4.jpg",
+            "college": "CLSU",
+            "course": null,
+            "clsu_id_image": "CLSU_ID_4.jpg",
+            "home_address": "321 Pine St",
+            "clsu_address": "CLSU Address 4",
+            "contact": "4445556666",
+            "social_links": {
+                "instagram": "https:\/\/www.instagram.com\/alicewilliams",
+                "twitter": "https:\/\/twitter.com\/alicewilliams",
+                "linkedin": "https:\/\/www.linkedin.com\/in\/alicewilliams"
+            }
+        }
+    ]
+}

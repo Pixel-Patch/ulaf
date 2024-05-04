@@ -69,32 +69,73 @@ document.addEventListener('DOMContentLoaded', function (e) {
         'Material Design',
         'NodeJS'
       ];
-
+    
     const fv = FormValidation.formValidation(formValidationExamples, {
       fields: {
-        formValidationName: {
+
+       
+        userType: {
           validators: {
             notEmpty: {
-              message: 'Please enter your name'
-            },
-            stringLength: {
-              min: 6,
-              max: 30,
-              message: 'The name must be more than 6 and less than 30 characters long'
-            },
-            regexp: {
-              regexp: /^[a-zA-Z0-9 ]+$/,
-              message: 'The name can only consist of alphabetical, number and space'
+              message: 'The user type is required'
             }
           }
         },
-        formValidationEmail: {
+       formValidationUserID: {
+  validators: {
+    notEmpty: {
+      message: 'The ID is required' 
+    },
+    stringLength: {
+      min: 7,
+      max: 7,
+      message: 'The ID must be 7 characters long',
+      enabled: function() {
+        const selectedUserType = userTypeSelect.val();
+        return selectedUserType === 'Student';
+      }
+    },
+    regexp: {
+      regexp: /^[0-9]{2}-[0-9]{4}$/,
+      message: 'The ID must be in the format XX-XXXX (e.g., 12-3456)',
+      enabled: function() {
+        const selectedUserType = userTypeSelect.val();
+        return selectedUserType === 'Student';
+      }
+    }
+  }
+},
+
+        
+        
+        formValidationFullname: {
           validators: {
             notEmpty: {
-              message: 'Please enter your email'
+              message: 'The fullname is required'
             },
-            emailAddress: {
-              message: 'The value is not a valid email address'
+            stringLength: {
+              min: 10,
+              message: 'Please enter your fullname ( eg. Firstname MI. Lastname Jr.)'
+            },
+            regexp: {
+              regexp: /^[a-zA-Z\.\-\s]+$/,
+              message: 'The name can only consist of alphabetical characters, period, hyphen, and space'
+            } 
+          }
+        },
+        formValidationUsername: {
+          validators: {
+            notEmpty: {
+              message: 'The username is required'
+            },
+            stringLength: {
+              min: 4,
+              max: 15,
+              message: 'The name must be more than 4 and less than 15 characters long'
+            },
+            regexp: {
+              regexp: /^[a-zA-Z0-9.-]+$/,
+              message: 'The name can only consist of alphabetical characters, numbers, periods, and hyphens (with no spaces)'
             }
           }
         },
@@ -102,6 +143,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
           validators: {
             notEmpty: {
               message: 'Please enter your password'
+            },
+            stringLength: {
+              min: 6,
+              message: 'The password must be at least 6 characters long'
             }
           }
         },
@@ -118,92 +163,122 @@ document.addEventListener('DOMContentLoaded', function (e) {
             }
           }
         },
-        formValidationFile: {
+        formValidationEmail: {
           validators: {
             notEmpty: {
-              message: 'Please select the file'
-            }
-          }
-        },
-        formValidationDob: {
-          validators: {
-            notEmpty: {
-              message: 'Please select your DOB'
+              message: 'The Email is required'
             },
-            date: {
-              format: 'YYYY/MM/DD',
-              message: 'The value is not a valid date'
-            }
-          }
-        },
-        formValidationSelect2: {
-          validators: {
-            notEmpty: {
-              message: 'Please select your country'
-            }
-          }
-        },
-        formValidationLang: {
-          validators: {
-            notEmpty: {
-              message: 'Please add your language'
-            }
-          }
-        },
-        formValidationTech: {
-          validators: {
-            notEmpty: {
-              message: 'Please select technology'
-            }
-          }
-        },
-        formValidationHobbies: {
-          validators: {
-            notEmpty: {
-              message: 'Please select your hobbies'
-            }
-          }
-        },
-        formValidationBio: {
-          validators: {
-            notEmpty: {
-              message: 'Please enter your bio'
+            emailAddress: {
+              message: 'The value is not a valid email address'
             },
-            stringLength: {
-              min: 100,
-              max: 500,
-              message: 'The bio must be more than 100 and less than 500 characters long'
+            regexp: {
+              regexp: /^[^@]+@(clsu2\.edu\.ph|clsu\.edu\.ph)$/,
+              message: 'The email address must end with @clsu2.edu.ph or @clsu.edu.ph'
             }
           }
         },
-        formValidationGender: {
+        addCollege: {
           validators: {
             notEmpty: {
-              message: 'Please select your gender'
+              message: 'The college is required',
+              enabled: function() {
+                // Return true to enable the validator, or false to disable it
+                const selectedUserType = userTypeSelect.val();
+                return selectedUserType === 'Student';
+              }
             }
           }
         },
-        formValidationPlan: {
+        
+        addCourse: {
           validators: {
             notEmpty: {
-              message: 'Please select your preferred plan'
+              message: 'The course is required',
+              enabled: function() {
+                // Return true to enable the validator, or false to disable it
+                const selectedUserType = userTypeSelect.val();
+                return selectedUserType === 'Student';
+              }
             }
           }
         },
-        formValidationSwitch: {
+
+        formValidationIDImage: {
           validators: {
-            notEmpty: {
-              message: 'Please select your preference'
-            }
+              notEmpty: {
+                  message: 'Uploading a CLSU ID image is required'
+              },
+              file: {
+                  extension: 'jpg,jpeg,png',
+                  type: 'image/jpeg,image/png',
+                  message: 'The selected file must be a JPG or PNG image'
+              },
+              fileSize: {
+                  max: '5MB', // 5MB is typically a reasonable upper limit for image uploads
+                  message: 'The file must be less than 5MB'
+              },
+              imageDimensions: {
+                  minWidth: 300,
+                  minHeight: 200,
+                  message: 'The image dimensions must be at least 300x200 pixels'
+              }
           }
-        },
-        formValidationCheckbox: {
-          validators: {
-            notEmpty: {
-              message: 'Please confirm our T&C'
-            }
-          }
+      },
+      formValidationCLSUAddress: {
+        validators: {
+          notEmpty: {
+            message: 'CLSU address is required'
+          },
         }
+      },
+      formValidationAvatarImage: {
+        validators: {
+            notEmpty: {
+                message: 'Uploading avatar is required'
+            },
+            file: {
+                extension: 'jpg,jpeg,png',
+                type: 'image/jpeg,image/png',
+                message: 'The selected file must be a JPG or PNG image'
+            },
+            fileSize: {
+                max: '5MB', // 5MB is typically a reasonable upper limit for image uploads
+                message: 'The file must be less than 5MB'
+            },
+            imageDimensions: {
+                minWidth: 300,
+                minHeight: 200,
+                message: 'The image dimensions must be at least 300x200 pixels'
+            }
+        }
+    },
+
+    userContact: {
+      validators: {
+        notEmpty: {
+          message: 'The contact number is required'
+        },
+        regexp: {
+          regexp: /^(\+\d{1,3}[-\s]?)?\d{11}$/,
+          message: 'The contact number must be a phone number (e.g. +63 988 888 8888)'
+        }
+      }
+    },
+    formValidationHomeAddress: {
+      validators: {
+        notEmpty: {
+          message: 'Address is required'
+        },
+      }
+    },
+    socialLinks: {
+      validators: {
+        notEmpty: {
+          message: 'Social Links is required'
+        },
+      }
+    },
+     
       },
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
@@ -214,23 +289,21 @@ document.addEventListener('DOMContentLoaded', function (e) {
           rowSelector: function (field, ele) {
             // field is the field name & ele is the field element
             switch (field) {
-              case 'formValidationName':
-              case 'formValidationEmail':
-              case 'formValidationPass':
-              case 'formValidationConfirmPass':
-              case 'formValidationFile':
-              case 'formValidationDob':
-              case 'formValidationSelect2':
-              case 'formValidationLang':
-              case 'formValidationTech':
-              case 'formValidationHobbies':
-              case 'formValidationBio':
-              case 'formValidationGender':
-                return '.col-md-6';
-              case 'formValidationPlan':
-                return '.col-xl-3';
-              case 'formValidationSwitch':
-              case 'formValidationCheckbox':
+              case 'userType':
+                case 'formValidationUserID':
+                case 'formValidationFullname':
+                case 'formValidationUsername':
+                case 'formValidationPass':
+                case 'formValidationConfirmPass':
+                case 'formValidationEmail':
+                case 'addCollege':
+                case 'addCourse':
+                case 'formValidationIDImage':
+                case 'formValidationCLSUAddress':
+                case 'formValidationAvatarImage':
+                case 'userContact':
+                case 'formValidationHomeAddress':
+                case 'socialLinks':
                 return '.col-12';
               default:
                 return '.row';
@@ -276,19 +349,267 @@ document.addEventListener('DOMContentLoaded', function (e) {
       });
     }
 
-    // Select2 (Country)
-    if (formValidationSelect2Ele.length) {
-      formValidationSelect2Ele.wrap('<div class="position-relative"></div>');
-      formValidationSelect2Ele
-        .select2({
-          placeholder: 'Select country',
-          dropdownParent: formValidationSelect2Ele.parent()
-        })
-        .on('change', function () {
-          // Revalidate the color field when an option is chosen
-          fv.revalidateField('formValidationSelect2');
-        });
+    
+/// Select2 (User Type)
+const userTypeSelect = jQuery(formValidationExamples.querySelector('[name="userType"]'));
+
+if (userTypeSelect.length) {
+  userTypeSelect.wrap('<div class="position-relative"></div>');
+
+  userTypeSelect.select2({
+    placeholder: 'Select a user type',
+    dropdownParent: userTypeSelect.parent(),
+  });
+
+  userTypeSelect.on('change', function () {
+    const selectedUserType = this.value;
+
+    // Enable/disable validators based on the selected user type
+    fv.enableValidator('formValidationUserID', 'stringLength', selectedUserType === 'Student');
+    fv.enableValidator('formValidationUserID', 'regexp', selectedUserType === 'Student');
+
+    if (selectedUserType !== 'Student') {
+      fv.disableValidator('formValidationUserID', 'stringLength');
+      fv.disableValidator('formValidationUserID', 'regexp');
     }
+
+    if (selectedUserType === 'Student') {
+      fv.enableValidator('addCollege', 'notEmpty');
+      fv.enableValidator('addCourse', 'notEmpty');
+    } else {
+      fv.disableValidator('addCollege', 'notEmpty');
+      fv.disableValidator('addCourse', 'notEmpty');
+    }
+
+    // Revalidate the userType field when an option is chosen
+    fv.revalidateField('userType');
+  });
+}
+
+
+// Select2 (College)
+const addCollegeSelect = jQuery(formValidationExamples.querySelector('[name="addCollege"]'));
+if (addCollegeSelect.length) {
+  addCollegeSelect.wrap('<div class="position-relative"></div>');
+  addCollegeSelect
+    .select2({
+      placeholder: 'Select a college',
+      dropdownParent: addCollegeSelect.parent()
+    })
+    .on('change', function () {
+      // Revalidate the addCollege field when an option is chosen
+      fv.revalidateField('addCollege');
+    });
+}
+
+// Select2 (Course)
+const addCourseSelect = jQuery(formValidationExamples.querySelector('[name="addCourse"]'));
+if (addCourseSelect.length) {
+  addCourseSelect.wrap('<div class="position-relative"></div>');
+  addCourseSelect
+    .select2({
+      placeholder: 'Select a course',
+      dropdownParent: addCourseSelect.parent()
+    })
+    .on('change', function () {
+      // Revalidate the addCourse field when an option is chosen
+      fv.revalidateField('addCourse');
+    });
+}
+
+
+
+const collegeDropdown = jQuery(formValidationExamples.querySelector('[name="addCollege"]'));
+const courseDropdown = jQuery(formValidationExamples.querySelector('[name="addCourse"]'));
+
+collegeDropdown.select2({
+  placeholder: 'Select a college',
+  dropdownParent: collegeDropdown.parent()
+});
+
+courseDropdown.select2({
+  placeholder: 'Select a course',
+  dropdownParent: courseDropdown.parent()
+});
+
+// Event listener for populating the course dropdown
+collegeDropdown.on('change', function() {
+  const selectedCollege = this.value;
+  let newOptions = [];
+
+  switch (selectedCollege) {
+    case "College of Agriculture":
+      newOptions = [
+        { id: 'Bachelor of Science in Agribusiness (BSAb)', text: 'Bachelor of Science in Agribusiness (BSAb)' },
+        { id: 'Bachelor of Science in Agriculture (BSA)', text: 'Bachelor of Science in Agriculture (BSA)' },
+      ];
+      break;
+  
+    case "College of Arts and Social Sciences":
+      newOptions = [
+        { id: 'Bachelor of Arts in Filipino (BAFil)', text: 'Bachelor of Arts in Filipino (BAFil)' },
+        { id: 'Bachelor of Arts in Literature (BALit)', text: 'Bachelor of Arts in Literature (BALit)' },
+        { id: 'Bachelor of Arts in Social Sciences (BASS)', text: 'Bachelor of Arts in Social Sciences (BASS)' },
+        { id: 'Bachelor of Science in Development Communication (BSDC)', text: 'Bachelor of Science in Development Communication (BSDC)' },
+        { id: 'Bachelor of Science in Psychology (BSPsych)', text: 'Bachelor of Science in Psychology (BSPsych)' },
+      ];
+      break;
+  
+    case "College of Business Administration and Accountancy":
+      newOptions = [
+        { id: 'Bachelor of Science in Accountancy (BSAc)', text: 'Bachelor of Science in Accountancy (BSAc)' },
+        { id: 'Bachelor of Science in Business Administration (BSBA)', text: 'Bachelor of Science in Business Administration (BSBA)' },
+        { id: 'Bachelor of Science in Entrepreneurship (BSEntrep)', text: 'Bachelor of Science in Entrepreneurship (BSEntrep)' },
+        { id: 'Bachelor of Science in Management Accounting (BSMA)', text: 'Bachelor of Science in Management Accounting (BSMA)' },
+      ];
+      break;
+  
+    case "College of Education":
+      newOptions = [
+        { id: 'Bachelor of Culture and Arts Education (BCAEd)', text: 'Bachelor of Culture and Arts Education (BCAEd)' },
+        { id: 'Bachelor of Early Childhood Education (BECEd)', text: 'Bachelor of Early Childhood Education (BECEd)' },
+        { id: 'Bachelor of Elementary Education (BEEd)', text: 'Bachelor of Elementary Education (BEEd)' },
+        { id: 'Bachelor of Physical Education (BPEd)', text: 'Bachelor of Physical Education (BPEd)' },
+        { id: 'Bachelor of Secondary Education (BSEd)', text: 'Bachelor of Secondary Education (BSEd)' },
+        { id: 'Bachelor of Technology and Livelihood Education (BTLEd)', text: 'Bachelor of Technology and Livelihood Education (BTLEd)' },
+      ];
+      break;
+  
+    case "College of Engineering":
+      newOptions = [
+        { id: 'Bachelor of Science in Agricultural and Biosystems Engineering (BSABE)', text: 'Bachelor of Science in Agricultural and Biosystems Engineering (BSABE)' },
+        { id: 'Bachelor of Science in Civil Engineering (BSCE)', text: 'Bachelor of Science in Civil Engineering (BSCE)' },
+        { id: 'Bachelor of Science in Information Technology (BSIT)', text: 'Bachelor of Science in Information Technology (BSIT)' },
+        { id: 'Bachelor of Science in Meteorology (BSMet)', text: 'Bachelor of Science in Meteorology (BSMet)' },
+      ];
+      break;
+  
+    case "College of Fisheries":
+      newOptions = [
+        { id: 'Bachelor of Science in Fisheries (BSF)', text: 'Bachelor of Science in Fisheries (BSF)' },
+      ];
+      break;
+  
+    case "College of Home Science and Industry":
+      newOptions = [
+        { id: 'Bachelor of Science in Food Technology (BSFT)', text: 'Bachelor of Science in Food Technology (BSFT)' },
+        { id: 'Bachelor of Science in Fashion and Textile Technology (BSFTT)', text: 'Bachelor of Science in Fashion and Textile Technology (BSFTT)' },
+        { id: 'Bachelor of Science in Hospitality Management (BSHM)', text: 'Bachelor of Science in Hospitality Management (BSHM)' },
+        { id: 'Bachelor of Science in Tourism Management (BSTM)', text: 'Bachelor of Science in Tourism Management (BSTM)' },
+      ];
+      break;
+  
+    case "College of Science":
+      newOptions = [
+        { id: 'Bachelor of Science in Biology (BSBio)', text: 'Bachelor of Science in Biology (BSBio)' },
+        { id: 'Bachelor of Science in Chemistry (BSChem)', text: 'Bachelor of Science in Chemistry (BSChem)' },
+        { id: 'Bachelor of Science in Environmental Science (BSES)', text: 'Bachelor of Science in Environmental Science (BSES)' },
+        { id: 'Bachelor of Science in Mathematics (BSMath)', text: 'Bachelor of Science in Mathematics (BSMath)' },
+        { id: 'Bachelor of Science in Statistics (BSStat)', text: 'Bachelor of Science in Statistics (BSStat)' },
+      ];
+      break;
+  
+    case "College of Veterinary Science and Medicine":
+      newOptions = [
+        { id: 'Doctor of Veterinary Medicine (DVM)', text: 'Doctor of Veterinary Medicine (DVM)' },
+      ];
+      break;// Graduate
+      case "Doctor of Philosophy":
+        newOptions = [
+          { id: 'Doctor of Philosophy', text: 'Doctor of Philosophy' },
+          { id: 'Doctor of Philosophy in Agricultural Engineering', text: 'Doctor of Philosophy in Agricultural Engineering' },
+          { id: 'Doctor of Philosophy in Agricultural Entomology', text: 'Doctor of Philosophy in Agricultural Entomology' },
+          { id: 'Doctor of Philosophy in Animal Science', text: 'Doctor of Philosophy in Animal Science' },
+          { id: 'Doctor of Philosophy in Aquaculture', text: 'Doctor of Philosophy in Aquaculture' },
+          { id: 'Doctor of Philosophy in Biology', text: 'Doctor of Philosophy in Biology' },
+          { id: 'Doctor of Philosophy in Crop Science', text: 'Doctor of Philosophy in Crop Science' },
+          { id: 'Doctor of Philosophy in Development Communication', text: 'Doctor of Philosophy in Development Communication' },
+          { id: 'Doctor of Philosophy in Development Education', text: 'Doctor of Philosophy in Development Education' },
+          { id: 'Doctor of Philosophy in Environmental Management', text: 'Doctor of Philosophy in Environmental Management' },
+          { id: 'Doctor of Philosophy in Plant Breeding', text: 'Doctor of Philosophy in Plant Breeding' },
+          { id: 'Doctor of Philosophy in Rural Development', text: 'Doctor of Philosophy in Rural Development' },
+          { id: 'Doctor of Philosophy in Soil Science', text: 'Doctor of Philosophy in Soil Science' },
+          { id: 'Doctor of Philosophy in Sustainable Food Systems by Research Program (DOTUni)', text: 'Doctor of Philosophy in Sustainable Food Systems by Research Program (DOTUni)' },
+        ];
+        break;
+      
+      case "Master of Science":
+        newOptions = [
+          { id: 'Master of Science in Agricultural Economics', text: 'Master of Science in Agricultural Economics' },
+          { id: 'Master of Science in Agricultural Engineering', text: 'Master of Science in Agricultural Engineering' },
+          { id: 'Master of Science in Animal Science', text: 'Master of Science in Animal Science' },
+          { id: 'Master of Science in Aquaculture', text: 'Master of Science in Aquaculture' },
+          { id: 'Master of Science in Biology', text: 'Master of Science in Biology' },
+          { id: 'Master of Science in Biology Education', text: 'Master of Science in Biology Education' },
+          { id: 'Master of Science in Chemistry Education', text: 'Master of Science in Chemistry Education' },
+          { id: 'Master of Science in Crop Protection', text: 'Master of Science in Crop Protection' },
+          { id: 'Master of Science in Crop Science', text: 'Master of Science in Crop Science' },
+          { id: 'Master of Science in Development Communication', text: 'Master of Science in Development Communication' },
+          { id: 'Master of Science in Education', text: 'Master of Science in Education' },
+          { id: 'Master of Science in Environmental Management', text: 'Master of Science in Environmental Management' },
+          { id: 'Master of Science in Grain Science', text: 'Master of Science in Grain Science' },
+          { id: 'Master of Science in Guidance and Counselling', text: 'Master of Science in Guidance and Counselling' },
+          { id: 'Master of Science in Rural Development', text: 'Master of Science in Rural Development' },
+          { id: 'Master of Science in Soil Science', text: 'Master of Science in Soil Science' },
+        ];
+        break;
+      
+      case "Other Masteral Programs":
+        newOptions = [
+          { id: 'Master of Arts in Language and Literature', text: 'Master of Arts in Language and Literature' },
+          { id: 'Master of Science in Renewable Energy Systems (DOTUni)', text: 'Master of Science in Renewable Energy Systems (DOTUni)' },
+          { id: 'Master of Veterinary Studies', text: 'Master of Veterinary Studies' },
+          { id: 'Master in Agribusiness Management', text: 'Master in Agribusiness Management' },
+          { id: 'Master in Biology', text: 'Master in Biology' },
+          { id: 'Master in Business Administration', text: 'Master in Business Administration' },
+          { id: 'Master in Chemistry', text: 'Master in Chemistry' },
+          { id: 'Master in Environmental Management (DOTUni)', text: 'Master in Environmental Management (DOTUni)' },
+          { id: 'Master in Local Government Management (DOTUni)', text: 'Master in Local Government Management (DOTUni)' },
+        ];
+        break;
+      
+      // Other
+      case "Distance, Open, and Transnational University (DOTUni)":
+        newOptions = [
+          { id: 'Diploma in Land Use Planning', text: 'Diploma in Land Use Planning' },
+          { id: 'Diploma in Local Government Management', text: 'Diploma in Local Government Management' },
+          { id: 'Certificate in Agricultural Research Management', text: 'Certificate in Agricultural Research Management' },
+          { id: 'Certificate in Basic Environmental Impact Assessment', text: 'Certificate in Basic Environmental Impact Assessment' },
+          { id: 'Certificate in Basic Local Governance', text: 'Certificate in Basic Local Governance' },
+          { id: 'Certificate in Entrepreneurship', text: 'Certificate in Entrepreneurship' },
+          { id: 'Certificate in Local Development Planning', text: 'Certificate in Local Development Planning' },
+          { id: 'Certificate in Project Feasibility Preparation and Implementation', text: 'Certificate in Project Feasibility Preparation and Implementation' },
+          { id: 'Certificate in Training Management', text: 'Certificate in Training Management' },
+          { id: 'Certificate in Teaching', text: 'Certificate in Teaching' },
+        ];
+        break;
+      
+      case "Institute of Sports, Physical Education and Recreation":
+        newOptions = [
+          { id: 'Certificate in Physical Education', text: 'Certificate in Physical Education' },
+        ];
+        break;
+      
+      case "Vocational Course (1-Year Program)":
+        newOptions = [
+          { id: 'Certificate in Agricultural Mechanics', text: 'Certificate in Agricultural Mechanics' },
+        ];
+        break;
+      
+      // Add more cases as needed...
+      
+      default:
+        newOptions = [];
+        break;
+      }
+
+  courseDropdown.empty().trigger('change'); // Clear existing options and trigger Select2 to update
+  courseDropdown.select2({ data: newOptions }); // Add new options and trigger Select2 to update
+});
+
+
+ 
+
 
     // Typeahead
 

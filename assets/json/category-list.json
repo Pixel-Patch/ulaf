@@ -1,0 +1,16 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "cat_image": "product-1.png",
+            "categories": "Smart Phone",
+            "category_detail": "Choose from wide range of smartphones from popular brands"
+        },
+        {
+            "id": 2,
+            "cat_image": "product-2.png",
+            "categories": "Electronics",
+            "category_detail": "Choose from wide range of electronics from popular brands"
+        }
+    ]
+}
