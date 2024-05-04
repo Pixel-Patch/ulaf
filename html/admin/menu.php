@@ -89,7 +89,11 @@
                              <i class="menu-icon tf-icons ti ti-mail"></i>
                              <div data-i18n="Profile Settings">Profile Settings</div>
                          </a>
+<<<<<<< Updated upstream
                      </li> 
+=======
+                     </li>
+>>>>>>> Stashed changes
                      <li class="menu-item">
                          <a href="category_list.php" class="menu-link">
                              <i class="menu-icon tf-icons ti ti-messages"></i>
@@ -154,36 +158,48 @@
          </ul>
          </li>
          </ul>
-     </div>
-     <script>
-         // Get the current page URL
-         var currentPageUrl = window.location.href;
 
-         // Get all the menu links
-         var menuLinks = document.querySelectorAll('.menu-link');
+         <script>
+             // Get the current page URL
+             var currentPageUrl = window.location.href;
 
-         // Loop through each menu link
-         menuLinks.forEach(function(menuLink) {
-             // Get the href attribute of the menu link
-             var menuLinkUrl = menuLink.getAttribute('href');
+             // Get all the menu links
+             var menuLinks = document.querySelectorAll('.menu-link');
 
-             // Check if the current page URL matches the menu link URL
-             if (currentPageUrl.includes(menuLinkUrl)) {
-                 // Find the parent menu-item element
-                 var menuItem = menuLink.closest('.menu-item');
-                 // Add the 'active' class to the parent menu-item element
-                 menuItem.classList.add('active');
+             // Loop through each menu link
+             menuLinks.forEach(function(menuLink) {
+                 // Get the href attribute of the menu link
+                 var menuLinkUrl = menuLink.getAttribute('href');
 
-                 // Find the parent menu-sub element
-                 var menuSub = menuItem.closest('.menu-sub');
-                 // Add the 'active' class to the parent menu-sub element
-                 if (menuSub) {
-                     menuSub.closest('.menu-item').classList.add('active');
+                 // Define an array of related URLs for each menu link
+                 var relatedUrls = [];
+                 if (menuLinkUrl === 'end-user_list.php') {
+                     relatedUrls = ['form-add-user.php', 'form-edit-user.php'];
                  }
-             }
-         });
-     </script>
+
+                 // Check if the current page URL matches the menu link URL or any of the related URLs
+                 if (currentPageUrl.includes(menuLinkUrl) || relatedUrls.some(function(url) {
+                         return currentPageUrl.includes(url);
+                     })) {
+                     // Find the parent menu-item element
+                     var menuItem = menuLink.closest('.menu-item');
+                     // Add the 'active' class to the parent menu-item element
+                     menuItem.classList.add('active');
+
+                     // Find the parent menu-sub element
+                     var menuSub = menuItem.closest('.menu-sub');
+                     // Add the 'active' class to the parent menu-sub element
+                     if (menuSub) {
+                         menuSub.closest('.menu-item').classList.add('active');
+                     }
+                 }
+             });
+         </script>
+     </div>
+
+
  </aside>
+
 
 
 
