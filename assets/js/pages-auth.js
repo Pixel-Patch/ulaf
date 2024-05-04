@@ -22,6 +22,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
+          username: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter username'
+              },
+              stringLength: {
+                min: 6,
+                message: 'Username must be more than 6 characters'
+              }
+            }
+          },
           email: {
             validators: {
               notEmpty: {

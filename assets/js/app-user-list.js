@@ -39,16 +39,13 @@ $(function () {
   // Users datatable
   if (dt_user_table.length) {
     var dt_user = dt_user_table.DataTable({
-      ajax: assetsPath + 'json/user-list.json', // JSON file to add data
+      ajax: assetsPath + 'json/fetch-users.php', // JSON file to add data
       columns: [
-        // columns according to JSON
-        { data: '' },
-        { data: 'full_name' },
-        { data: 'role' },
-        { data: 'current_plan' },
-        { data: 'billing' },
-        { data: 'status' },
-        { data: 'action' }
+        { data: 'User_ID' },
+        { data: 'Username' },
+        { data: 'User_type' },
+        { data: 'Email' },
+        { data: 'Contact' },
       ],
       columnDefs: [
         {
@@ -67,9 +64,9 @@ $(function () {
           targets: 1,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            var $name = full['full_name'],
-              $email = full['email'],
-              $image = full['avatar'];
+            var $name = full['Username'],
+              $email = full['Email'],
+              $image = full['Avatar'];
             if ($image) {
               // For Avatar image
               var $output =
@@ -79,7 +76,7 @@ $(function () {
               var stateNum = Math.floor(Math.random() * 6);
               var states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'];
               var $state = states[stateNum],
-                $name = full['full_name'],
+                $name = full['Username'],
                 $initials = $name.match(/\b\w/g) || [];
               $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
               $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
@@ -110,7 +107,7 @@ $(function () {
           // User Role
           targets: 2,
           render: function (data, type, full, meta) {
-            var $role = full['role'];
+            var $role = full['User_type'];
             var roleBadgeObj = {
               Subscriber:
                 '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"><i class="ti ti-user ti-sm"></i></span>',
@@ -165,7 +162,7 @@ $(function () {
               '<div class="dropdown-menu dropdown-menu-end m-0">' +
               '<a href="' +
               userView +
-              '" class="dropdown-item">View</a>' +
+              '" class="dropdown-item">View</a>' + 
               '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
               '</div>' +
               '</div>'

@@ -29,6 +29,22 @@
     // Account details
     const FormValidation1 = FormValidation.formValidation(wizardValidationFormStep1, {
       fields: {
+        formValidationUserID: {
+          validators: {
+            notEmpty: {
+              message: 'The ID is required'
+            },
+            stringLength: {
+              min: 7,
+              max: 7,
+              message: 'The ID must be 7 characters long'
+            },
+            regexp: {
+              regexp: /^[0-9]{2}-[0-9]{4}$/,
+              message: 'The ID must be in the format XX-XXXX (e.g., 12-3456)'
+            }
+          }
+        },
         formValidationUsername: {
           validators: {
             notEmpty: {
@@ -41,17 +57,41 @@
             },
             regexp: {
               regexp: /^[a-zA-Z0-9 ]+$/,
-              message: 'The name can only consist of alphabetical, number and space'
+              message: 'The name can only consist of alphabet, number and space'
             }
           }
         },
-        formValidationEmail: {
+        formValidationFullname: {
           validators: {
             notEmpty: {
-              message: 'The Email is required'
+              message: 'The fullname is required'
             },
-            emailAddress: {
-              message: 'The value is not a valid email address'
+            stringLength: {
+              min: 10,
+              message: 'Please enter your fullname ( Firstname Middle Initial. Lastname )'
+            },
+            regexp: {
+              regexp: /^[a-zA-Z0-9 ]+$/,
+              message: 'The name can only consist of alphabet, number and space'
+            }
+          }
+        },
+        formValidationfullname: {
+          validators: {
+            notEmpty: {
+              message: 'Name is required'
+            },
+            regexp: {
+              regexp: /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/? ]+$/,
+              message: 'The name can only consist of alphabetical, number, space and special characters'
+            }
+          }
+        },
+        
+        User_Type: {
+          validators: {
+            notEmpty: {
+              message: 'User Type is required'
             }
           }
         },
@@ -82,7 +122,7 @@
           // Use this for enabling/changing valid/invalid class
           // eleInvalidClass: '',
           eleValidClass: '',
-          rowSelector: '.col-sm-6'
+          rowSelector: '.col-sm-6, col-sm-12'
         }),
         autoFocus: new FormValidation.plugins.AutoFocus(),
         submitButton: new FormValidation.plugins.SubmitButton()
@@ -103,42 +143,61 @@
     // Personal info
     const FormValidation2 = FormValidation.formValidation(wizardValidationFormStep2, {
       fields: {
-        formValidationFirstName: {
+
+        formValidationEmail: {
           validators: {
             notEmpty: {
-              message: 'The first name is required'
+              message: 'The Email is required'
+            },
+            emailAddress: {
+              message: 'The value is not a valid email address'
             }
           }
         },
-        formValidationLastName: {
-          validators: {
+        
+       
+      formValidationIDImage: {
+        validators: {
             notEmpty: {
-              message: 'The last name is required'
+                message: 'Uploading a CLSU ID image is required'
+            },
+            file: {
+                extension: 'jpg,jpeg,png',
+                type: 'image/jpeg,image/png',
+                message: 'The selected file must be a JPG or PNG image'
+            },
+            fileSize: {
+                max: '5MB', // 5MB is typically a reasonable upper limit for image uploads
+                message: 'The file must be less than 5MB'
+            },
+            imageDimensions: {
+                minWidth: 300,
+                minHeight: 200,
+                message: 'The image dimensions must be at least 300x200 pixels'
             }
-          }
-        },
-        formValidationCountry: {
-          validators: {
-            notEmpty: {
-              message: 'The Country is required'
-            }
-          }
-        },
-        formValidationLanguage: {
-          validators: {
-            notEmpty: {
-              message: 'The Languages is required'
-            }
-          }
         }
+    },
+
+    formValidationCLSUAddress: {
+      validators: {
+        notEmpty: {
+          message: 'CLSU address is required'
+        },
+      }
+    },
+    
+    
+  
+    
       },
+
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
         bootstrap5: new FormValidation.plugins.Bootstrap5({
           // Use this for enabling/changing valid/invalid class
           // eleInvalidClass: '',
           eleValidClass: '',
-          rowSelector: '.col-sm-6'
+          rowSelector: '.col-sm-6, col-sm-12'
         }),
         autoFocus: new FormValidation.plugins.AutoFocus(),
         submitButton: new FormValidation.plugins.SubmitButton()
@@ -148,76 +207,56 @@
       validationStepper.next();
     });
 
-    // Bootstrap Select (i.e Language select)
-    if (selectPicker.length) {
-      selectPicker.each(function () {
-        var $this = $(this);
-        $this.selectpicker().on('change', function () {
-          FormValidation2.revalidateField('formValidationLanguage');
-        });
-      });
-    }
-
-    // select2
-    if (select2.length) {
-      select2.each(function () {
-        var $this = $(this);
-        $this.wrap('<div class="position-relative"></div>');
-        $this
-          .select2({
-            placeholder: 'Select an country',
-            dropdownParent: $this.parent()
-          })
-          .on('change', function () {
-            // Revalidate the color field when an option is chosen
-            FormValidation2.revalidateField('formValidationCountry');
-          });
-      });
-    }
+    
+ 
 
     // Social links
     const FormValidation3 = FormValidation.formValidation(wizardValidationFormStep3, {
       fields: {
-        formValidationTwitter: {
+        
+        
+
+        formValidationContact: {
           validators: {
             notEmpty: {
-              message: 'The Twitter URL is required'
+              message: 'Required'
             },
-            uri: {
-              message: 'The URL is not proper'
-            }
           }
         },
-        formValidationFacebook: {
+
+        formValidationHomeAddress: {
           validators: {
             notEmpty: {
-              message: 'The Facebook URL is required'
+              message: 'Address is required'
             },
-            uri: {
-              message: 'The URL is not proper'
-            }
           }
         },
-        formValidationGoogle: {
+        
+
+        formValidationIDImage: {
           validators: {
-            notEmpty: {
-              message: 'The Google URL is required'
-            },
-            uri: {
-              message: 'The URL is not proper'
-            }
+              notEmpty: {
+                  message: 'Uploading aavatar is required'
+              },
+              file: {
+                  extension: 'jpg,jpeg,png',
+                  type: 'image/jpeg,image/png',
+                  message: 'The selected file must be a JPG or PNG image'
+              },
+              fileSize: {
+                  max: '5MB', // 5MB is typically a reasonable upper limit for image uploads
+                  message: 'The file must be less than 5MB'
+              },
+              imageDimensions: {
+                  minWidth: 300,
+                  minHeight: 200,
+                  message: 'The image dimensions must be at least 300x200 pixels'
+              }
           }
-        },
-        formValidationLinkedIn: {
-          validators: {
-            notEmpty: {
-              message: 'The LinkedIn URL is required'
-            },
-            uri: {
-              message: 'The URL is not proper'
-            }
-          }
-        }
+      },
+  
+
+
       },
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
