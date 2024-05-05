@@ -1,3 +1,17 @@
+<?php
+if (!file_exists('dbconn.php')) {
+  die('Error: dbconn.php not found');
+}
+include('dbconn.php');
+
+if (!file_exists('get_user_data.php')) {
+  die('Error: get_user_data.php not found');
+}
+include('get_user_data.php');
+
+?>
+
+
 <!doctype html>
 
 <html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="horizontal-menu-template">
@@ -78,7 +92,7 @@
                 <div class="card">
                   <h5 class="card-header">Edit User</h5>
                   <div class="card-body">
-                    <form id="formValidationExamples" class="row g-3">
+                    <form id="formValidationExamples" class="row g-3" method="post" action="edit_user.php" enctype="multipart/form-data">
                       <!-- Account Details -->
 
                       <div class="col-12">
@@ -87,34 +101,38 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-userType">User Type</label>
-                        <select id="edit-user-userType" name="userType" class="form-select">
+                        <label class="form-label" for="editrole">User Type</label>
+                        <select id="editrole" name="editrole" class="form-select">
                           <option value="">Select a user type</option>
-                          <option value="Student">Student</option>
-                          <option value="Faculty">Faculty</option>
-                          <option value="Staff">Staff</option>
+                          <option value="Student" <?php if (isset($user['User_Type']) && $user['User_Type'] == 'Student') echo 'selected'; ?>>Student</option>
+                          <option value="Faculty" <?php if (isset($user['User_Type']) && $user['User_Type'] == 'Faculty') echo 'selected'; ?>>Faculty</option>
+                          <option value="Staff" <?php if (isset($user['User_Type']) && $user['User_Type'] == 'Staff') echo 'selected'; ?>>Staff</option>
                         </select>
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-userID">User ID</label>
-                        <input type="text" id="edit-user-userID" name="formValidationUserID" class="form-control" placeholder="24-0001" aria-label="24-0001" />
+                        <label class="form-label" for="edituserid">User ID</label>
+                        <input type="text" id="edituserid" name="edituserid" class="form-control" value="<?php echo htmlspecialchars(isset($user['User_ID']) ? $user['User_ID'] : '', ENT_QUOTES, 'UTF-8'); ?>" aria-label="24-0001" />
+                        <input type="hidden" id="currentuserid" value="<?php echo htmlspecialchars(isset($user['User_ID']) ? $user['User_ID'] : '', ENT_QUOTES, 'UTF-8'); ?>">
+                        <div id="edituseridFeedback" class="invalid-feedback"></div>
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-fullname">Full Name</label>
-                        <input type="text" id="edit-user-fullname" class="form-control" placeholder="John Doe" name="formValidationFullname" aria-label="John Doe" />
+                        <label class="form-label" for="editfullname">Full Name</label>
+                        <input type="text" id="editfullname" class="form-control" value="<?php echo htmlspecialchars(isset($user['FullName']) ? $user['FullName'] : '', ENT_QUOTES, 'UTF-8'); ?>" name="editfullname" aria-label="John Doe" />
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-username">Username</label>
-                        <input type="text" id="edit-user-username" class="form-control" placeholder="jdoe1" aria-label="jdoe1" name="formValidationUsername" />
+                        <label class="form-label" for="editusername">Username</label>
+                        <input type="text" id="editusername" class="form-control" value="<?php echo htmlspecialchars(isset($user['Username']) ? $user['Username'] : '', ENT_QUOTES, 'UTF-8'); ?>" aria-label="jdoe1" name="editusername" />
+                        <input type="hidden" id="currentusername" value="<?php echo htmlspecialchars(isset($user['Username']) ? $user['Username'] : '', ENT_QUOTES, 'UTF-8'); ?>">
+                        <div id="editusernameFeedback" class="invalid-feedback"></div>
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-password">Password</label>
+                        <label class="form-label" for="editpassword">Password</label>
                         <div class="input-group input-group-merge">
-                          <input class="form-control" type="password" id="edit-user-password" name="formValidationPass" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="multicol-password2" />
+                          <input class="form-control" type="password" id="editpasswordd" name="editpassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="multicol-password2" />
                           <span class="input-group-text cursor-pointer" id="multicol-password2"><i class="ti ti-eye-off"></i></span>
                         </div>
                       </div>
@@ -137,13 +155,15 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-email">Email</label>
-                        <input type="email" class="form-control" id="edit-user-email" name="formValidationEmail" placeholder="example@example.com" aria-label="example@example.com" required />
+                        <label class="form-label" for="editemail">Email</label>
+                        <input type="email" class="form-control" id="editemail" name="editemail" value="<?php echo htmlspecialchars(isset($user['Email']) ? $user['Email'] : '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="example@example.com" aria-label="example@example.com" required />
+                        <input type="hidden" id="currentemail" value="<?php echo htmlspecialchars(isset($user['Email']) ? $user['Email'] : '', ENT_QUOTES, 'UTF-8'); ?>">
+                        <div id="editemailFeedback" class="invalid-feedback"></div>
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-college">College</label>
-                        <select id="edit-user-college" name="addCollege" class="form-select">
+                        <label class="form-label" for="editcollege">College</label>
+                        <select id="editcollege" name="editcollege" class="form-select">
                           <option value="">Select a college</option>
                           <optgroup label="Undergraduate">
                             <option value="College of Agriculture">College of Agriculture</option>
@@ -170,20 +190,20 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-course">Course</label>
-                        <select id="edit-user-course" name="addCourse" class="form-select">
+                        <label class="form-label" for="editcourse">Course</label>
+                        <select id="editcourse" name="editcourse" class="form-select">
                           <option value="">Select a course</option>
                         </select>
                       </div>
 
                       <div class="col-md-6">
-                        <label for="edit-user-clsu-id-image" class="form-label">CLSU ID Image</label>
-                        <input class="form-control" type="file" id="edit-user-clsu-id-image" name="formValidationIDImage" />
+                        <label for="editclsuidimage" class="form-label">CLSU ID Image</label>
+                        <input class="form-control" type="file" id="editclsuidimage" name="editclsuidimage" />
                       </div>
 
                       <div class="col-md-12">
-                        <label class="form-label" for="edit-user-clsu-address">CLSU Address</label>
-                        <input class="form-control" id="edit-user-clsu-address" name="formValidationCLSUAddress" rows="3"></input>
+                        <label class="form-label" for="editclsuaddress">CLSU Address</label>
+                        <input class="form-control" id="editclsuaddress" name="editclsuaddress" value="<?php echo htmlspecialchars(isset($user['CLSU_Address']) ? $user['CLSU_Address'] : '', ENT_QUOTES, 'UTF-8'); ?>" rows="3"></input>
                       </div>
 
                       <!-- Choose Your Plan -->
@@ -193,32 +213,34 @@
                         <hr class="mt-0" />
                       </div>
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-avatar">Upload Avatar Image</label>
-                        <input type="file" class="form-control" id="edit-user-avatar" name="formValidationAvatarImage" />
+                        <label class="form-label" for="editavatar">Upload Avatar Image</label>
+                        <input type="file" class="form-control" id="editavatar" name="editavatar" />
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-contact">Contact</label>
-                        <input type="text" class="form-control phone-mask" id="edit-user-contact" name="userContact" placeholder="+63 988 888 8888" aria-label="+63 988 888 8888" required />
+                        <label class="form-label" for="editcontact">Contact</label>
+                        <input type="text" class="form-control" id="editcontact" name="editcontact" value="<?php echo htmlspecialchars(isset($user['Contact']) ? $user['Contact'] : '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="+63 988 888 8888" aria-label="+63 988 888 8888" required />
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-home-address">Home Address</label>
-                        <textarea class="form-control" id="edit-user-home-address" name="formValidationHomeAddress" placeholder="123 Main St, Anytown, PH" aria-label="123 Main St, Anytown, USA" required></textarea>
+                        <label class="form-label" for="edithomeaddress">Home Address</label>
+                        <textarea class="form-control" id="edithomeaddress" name="edithomeaddress" placeholder="123 Main St, Anytown, PH" aria-label="123 Main St, Anytown, USA" required><?php echo htmlspecialchars(isset($user['Home_Address']) ? $user['Home_Address'] : '', ENT_QUOTES, 'UTF-8'); ?></textarea>
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="edit-user-social-links">Other Social Links (separated by commas)</label>
-                        <textarea class="form-control" id="edit-user-social-links" name="socialLinks" placeholder="m.me/username, viber://add?phonenumber, t.me/username" aria-label="m.me/username, viber://add?phonenumber, t.me/username" required></textarea>
+                        <label class="form-label" for="editlinks">Other Social Links (separated by commas)</label>
+                        <textarea class="form-control" id="editlinks" name="editlinks" placeholder="m.me/username, viber://add?phonenumber, t.me/username" aria-label="m.me/username, viber://add?phonenumber, t.me/username" required><?php echo htmlspecialchars(isset($user['Social_Links']) ? $user['Social_Links'] : '', ENT_QUOTES, 'UTF-8'); ?></textarea>
                       </div>
 
                       <div class="col-12">
                         <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
                       </div>
                     </form>
+
                   </div>
                 </div>
               </div>
+
               <!-- /FormValidation -->
             </div>
           </div>
@@ -275,7 +297,76 @@
   <script src="../../assets/js/main.js"></script>
 
   <!-- Page JS -->
-  <script src="../../assets/js/form-validation.js"></script>
+  <script src="../../assets/js/form-validation-edit.js"></script>
+  <!-- #region -->
+
+  <script>
+    $(document).ready(function() {
+      function checkValue(field, value, currentValue) {
+        console.log("Field: " + field);
+        console.log("Value: " + value);
+        console.log("Current Value: " + currentValue);
+
+        // Add debugging code to check the values of field, value, and currentValue
+        if (!field || !value || !currentValue) {
+          console.error("Missing required parameters");
+          return;
+        }
+
+        // Log the request URL to the console
+        console.log(`Request URL: edit-user-check.php?field=${field}&value=${value}&currentValue=${currentValue}`);
+
+        // Send the request using the GET method
+        fetch(`edit-user-check.php?field=${encodeURIComponent(field)}&value=${encodeURIComponent(value)}&currentValue=${encodeURIComponent(currentValue)}`)
+          .then(response => response.json())
+          .then(data => {
+            console.log("Response: " + JSON.stringify(data));
+
+            var feedbackId = field + 'Feedback';
+            console.log("Feedback ID: " + feedbackId);
+            console.log("Feedback element: " + $('#' + feedbackId));
+
+            // Check if the response is valid
+            if (!data.valid) {
+              // Display an error message to the user
+              $('#' + feedbackId).text(data.message)
+                .addClass('invalid-feedback')
+                .removeClass('is-invalid');
+
+              // Set the input element to invalid
+              var inputId = field.replace('edit', '');
+              $('#' + inputId).addClass('is-invalid')
+                .removeClass('is-valid');
+            } else {
+              // Hide the feedback message and set the input element to valid
+              $('#' + feedbackId).text('')
+                .addClass('is-valid')
+                .removeClass('invalid-feedback');
+
+              var inputId = field.replace('edit', '');
+              $('#' + inputId).addClass('is-valid')
+                .removeClass('is-invalid');
+            }
+          })
+          .catch(error => console.error("Error: " + error));
+      }
+
+      function listenForChanges(fieldId, currentValueId) {
+        $(`#${fieldId}`).on('input', function() {
+          var newValue = $(this).val();
+          var currentValue = $(`#${currentValueId}`).val();
+          checkValue(fieldId, newValue, currentValue);
+        });
+      }
+
+      listenForChanges('edituserid', 'currentuserid');
+      listenForChanges('editusername', 'currentusername');
+      listenForChanges('editemail', 'currentemail');
+    });
+  </script>
+
+
+
 </body>
 
 </html>

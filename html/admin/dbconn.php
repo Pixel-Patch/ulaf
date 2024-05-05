@@ -1,20 +1,19 @@
+
 <?php
-// Define your database credentials
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ulaf";
+if (!file_exists('config.php')) {
+  die('Error: config.php not found');
+}
+include('config.php');
 
-// Create a new mysqli object with your database credentials
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Create connection
+$conn = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-// Check if the connection was successful
+// Check connection
 if ($conn->connect_error) {
-  // If the connection failed, output an error message and exit
   die("Connection failed: " . $conn->connect_error);
 }
 
-// If the connection was successful, output a success message
-echo "Connected successfully";
 
-// Do your database operations here
+
+// Set charset
+$conn->set_charset("utf8mb4");

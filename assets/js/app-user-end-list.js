@@ -146,30 +146,26 @@ if (dt_user_table.length) {
           return '<span class="fw-medium">' + $contact + '</span>';
         }
       },
+
       {
-        // Actions
-        targets: -1,
-        title: 'Actions',
-        searchable: false,
-        orderable: false,
-        render: function (data, type, full, meta) {
-          return (
-            '<div class="d-flex align-items-center">' +
-<<<<<<< Updated upstream
-            '<a href="javascript:;" class="text-body" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEditUser"><i class="ti ti-edit ti-sm me-2"></i></a>' +
-=======
-            '<a href="form-edit-user.php?id=123"><i class="ti ti-edit ti-sm me-2"></i></a>'
- +
->>>>>>> Stashed changes
-            '<a href="javascript:;" class="text-body delete-record"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
-            '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
-            '<div class="dropdown-menu dropdown-menu-end m-0">' +
-            '<a href="' +
-            userView +
-            '" class="dropdown-item">View</a>' +
-            '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
-            '</div>' +
-            '</div>'
+     // Actions
+  targets: -1,
+  title: 'Actions',
+  searchable: false,
+  orderable: false,
+  render: function (data, type, full, meta) {
+    return (
+      '<div class="d-flex align-items-center">' +
+      '<a href="form-edit-user.php?user_id=' + full['user_id'] + '"><i class="ti ti-edit ti-sm me-2"></i></a>'+ // Pass the user ID as a query parameter
+      '<a href="javascript:;" class="text-body delete-record"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
+      '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
+      '<div class="dropdown-menu dropdown-menu-end m-0">' +
+      '<a href="' +
+      userView +
+      '" class="dropdown-item">View</a>' +
+      '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
+      '</div>' +
+      '</div>'
           );
         }
       }
@@ -335,12 +331,7 @@ if (dt_user_table.length) {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add New User</span>',
           className: 'add-new btn btn-primary waves-effect waves-light',
           attr: {
-<<<<<<< Updated upstream
-            'data-bs-toggle': 'offcanvas',
-            'data-bs-target': '#offcanvasAddUser'
-=======
             'onclick': 'window.location.href="form-add-user.php"'
->>>>>>> Stashed changes
           }
         }
       ],

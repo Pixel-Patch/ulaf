@@ -1,3 +1,10 @@
+<?php
+if (!file_exists('dbconn.php')) {
+  die('Error: dbconn.php not found');
+}
+include('dbconn.php');
+?>
+
 <!doctype html>
 
 <html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="horizontal-menu-template">
@@ -6,7 +13,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>Add User Form - ULAF |  Pixel-Patch Inc. </title>
+  <title>Add User Form - ULAF | Pixel-Patch Inc. </title>
 
   <meta name="description" content="" />
 
@@ -48,6 +55,11 @@
   <script src="../../assets/vendor/js/template-customizer.js"></script>
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="../../assets/js/config.js"></script>
+
+
+
+
+
 </head>
 
 <body>
@@ -78,7 +90,7 @@
                 <div class="card">
                   <h5 class="card-header">Add User</h5>
                   <div class="card-body">
-                    <form id="formValidationExamples" class="row g-3">
+                    <form id="formValidationExamples" class="row g-3" method="post" action="add_user.php" enctype="multipart/form-data">
                       <!-- Account Details -->
 
                       <div class="col-12">
@@ -87,8 +99,8 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-userType">User Type</label>
-                        <select id="add-user-userType" name="userType" class="form-select">
+                        <label class="form-label" for="addrole">User Type</label>
+                        <select id="addrole" name="addrole" class="form-select">
                           <option value="">Select a user type</option>
                           <option value="Student">Student</option>
                           <option value="Faculty">Faculty</option>
@@ -97,24 +109,26 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-userID">User ID</label>
-                        <input type="text" id="add-user-userID" name="formValidationUserID" class="form-control" placeholder="24-0001" aria-label="24-0001" />
+                        <label class="form-label" for="adduserid">User ID</label>
+                        <input type="text" id="adduserid" name="adduserid" class="form-control" placeholder="24-0001" aria-label="24-0001" />
+                        <div id="userIDFeedback" class="invalid-feedback"></div>
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                        <input type="text" id="add-user-fullname" class="form-control" placeholder="John Doe" name="formValidationFullname" aria-label="John Doe" />
+                        <label class="form-label" for="addfullname">Full Name</label>
+                        <input type="text" id="addfullname" class="form-control" placeholder="John Doe" name="addfullname" aria-label="John Doe" />
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-username">Username</label>
-                        <input type="text" id="add-user-username" class="form-control" placeholder="jdoe1" aria-label="jdoe1" name="formValidationUsername" />
+                        <label class="form-label" for="addusername">Username</label>
+                        <input type="text" id="addusername" class="form-control" placeholder="jdoe1" aria-label="jdoe1" name="addusername" />
+                        <div id="usernameFeedback" class="invalid-feedback"></div>
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-password">Password</label>
+                        <label class="form-label" for="addpassword">Password</label>
                         <div class="input-group input-group-merge">
-                          <input class="form-control" type="password" id="add-user-password" name="formValidationPass" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="multicol-password2" />
+                          <input class="form-control" type="password" id="addpassword" name="addpassword" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="multicol-password2" />
                           <span class="input-group-text cursor-pointer" id="multicol-password2"><i class="ti ti-eye-off"></i></span>
                         </div>
                       </div>
@@ -137,13 +151,14 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-email">Email</label>
-                        <input type="email" class="form-control" id="add-user-email" name="formValidationEmail" placeholder="example@example.com" aria-label="example@example.com" required />
+                        <label class="form-label" for="addemail">Email</label>
+                        <input type="email" class="form-control" id="addemail" name="addemail" placeholder="example@example.com" aria-label="example@example.com" />
+                        <div id="emailFeedback" class="invalid-feedback"></div>
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-college">College</label>
-                        <select id="add-user-college" name="addCollege" class="form-select">
+                        <label class="form-label" for="addcollege">College</label>
+                        <select id="addcollege" name="addcollege" class="form-select">
                           <option value="">Select a college</option>
                           <optgroup label="Undergraduate">
                             <option value="College of Agriculture">College of Agriculture</option>
@@ -170,20 +185,20 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-course">Course</label>
-                        <select id="add-user-course" name="addCourse" class="form-select">
+                        <label class="form-label" for="addcourse">Course</label>
+                        <select id="addcourse" name="addcourse" class="form-select">
                           <option value="">Select a course</option>
                         </select>
                       </div>
 
                       <div class="col-md-6">
-                        <label for="add-user-clsu-id-image" class="form-label">CLSU ID Image</label>
-                        <input class="form-control" type="file" id="add-user-clsu-id-image" name="formValidationIDImage" />
+                        <label for="addclsuidimage" class="form-label">CLSU ID Image</label>
+                        <input class="form-control" type="file" id="addclsuidimage" name="addclsuidimage" />
                       </div>
 
                       <div class="col-md-12">
-                        <label class="form-label" for="add-user-clsu-address">CLSU Address</label>
-                        <input class="form-control" id="add-user-clsu-address" name="formValidationCLSUAddress" rows="3"></input>
+                        <label class="form-label" for="addclsuaddress">CLSU Address</label>
+                        <input class="form-control" id="addclsuaddress" name="addclsuaddress" rows="3"></input>
                       </div>
 
                       <!-- Choose Your Plan -->
@@ -193,27 +208,29 @@
                         <hr class="mt-0" />
                       </div>
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-avatar">Upload Avatar Image</label>
-                        <input type="file" class="form-control" id="add-user-avatar" name="formValidationAvatarImage" />
+                        <label class="form-label" for="addavatar">Upload Avatar Image</label>
+                        <input type="file" class="form-control" id="addavatar" name="addavatar" />
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-contact">Contact</label>
-                        <input type="text" class="form-control phone-mask" id="add-user-contact" name="userContact" placeholder="+63 988 888 8888" aria-label="+63 988 888 8888" required />
+                        <label class="form-label" for="addcontact">Contact</label>
+                        <input type="text" class="form-control phone-mask" id="addcontact" name="addcontact" placeholder="+63 988 888 8888" aria-label="+63 988 888 8888" required />
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-home-address">Home Address</label>
-                        <textarea class="form-control" id="add-user-home-address" name="formValidationHomeAddress" placeholder="123 Main St, Anytown, PH" aria-label="123 Main St, Anytown, USA" required></textarea>
+                        <label class="form-label" for="addhomeaddress">Home Address</label>
+                        <textarea class="form-control" id="addhomeaddress" name="addhomeaddress" placeholder="123 Main St, Anytown, PH" aria-label="123 Main St, Anytown, USA" required></textarea>
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-user-social-links">Other Social Links (separated by commas)</label>
-                        <textarea class="form-control" id="add-user-social-links" name="socialLinks" placeholder="m.me/username, viber://add?phonenumber, t.me/username" aria-label="m.me/username, viber://add?phonenumber, t.me/username" required></textarea>
+                        <label class="form-label" for="addlinks">Other Social Links (separated by commas)</label>
+                        <textarea class="form-control" id="addlinks" name="addlinks" placeholder="m.me/username, viber://add?phonenumber, t.me/username" aria-label="m.me/username, viber://add?phonenumber, t.me/username" required></textarea>
                       </div>
 
                       <div class="col-12">
+                        <div id="submitFeedback" class="invalid-feedback"></div>
                         <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+
                       </div>
                     </form>
                   </div>
@@ -274,8 +291,11 @@
   <!-- Main JS -->
   <script src="../../assets/js/main.js"></script>
 
-  <!-- Page JS -->
+  <!-- Validation -->
   <script src="../../assets/js/form-validation.js"></script>
+
+
+
 </body>
 
 </html>

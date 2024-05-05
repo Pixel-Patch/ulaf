@@ -89,11 +89,7 @@
                              <i class="menu-icon tf-icons ti ti-mail"></i>
                              <div data-i18n="Profile Settings">Profile Settings</div>
                          </a>
-<<<<<<< Updated upstream
-                     </li> 
-=======
                      </li>
->>>>>>> Stashed changes
                      <li class="menu-item">
                          <a href="category_list.php" class="menu-link">
                              <i class="menu-icon tf-icons ti ti-messages"></i>

@@ -74,41 +74,59 @@ document.addEventListener('DOMContentLoaded', function (e) {
       fields: {
 
        
-        userType: {
+        addrole: {
           validators: {
             notEmpty: {
               message: 'The user type is required'
             }
           }
         },
-       formValidationUserID: {
-  validators: {
-    notEmpty: {
-      message: 'The ID is required' 
-    },
-    stringLength: {
-      min: 7,
-      max: 7,
-      message: 'The ID must be 7 characters long',
-      enabled: function() {
-        const selectedUserType = userTypeSelect.val();
-        return selectedUserType === 'Student';
-      }
-    },
-    regexp: {
-      regexp: /^[0-9]{2}-[0-9]{4}$/,
-      message: 'The ID must be in the format XX-XXXX (e.g., 12-3456)',
-      enabled: function() {
-        const selectedUserType = userTypeSelect.val();
-        return selectedUserType === 'Student';
-      }
-    }
-  }
-},
 
-        
-        
-        formValidationFullname: {
+        adduserid: {
+          validators: {
+            notEmpty: {
+              message: 'The ID is required'
+            },
+            stringLength: {
+              min: 7,
+              max: 7,
+              message: 'The ID must be 7 characters long',
+              enabled: function() {
+                const selectedUserType = userTypeSelect.val();
+                return selectedUserType === 'Student';
+              }
+            },
+            regexp: {
+              regexp: /^[0-9]{2}-[0-9]{4}$/,
+              message: 'The ID must be in the format XX-XXXX (e.g., 12-3456)',
+              enabled: function() {
+                const selectedUserType = userTypeSelect.val();
+                return selectedUserType === 'Student';
+              }
+            },
+            remote: {
+              url: 'add-user-check.php',
+              message: 'The ID already exists',
+              data: function() {
+                return {
+                  field: 'adduserid',
+                  value: $('#adduserid').val()
+                };
+              },
+              dataType: 'json',
+              success: function(response) {
+                if (!response.valid) {
+                  return {
+                    valid: false,
+                    message: response.message
+                  };
+                }
+              }
+            }
+          }
+        },
+               
+addfullname: {
           validators: {
             notEmpty: {
               message: 'The fullname is required'
@@ -123,7 +141,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
             } 
           }
         },
-        formValidationUsername: {
+
+        addusername: {
           validators: {
             notEmpty: {
               message: 'The username is required'
@@ -136,10 +155,31 @@ document.addEventListener('DOMContentLoaded', function (e) {
             regexp: {
               regexp: /^[a-zA-Z0-9.-]+$/,
               message: 'The name can only consist of alphabetical characters, numbers, periods, and hyphens (with no spaces)'
+            },
+            remote: {
+              url: 'add-user-check.php',
+              message: 'The username already exists',
+              data: function() {
+                return {
+                  field: 'addusername',
+                  value: $('#addusername').val()
+                };
+              },
+              dataType: 'json',
+              success: function(response) {
+                if (!response.valid) {
+                  return {
+                    valid: false,
+                    message: response.message
+                  };
+                }
+              }
             }
           }
         },
-        formValidationPass: {
+        
+
+        addpassword: {
           validators: {
             notEmpty: {
               message: 'Please enter your password'
@@ -163,7 +203,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
             }
           }
         },
-        formValidationEmail: {
+
+        addemail: {
           validators: {
             notEmpty: {
               message: 'The Email is required'
@@ -174,10 +215,31 @@ document.addEventListener('DOMContentLoaded', function (e) {
             regexp: {
               regexp: /^[^@]+@(clsu2\.edu\.ph|clsu\.edu\.ph)$/,
               message: 'The email address must end with @clsu2.edu.ph or @clsu.edu.ph'
+            },
+            remote: {
+              url: 'add-user-check.php',
+              message: 'The email address already exists',
+              data: function() {
+                return {
+                  field: 'addemail',
+                  value: $('#addemail').val()
+                };
+              },
+              dataType: 'json',
+              success: function(response) {
+                if (!response.valid) {
+                  return {
+                    valid: false,
+                    message: response.message || 'The email address already exists'
+                  };
+                }
+              }
             }
           }
         },
-        addCollege: {
+        
+
+        addcollege: {
           validators: {
             notEmpty: {
               message: 'The college is required',
@@ -190,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
           }
         },
         
-        addCourse: {
+        addcourse: {
           validators: {
             notEmpty: {
               message: 'The course is required',
@@ -203,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
           }
         },
 
-        formValidationIDImage: {
+        addclsuidimage: {
           validators: {
               notEmpty: {
                   message: 'Uploading a CLSU ID image is required'
@@ -224,14 +286,14 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
           }
       },
-      formValidationCLSUAddress: {
+      addclsuaddress: {
         validators: {
           notEmpty: {
             message: 'CLSU address is required'
           },
         }
       },
-      formValidationAvatarImage: {
+      addavatar: {
         validators: {
             notEmpty: {
                 message: 'Uploading avatar is required'
@@ -253,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         }
     },
 
-    userContact: {
+    addcontact: {
       validators: {
         notEmpty: {
           message: 'The contact number is required'
@@ -264,14 +326,14 @@ document.addEventListener('DOMContentLoaded', function (e) {
         }
       }
     },
-    formValidationHomeAddress: {
+    addhomeaddress: {
       validators: {
         notEmpty: {
           message: 'Address is required'
         },
       }
     },
-    socialLinks: {
+    addlinks: {
       validators: {
         notEmpty: {
           message: 'Social Links is required'
@@ -280,6 +342,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     },
      
       },
+
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
         bootstrap5: new FormValidation.plugins.Bootstrap5({
@@ -289,31 +352,45 @@ document.addEventListener('DOMContentLoaded', function (e) {
           rowSelector: function (field, ele) {
             // field is the field name & ele is the field element
             switch (field) {
-              case 'userType':
-                case 'formValidationUserID':
-                case 'formValidationFullname':
-                case 'formValidationUsername':
-                case 'formValidationPass':
-                case 'formValidationConfirmPass':
-                case 'formValidationEmail':
-                case 'addCollege':
-                case 'addCourse':
-                case 'formValidationIDImage':
-                case 'formValidationCLSUAddress':
-                case 'formValidationAvatarImage':
-                case 'userContact':
-                case 'formValidationHomeAddress':
-                case 'socialLinks':
+              case 'addrole':
+              case 'adduserid':
+              case 'addfullname':
+              case 'addusername':
+              case 'addpassword':
+              case 'formValidationConfirmPass':
+              case 'addemail':
+              case 'addcollege':
+              case 'addcourse':
+              case 'addclsuidimage':
+              case 'addclsuaddress':
+              case 'addavatar':
+              case 'addcontact':
+              case 'addhomeaddress':
+              case 'addlinks':
                 return '.col-12';
               default:
                 return '.row';
             }
           }
         }),
+      
         submitButton: new FormValidation.plugins.SubmitButton(),
+        autoFocus: new FormValidation.plugins.AutoFocus(),
+        
         // Submit the form when all fields are valid
-        defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+        defaultSubmit: new FormValidation.plugins.DefaultSubmit(null, {
+          // Replace the 'success' callback function with your custom function
+          onSuccess: function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+        
+            // You can process the form data if needed, and then redirect to add_user.php
+            location.assign('../.../admin/add_user.php');
+          }
+        }),
+      
         autoFocus: new FormValidation.plugins.AutoFocus()
+        
       },
       init: instance => {
         instance.on('plugins.message.placed', function (e) {
@@ -351,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     
 /// Select2 (User Type)
-const userTypeSelect = jQuery(formValidationExamples.querySelector('[name="userType"]'));
+const userTypeSelect = jQuery(formValidationExamples.querySelector('[name="addrole"]'));
 
 if (userTypeSelect.length) {
   userTypeSelect.wrap('<div class="position-relative"></div>');
@@ -365,62 +442,62 @@ if (userTypeSelect.length) {
     const selectedUserType = this.value;
 
     // Enable/disable validators based on the selected user type
-    fv.enableValidator('formValidationUserID', 'stringLength', selectedUserType === 'Student');
-    fv.enableValidator('formValidationUserID', 'regexp', selectedUserType === 'Student');
+    fv.enableValidator('adduserid', 'stringLength', selectedUserType === 'Student');
+    fv.enableValidator('adduserid', 'regexp', selectedUserType === 'Student');
 
     if (selectedUserType !== 'Student') {
-      fv.disableValidator('formValidationUserID', 'stringLength');
-      fv.disableValidator('formValidationUserID', 'regexp');
+      fv.disableValidator('adduserid', 'stringLength');
+      fv.disableValidator('adduserid', 'regexp');
     }
 
     if (selectedUserType === 'Student') {
-      fv.enableValidator('addCollege', 'notEmpty');
-      fv.enableValidator('addCourse', 'notEmpty');
+      fv.enableValidator('addcollege', 'notEmpty');
+      fv.enableValidator('addcourse', 'notEmpty');
     } else {
-      fv.disableValidator('addCollege', 'notEmpty');
-      fv.disableValidator('addCourse', 'notEmpty');
+      fv.disableValidator('addcollege', 'notEmpty');
+      fv.disableValidator('addcourse', 'notEmpty');
     }
 
     // Revalidate the userType field when an option is chosen
-    fv.revalidateField('userType');
+    fv.revalidateField('addrole');
   });
 }
 
 
 // Select2 (College)
-const addCollegeSelect = jQuery(formValidationExamples.querySelector('[name="addCollege"]'));
-if (addCollegeSelect.length) {
-  addCollegeSelect.wrap('<div class="position-relative"></div>');
-  addCollegeSelect
+const addcollegeSelect = jQuery(formValidationExamples.querySelector('[name="addcollege"]'));
+if (addcollegeSelect.length) {
+  addcollegeSelect.wrap('<div class="position-relative"></div>');
+  addcollegeSelect
     .select2({
       placeholder: 'Select a college',
-      dropdownParent: addCollegeSelect.parent()
+      dropdownParent: addcollegeSelect.parent()
     })
     .on('change', function () {
-      // Revalidate the addCollege field when an option is chosen
-      fv.revalidateField('addCollege');
+      // Revalidate the addcollege field when an option is chosen
+      fv.revalidateField('addcollege');
     });
 }
 
 // Select2 (Course)
-const addCourseSelect = jQuery(formValidationExamples.querySelector('[name="addCourse"]'));
-if (addCourseSelect.length) {
-  addCourseSelect.wrap('<div class="position-relative"></div>');
-  addCourseSelect
+const addcourseSelect = jQuery(formValidationExamples.querySelector('[name="addcourse"]'));
+if (addcourseSelect.length) {
+  addcourseSelect.wrap('<div class="position-relative"></div>');
+  addcourseSelect
     .select2({
       placeholder: 'Select a course',
-      dropdownParent: addCourseSelect.parent()
+      dropdownParent: addcourseSelect.parent()
     })
     .on('change', function () {
-      // Revalidate the addCourse field when an option is chosen
-      fv.revalidateField('addCourse');
+      // Revalidate the addcourse field when an option is chosen
+      fv.revalidateField('addcourse');
     });
 }
 
 
 
-const collegeDropdown = jQuery(formValidationExamples.querySelector('[name="addCollege"]'));
-const courseDropdown = jQuery(formValidationExamples.querySelector('[name="addCourse"]'));
+const collegeDropdown = jQuery(formValidationExamples.querySelector('[name="addcollege"]'));
+const courseDropdown = jQuery(formValidationExamples.querySelector('[name="addcourse"]'));
 
 collegeDropdown.select2({
   placeholder: 'Select a college',
