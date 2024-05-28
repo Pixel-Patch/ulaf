@@ -70,7 +70,7 @@ eval("\n\nmodule.exports = function (i) {\n  return i[1];\n};\n\n//# sourceURL=w
 
 /***/ }),
 
-/***/ "./js/_template-customizer/_template-customizer.html":
+/***/ "./js/_template-customizer/_template-customizer.php":
 /*!***********************************************************!*\
   !*** ./js/_template-customizer/_template-customizer.html ***!
   \***********************************************************/

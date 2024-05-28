@@ -63,7 +63,7 @@
       <!-- /Left Text -->
 
       <!-- Register -->
-      <div class="d-flex col-12 col-lg-6 align-items-center p-sm-6 p-4">
+      <div class="d-flex col-12 col-lg-6 align-items-center p-sm-5 p-4">
 
 
         <div id="wizard-validation" class="bs-stepper mt-2">
@@ -174,26 +174,37 @@
                     <input type="email" name="formValidationEmail" id="formValidationEmail" class="form-control" placeholder="john.doe@clsu2.edu.ph" required />
                   </div>
                   <div class="col-sm-6">
-                    <label class="form-label" for="formValidationCategory">Category</label>
-                    <select class="form-control" id="formValidationCategory" name="formValidationCategory" required>
-                      <option value="">Select Category</option>
-                      <option value="Undergraduate">Undergraduate</option>
-                      <option value="Graduate">Graduate</option>
-                      <option value="Other Curricular Offerings">Other Curricular Offerings</option>
+                    <label class="form-label" for="add-user-college">College</label>
+                    <select id="add-user-college" class="form-select">
+                    <option value="Select College">Select College</option>
+                      <optgroup label="Undergraduate">
+                        <option value="College of Agriculture">College of Agriculture</option>
+                        <option value="College of Arts and Social Sciences">College of Arts and Social Sciences</option>
+                        <option value="College of Business Administration and Accountancy">College of Business Administration and Accountancy</option>
+                        <option value="College of Education">College of Education</option>
+                        <option value="College of Engineering">College of Engineering</option>
+                        <option value="College of Fisheries">College of Fisheries</option>
+                        <option value="College of Home Science and Industry">College of Home Science and Industry</option>
+                        <option value="College of Science">College of Science</option>
+                        <option value="College of Veterinary Science and Medicine">College of Veterinary Science and Medicine</option>
+                      </optgroup>
+                      <optgroup label="Graduate">
+                        <option value="Doctor of Philosophy">Doctor of Philosophy</option>
+                        <option value="Master of Science">Master of Science</option>
+                        <option value="Other Masteral Programs">Other Masteral Programs</option>
+                      </optgroup>
+                      <optgroup label="Other Curricular Offerings">
+                        <option value="Distance, Open, and Transnational University (DOTUni)">Distance, Open, and Transnational University (DOTUni)</option>
+                        <option value="Institute of Sports, Physical Education and Recreation">Institute of Sports, Physical Education and Recreation</option>
+                        <option value="Vocational Course (1-Year Program)">Vocational Course (1-Year Program)</option>
+                      </optgroup>
                     </select>
                   </div>
 
                   <div class="col-sm-6">
-                    <label class="form-label" for="formValidationCollege">College</label>
-                    <select class="form-control" id="formValidationCollege" name="formValidationCollege" required>
-                      <option value="">Select College</option>
-                    </select>
-                  </div>
-
-                  <div class="col-sm-6">
-                    <label class="form-label" for="formValidationCourse">Course</label>
-                    <select class="form-control" id="formValidationCourse" name="formValidationCourse" required>
-                      <option value="">Select Course</option>
+                    <label class="form-label" for="add-user-course">Course</label>
+                    <select id="add-user-course" class="form-select">
+                      <option value="">Select a course</option>
                     </select>
                   </div>
                   <div class="col-sm-6">
@@ -310,52 +321,13 @@
   <script src="../../assets/js/pages-auth.js"></script>
 
   <script>
-    document.getElementById("formValidationCategory").addEventListener("change", function() {
-      var category = this.value;
-      var collegeDropdown = document.getElementById("formValidationCollege");
-      var courseDropdown = document.getElementById("formValidationCourse"); // Ensure correct ID for course dropdown
-      collegeDropdown.innerHTML = ""; // Clear existing options
-      courseDropdown.innerHTML = "<option value=''>Select Program</option>"; // Reset program dropdown
+    document.getElementById("add-user-college").addEventListener("change", function() {
+  const selectedCollege = this.value;
+  const courseDropdown = document.getElementById("add-user-course");
+  courseDropdown.innerHTML = "<option value=''>Select a course</option>"; // Clear existing options
 
-      // Populate college options based on selected category
-      switch (category) {
-        case "Undergraduate":
-          collegeDropdown.innerHTML += "<option value='College of Agriculture'>College of Agriculture</option>";
-          collegeDropdown.innerHTML += "<option value='College of Arts and Social Sciences'>College of Arts and Social Sciences</option>";
-          collegeDropdown.innerHTML += "<option value='College of Business Administration and Accountancy'>College of Business Administration and Accountancy</option>";
-          collegeDropdown.innerHTML += "<option value='College of Education'>College of Education</option>";
-          collegeDropdown.innerHTML += "<option value='College of Engineering'>College of Engineering</option>";
-          collegeDropdown.innerHTML += "<option value='College of Fisheries'>College of Fisheries</option>";
-          collegeDropdown.innerHTML += "<option value='College of Home Science and Industry'>College of Home Science and Industry</option>";
-          collegeDropdown.innerHTML += "<option value='College of Science'>College of Science</option>";
-          collegeDropdown.innerHTML += "<option value='College of Veterinary Science and Medicine'>College of Veterinary Science and Medicine</option>";
-          break;
-        case "Graduate":
-          collegeDropdown.innerHTML += "<option value='Doctor of Philosophy'>Doctor of Philosophy</option>";
-          collegeDropdown.innerHTML += "<option value='Master of Science'>Master of Science</option>";
-          collegeDropdown.innerHTML += "<option value='Other Masteral Programs'>Other Masteral Programs</option>";
-          break;
-
-        case "Other Curricular Offerings":
-          collegeDropdown.innerHTML += "<option value='Distance, Open, and Transnational University (DOTUni)'>Distance, Open, and Transnational University (DOTUni)</option>";
-          collegeDropdown.innerHTML += "<option value='Institute of Sports, Physical Education and Recreation'>Institute of Sports, Physical Education and Recreation</option>";
-          collegeDropdown.innerHTML += "<option value='Vocational Course (1-Year Program)'>Vocational Course (1-Year Program)</option>";
-          break;
-
-
-      }
-    });
-
-    // JavaScript to populate program options based on selected college
-    document.getElementById("formValidationCollege").addEventListener("change", function() {
-      var college = this.value;
-      var courseDropdown = document.getElementById("formValidationCourse");
-      courseDropdown.innerHTML = ""; // Clear existing options
-
-      // Populate program options based on selected college
-      switch (college) {
-
-        // Undergraduate
+  // Populate course options based on selected college
+  switch (selectedCollege) {      // Undergraduate
         case "College of Agriculture":
           courseDropdown.innerHTML += "<option value='Bachelor of Science in Agribusiness (BSAb)'>Bachelor of Science in Agribusiness (BSAb)</option>";
           courseDropdown.innerHTML += "<option value='Bachelor of Science in Agriculture (BSA)'>Bachelor of Science in Agriculture (BSA)</option>";
@@ -482,10 +454,11 @@
         case "Vocational Course (1-Year Program)":
           courseDropdown.innerHTML += "<option value='Certificate in Agricultural Mechanics'>Certificate in Agricultural Mechanics</option>";
           break;
-
-      }
+        }
     });
   </script>
+
+
 
 
 

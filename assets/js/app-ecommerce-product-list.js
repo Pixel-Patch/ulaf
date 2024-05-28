@@ -250,7 +250,7 @@ $(function () {
           render: function (data, type, full, meta) {
             return (
               '<div class="d-inline-block text-nowrap">' +
-              '<button class="btn btn-sm btn-icon"><i class="ti ti-edit"></i></button>' +
+              '<button class="btn btn-sm btn-icon" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEditItem"><i class="ti ti-edit"></i></button>' +
               '<button class="btn btn-sm btn-icon delete-record"><i class="ti ti-trash"></i></button>' +
               '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical me-2"></i></button>' +
               '<div class="dropdown-menu dropdown-menu-end m-0">' +
@@ -419,8 +419,9 @@ $(function () {
         {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add Product</span>',
           className: 'add-new btn btn-primary ms-2 ms-sm-0 waves-effect waves-light',
-          action: function () {
-            window.location.href = productAdd;
+          attr: {
+            'data-bs-toggle': 'offcanvas',
+            'data-bs-target': '#offcanvasAddItem'
           }
         }
       ],

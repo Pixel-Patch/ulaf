@@ -53,14 +53,11 @@ $(function () {
 
   if (dt_category_list_table.length) {
     var dt_category = dt_category_list_table.DataTable({
-      ajax: assetsPath + 'json/ecommerce-category-list.json', // JSON file to add data
+      ajax: assetsPath + 'json/category-list.json', // JSON file to add data
       columns: [
         // columns according to JSON
-        { data: '' },
-        { data: 'id' },
-        { data: 'categories' },
-        { data: 'total_products' },
-        { data: 'total_earnings' },
+        { data: '' }, 
+        { data: 'categories' }, 
         { data: '' }
       ],
       columnDefs: [
@@ -74,24 +71,10 @@ $(function () {
           render: function (data, type, full, meta) {
             return '';
           }
-        },
-        {
-          // For Checkboxes
-          targets: 1,
-          orderable: false,
-          searchable: false,
-          responsivePriority: 4,
-          checkboxes: true,
-          render: function () {
-            return '<input type="checkbox" class="dt-checkboxes form-check-input">';
-          },
-          checkboxes: {
-            selectAllRender: '<input type="checkbox" class="form-check-input">'
-          }
-        },
+        }, 
         {
           // Categories and Category Detail
-          targets: 2,
+          targets: 1,
           responsivePriority: 2,
           render: function (data, type, full, meta) {
             var $name = full['categories'],
@@ -137,25 +120,7 @@ $(function () {
               '</div>';
             return $row_output;
           }
-        },
-        {
-          // Total products
-          targets: 3,
-          responsivePriority: 3,
-          render: function (data, type, full, meta) {
-            var $total_products = full['total_products'];
-            return '<div class="text-sm-end">' + $total_products + '</div>';
-          }
-        },
-        {
-          // Total Earnings
-          targets: 4,
-          orderable: false,
-          render: function (data, type, full, meta) {
-            var $total_earnings = full['total_earnings'];
-            return "<div class='h6 mb-0 text-sm-end'>" + $total_earnings + '</div';
-          }
-        },
+        },  
         {
           // Actions
           targets: -1,
@@ -166,7 +131,7 @@ $(function () {
             return (
               '<div class="d-flex align-items-sm-center justify-content-sm-center">' +
               '<button class="btn btn-sm btn-icon delete-record me-2"><i class="ti ti-trash"></i></button>' +
-              '<button class="btn btn-sm btn-icon"><i class="ti ti-edit"></i></button>' +
+              '<button class="btn btn-sm btn-icon" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEditCategoryList"><i class="ti ti-edit"></i></button>' +
               '</div>'
             );
           }
@@ -195,7 +160,7 @@ $(function () {
           className: 'add-new btn btn-primary ms-2 waves-effect waves-light',
           attr: {
             'data-bs-toggle': 'offcanvas',
-            'data-bs-target': '#offcanvasEcommerceCategoryList'
+            'data-bs-target': '#offcanvasAddCategoryList'
           }
         }
       ],

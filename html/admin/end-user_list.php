@@ -159,11 +159,10 @@
             <!-- Users List Table -->
             <div class="card">
               <div class="card-header border-bottom">
-                <h5 class="card-title mb-3">Search Filter</h5>
+                <h5 class="card-title col-sm-6">Search Filter</h5>
                 <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
-                  <div class="col-md-4 user_role"></div>
-                  <div class="col-md-4 user_plan"></div>
-                  <div class="col-md-4 user_status"></div>
+                  <div class="col-md-6 user_role"></div>
+                  <div class="col-md-6 user_course"></div>
                 </div>
               </div>
               <div class="card-datatable table-responsive">
@@ -172,93 +171,264 @@
                     <tr>
                       <th></th>
                       <th>User</th>
-                      <th>Role</th>
-                      <th>Plan</th>
-                      <th>Billing</th>
-                      <th>Status</th>
+                      <th>User Type</th>
+                      <th>User ID</th>
+                      <th>Course</th>
+                      <th>Contact</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                 </table>
               </div>
               <!-- Offcanvas to add new user -->
-              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel">
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel" style="--bs-offcanvas-width: 800px">
                 <div class="offcanvas-header">
                   <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add User</h5>
                   <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
-                  <form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false">
-                    <div class="mb-3">
-                      <label class="form-label" for="add-user-fullname">Full Name</label>
-                      <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name="userFullname" aria-label="John Doe" />
+                  <div class="divider text-start-center">
+                    <div class="divider-text">Account Details</div>
+                  </div>
+                  <form class="add-new-user pt-0" id="addNewUserForm" action="add_user.php" method="POST" enctype="multipart/form-data">
+
+                    <div class="row g-3">
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-userID">User ID</label>
+                        <input type="text" class="form-control" id="add-user-userID" placeholder="24-0001" aria-label="24-0001" name="userID" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-role">User Type</label>
+                        <select id="userType" name="userType" class="form-select">
+                          <option value="">Select a user type</option>
+                          <option value="Student">Student</option>
+                          <option value="Faculty">Faculty</option>
+                          <option value="Staff">Staff</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-fullname">Full Name</label>
+                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name="userFullname" aria-label="John Doe" />
+                      </div>
+
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-username">Username</label>
+                        <input type="text" class="form-control" id="add-user-username" placeholder="jdoe1" aria-label="jdoe1" name="username" />
+                      </div>
+
+
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-password">Password</label>
+                        <input type="password" id="add-user-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-label="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" name="password" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-confirm-password">Confirm Password</label>
+                        <input type="password" id="add-user-confirm-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-label="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" name="confirmPassword" />
+                      </div>
+
+                      <div class="divider text-start-center">
+                        <div class="divider-text">Academic Info</div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-email">Email</label>
+                        <input type="email" id="add-user-email" class="form-control" placeholder="example@example.com" aria-label="example@example.com" name="userEmail" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-college-add">College</label>
+                        <select id="add-user-college-add" class="form-select">
+                          <option value="Select College">Select College</option>
+                          <optgroup label="Undergraduate">
+                            <option value="College of Agriculture">College of Agriculture</option>
+                            <option value="College of Arts and Social Sciences">College of Arts and Social Sciences</option>
+                            <option value="College of Business Administration and Accountancy">College of Business Administration and Accountancy</option>
+                            <option value="College of Education">College of Education</option>
+                            <option value="College of Engineering">College of Engineering</option>
+                            <option value="College of Fisheries">College of Fisheries</option>
+                            <option value="College of Home Science and Industry">College of Home Science and Industry</option>
+                            <option value="College of Science">College of Science</option>
+                            <option value="College of Veterinary Science and Medicine">College of Veterinary Science and Medicine</option>
+                          </optgroup>
+                          <optgroup label="Graduate">
+                            <option value="Doctor of Philosophy">Doctor of Philosophy</option>
+                            <option value="Master of Science">Master of Science</option>
+                            <option value="Other Masteral Programs">Other Masteral Programs</option>
+                          </optgroup>
+                          <optgroup label="Other Curricular Offerings">
+                            <option value="Distance, Open, and Transnational University (DOTUni)">Distance, Open, and Transnational University (DOTUni)</option>
+                            <option value="Institute of Sports, Physical Education and Recreation">Institute of Sports, Physical Education and Recreation</option>
+                            <option value="Vocational Course (1-Year Program)">Vocational Course (1-Year Program)</option>
+                          </optgroup>
+                        </select>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-course-add">Course</label>
+                        <select id="add-user-course-add" class="form-select">
+                          <option value="">Select a course</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-clsu-id-image">CLSU ID Image</label>
+                        <input type="file" id="add-user-clsu-id-image" class="form-control" name="clsuIdImage" />
+                      </div>
+                      <div class="col-sm-12">
+                        <label class="form-label" for="add-user-clsu-address">CLSU Address</label>
+                        <textarea id="add-user-clsu-address" class="form-control" placeholder="CLSU Main Campus, Science City of Muñoz, Nueva Ecija, Philippines" aria-label="CLSU Main Campus, Science City of Muñoz, Nueva Ecija, Philippines" name="clsuAddress"></textarea>
+                      </div>
+
+                      <div class="divider text-start-center">
+                        <div class="divider-text">Personal Details</div>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-avatar">Upload Avatar Image</label>
+                        <input type="file" id="add-user-avatar" class="form-control" name="avatarImage" />
+                      </div>
+
+
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-contact">Contact</label>
+                        <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+1 (609) 988-44-11" aria-label="john.doe@example.com" name="userContact" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-home-address">Home Address</label>
+                        <textarea id="add-user-home-address" class="form-control" placeholder="123 Main St, Anytown, USA" aria-label="123 Main St, Anytown, USA" name="homeAddress"></textarea>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-social-links">Other Social Links (separated by commas)</label>
+                        <textarea id="add-user-social-links" class="form-control" placeholder="https://www.facebook.com/johndoe, https://www.twitter.com/johndoe" aria-label="https://www.facebook.com/johndoe, https://www.twitter.com/johndoe" name="socialLinks"></textarea>
+                      </div>
+
+                      <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+                      <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="add-user-email">Email</label>
-                      <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="userEmail" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="add-user-contact">Contact</label>
-                      <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+1 (609) 988-44-11" aria-label="john.doe@example.com" name="userContact" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="add-user-company">Company</label>
-                      <input type="text" id="add-user-company" class="form-control" placeholder="Web Developer" aria-label="jdoe1" name="companyName" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="country">Country</label>
-                      <select id="country" class="select2 form-select">
-                        <option value="">Select</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Bangladesh">Bangladesh</option>
-                        <option value="Belarus">Belarus</option>
-                        <option value="Brazil">Brazil</option>
-                        <option value="Canada">Canada</option>
-                        <option value="China">China</option>
-                        <option value="France">France</option>
-                        <option value="Germany">Germany</option>
-                        <option value="India">India</option>
-                        <option value="Indonesia">Indonesia</option>
-                        <option value="Israel">Israel</option>
-                        <option value="Italy">Italy</option>
-                        <option value="Japan">Japan</option>
-                        <option value="Korea">Korea, Republic of</option>
-                        <option value="Mexico">Mexico</option>
-                        <option value="Philippines">Philippines</option>
-                        <option value="Russia">Russian Federation</option>
-                        <option value="South Africa">South Africa</option>
-                        <option value="Thailand">Thailand</option>
-                        <option value="Turkey">Turkey</option>
-                        <option value="Ukraine">Ukraine</option>
-                        <option value="United Arab Emirates">United Arab Emirates</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="United States">United States</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="user-role">User Role</label>
-                      <select id="user-role" class="form-select">
-                        <option value="subscriber">Subscriber</option>
-                        <option value="editor">Editor</option>
-                        <option value="maintainer">Maintainer</option>
-                        <option value="author">Author</option>
-                        <option value="admin">Admin</option>
-                      </select>
-                    </div>
-                    <div class="mb-4">
-                      <label class="form-label" for="user-plan">Select Plan</label>
-                      <select id="user-plan" class="form-select">
-                        <option value="basic">Basic</option>
-                        <option value="enterprise">Enterprise</option>
-                        <option value="company">Company</option>
-                        <option value="team">Team</option>
-                      </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                    <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                   </form>
                 </div>
               </div>
+
+              <!-- Offcanvas to edit user -->
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditUser" aria-labelledby="offcanvasEditUserLabel" style="--bs-offcanvas-width: 800px">
+                <div class="offcanvas-header">
+                  <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Edit User</h5>
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
+                  <div class="divider text-start-center">
+                    <div class="divider-text">Account Details</div>
+                  </div>
+                  <form class="add-new-user pt-0" id="editUserForm" onsubmit="return false">
+                    <div class="row g-3">
+
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-username">Username</label>
+                        <input type="text" class="form-control" id="add-user-username" placeholder="jdoe1" aria-label="jdoe1" name="username" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-role">User Type</label>
+                        <select id="userType" class="form-select">
+                          <option value="">Select a user type</option>
+                          <option value="Student">Student</option>
+                          <option value="Faculty">Faculty</option>
+                          <option value="Staff">Staff</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-12">
+                        <label class="form-label" for="add-user-fullname">Full Name</label>
+                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name="userFullname" aria-label="John Doe" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-password">Password</label>
+                        <input type="password" id="add-user-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-label="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" name="password" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-confirm-password">Confirm Password</label>
+                        <input type="password" id="add-user-confirm-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-label="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" name="confirmPassword" />
+                      </div>
+
+                      <div class="divider text-start-center">
+                        <div class="divider-text">Academic Info</div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-email">Email</label>
+                        <input type="email" id="add-user-email" class="form-control" placeholder="example@example.com" aria-label="example@example.com" name="userEmail" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-college-edit">College</label>
+                        <select id="add-user-college-edit" class="form-select">
+                          <option value="Select College">Select College</option>
+                          <optgroup label="Undergraduate">
+                            <option value="College of Agriculture">College of Agriculture</option>
+                            <option value="College of Arts and Social Sciences">College of Arts and Social Sciences</option>
+                            <option value="College of Business Administration and Accountancy">College of Business Administration and Accountancy</option>
+                            <option value="College of Education">College of Education</option>
+                            <option value="College of Engineering">College of Engineering</option>
+                            <option value="College of Fisheries">College of Fisheries</option>
+                            <option value="College of Home Science and Industry">College of Home Science and Industry</option>
+                            <option value="College of Science">College of Science</option>
+                            <option value="College of Veterinary Science and Medicine">College of Veterinary Science and Medicine</option>
+                          </optgroup>
+                          <optgroup label="Graduate">
+                            <option value="Doctor of Philosophy">Doctor of Philosophy</option>
+                            <option value="Master of Science">Master of Science</option>
+                            <option value="Other Masteral Programs">Other Masteral Programs</option>
+                          </optgroup>
+                          <optgroup label="Other Curricular Offerings">
+                            <option value="Distance, Open, and Transnational University (DOTUni)">Distance, Open, and Transnational University (DOTUni)</option>
+                            <option value="Institute of Sports, Physical Education and Recreation">Institute of Sports, Physical Education and Recreation</option>
+                            <option value="Vocational Course (1-Year Program)">Vocational Course (1-Year Program)</option>
+                          </optgroup>
+                        </select>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-course-edit">Course</label>
+                        <select id="add-user-course-edit" class="form-select">
+                          <option value="">Select a course</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-clsu-id-image">CLSU ID Image</label>
+                        <input type="file" id="add-user-clsu-id-image" class="form-control" name="clsuIdImage" />
+                      </div>
+                      <div class="col-sm-12">
+                        <label class="form-label" for="add-user-clsu-address">CLSU Address</label>
+                        <textarea id="add-user-clsu-address" class="form-control" placeholder="CLSU Main Campus, Science City of Muñoz, Nueva Ecija, Philippines" aria-label="CLSU Main Campus, Science City of Muñoz, Nueva Ecija, Philippines" name="clsuAddress"></textarea>
+                      </div>
+
+                      <div class="divider text-start-center">
+                        <div class="divider-text">Personal Details</div>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-avatar">Upload Avatar Image</label>
+                        <input type="file" id="add-user-avatar" class="form-control" name="avatarImage" />
+                      </div>
+
+
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-contact">Contact</label>
+                        <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+1 (609) 988-44-11" aria-label="john.doe@example.com" name="userContact" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-home-address">Home Address</label>
+                        <textarea id="add-user-home-address" class="form-control" placeholder="123 Main St, Anytown, USA" aria-label="123 Main St, Anytown, USA" name="homeAddress"></textarea>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="add-user-social-links">Other Social Links (separated by commas)</label>
+                        <textarea id="add-user-social-links" class="form-control" placeholder="https://www.facebook.com/johndoe, https://www.twitter.com/johndoe" aria-label="https://www.facebook.com/johndoe, https://www.twitter.com/johndoe" name="socialLinks"></textarea>
+                      </div>
+
+
+
+
+
+                      <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Edit USer</button>
+                      <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
             </div>
           </div>
           <!--/ Content -->
@@ -314,7 +484,213 @@
   <script src="../../assets/js/main.js"></script>
 
   <!-- Page JS -->
-  <script src="../../assets/js/app-user-list.js"></script>
+  <script src="../../assets/js/app-user-end-list.js"></script>
+  <script>
+    function populateCourses(collegeDropdown, courseDropdown) {
+      collegeDropdown.addEventListener("change", function() {
+        const selectedCollege = this.value;
+        courseDropdown.innerHTML = "<option value=''>Select a course</option>"; // Clear existing options
+
+        // Populate course options based on selected college
+        switch (selectedCollege) { // Undergraduate
+          case "College of Agriculture":
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Agribusiness (BSAb)'>Bachelor of Science in Agribusiness (BSAb)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Agriculture (BSA)'>Bachelor of Science in Agriculture (BSA)</option>";
+            break;
+
+          case "College of Arts and Social Sciences":
+            courseDropdown.innerHTML += "<option value='Bachelor of Arts in Filipino (BAFil)'>Bachelor of Arts in Filipino (BAFil)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Arts in Literature (BALit)'>Bachelor of Arts in Literature (BALit)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Arts in Social Sciences (BASS)'>Bachelor of Arts in Social Sciences (BASS)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Development Communication (BSDC)'>Bachelor of Science in Development Communication (BSDC)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Psychology (BSPsych)'>Bachelor of Science in Psychology (BSPsych)</option>";
+            break;
+
+          case "College of Business Administration and Accountancy":
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Accountancy (BSAc)'>Bachelor of Science in Accountancy (BSAc)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Business Administration (BSBA)'>Bachelor of Science in Business Administration (BSBA)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Entrepreneurship (BSEntrep)'>Bachelor of Science in Entrepreneurship (BSEntrep)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Management Accounting (BSMA)'>Bachelor of Science in Management Accounting (BSMA)</option>";
+            break;
+
+          case "College of Education":
+            courseDropdown.innerHTML += "<option value='Bachelor of Culture and Arts Education (BCAEd)'>Bachelor of Culture and Arts Education (BCAEd)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Early Childhood Education (BECEd)'>Bachelor of Early Childhood Education (BECEd)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Elementary Education (BEEd)'>Bachelor of Elementary Education (BEEd)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Physical Education (BPEd)'>Bachelor of Physical Education (BPEd)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Secondary Education (BSEd)'>Bachelor of Secondary Education (BSEd)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Technology and Livelihood Education (BTLEd)'>Bachelor of Technology and Livelihood Education (BTLEd)</option>";
+            break;
+
+          case "College of Engineering":
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Agricultural and Biosystems Engineering (BSABE)'>Bachelor of Science in Agricultural and Biosystems Engineering (BSABE)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Civil Engineering (BSCE)'>Bachelor of Science in Civil Engineering (BSCE)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Information Technology (BSIT)'>Bachelor of Science in Information Technology (BSIT)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Meteorology (BSMet)'>Bachelor of Science in Meteorology (BSMet)</option>";
+            break;
+
+          case "College of Fisheries":
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Fisheries (BSF)'>Bachelor of Science in Fisheries (BSF)</option>";
+            break;
+
+          case "College of Home Science and Industry":
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Food Technology (BSFT)'>Bachelor of Science in Food Technology (BSFT)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Fashion and Textile Technology (BSFTT)'>Bachelor of Science in Fashion and Textile Technology (BSFTT)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Hospitality Management (BSHM)'>Bachelor of Science in Hospitality Management (BSHM)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Tourism Management (BSTM)'>Bachelor of Science in Tourism Management (BSTM)</option>";
+            break;
+
+          case "College of Science":
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Biology (BSBio)'>Bachelor of Science in Biology (BSBio)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Chemistry (BSChem)'>Bachelor of Science in Chemistry (BSChem)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Environmental Science (BSES)'>Bachelor of Science in Environmental Science (BSES)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Mathematics (BSMath)'>Bachelor of Science in Mathematics (BSMath)</option>";
+            courseDropdown.innerHTML += "<option value='Bachelor of Science in Statistics (BSStat)'>Bachelor of Science in Statistics (BSStat)</option>";
+            break;
+
+          case "College of Veterinary Science and Medicine":
+            courseDropdown.innerHTML += "<option value='Doctor of Veterinary Medicine (DVM)'>Doctor of Veterinary Medicine (DVM)</option>";
+            break;
+            // Graduate
+          case "Doctor of Philosophy":
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy'>Doctor of Philosophy</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Agricultural Engineering'>Doctor of Philosophy in Agricultural Engineering</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Agricultural Entomology'>Doctor of Philosophy in Agricultural Entomology</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Animal Science'>Doctor of Philosophy in Animal Science</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Aquaculture'>Doctor of Philosophy in Aquaculture</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Biology'>Doctor of Philosophy in Biology</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Crop Science'>Doctor of Philosophy in Crop Science</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Development Communication'>Doctor of Philosophy in Development Communication</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Development Education'>Doctor of Philosophy in Development Education</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Environmental Management'>Doctor of Philosophy in Environmental Management</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Plant Breeding'>Doctor of Philosophy in Plant Breeding</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Rural Development'>Doctor of Philosophy in Rural Development</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Soil Science'>Doctor of Philosophy in Soil Science</option>";
+            courseDropdown.innerHTML += "<option value='Doctor of Philosophy in Sustainable Food Systems by Research Program (DOTUni)'>Doctor of Philosophy in Sustainable Food Systems by Research Program (DOTUni)</option>";
+            break;
+          case "Master of Science":
+            courseDropdown.innerHTML += "<option value='Master of Science in Agricultural Economics'>Master of Science in Agricultural Economics</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Agricultural Engineering'>Master of Science in Agricultural Engineering</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Animal Science'>Master of Science in Animal Science</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Aquaculture'>Master of Science in Aquaculture</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Biology'>Master of Science in Biology</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Biology Education'>Master of Science in Biology Education</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Chemistry Education'>Master of Science in Chemistry Education</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Crop Protection'>Master of Science in Crop Protection</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Crop Science'>Master of Science in Crop Science</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Development Communication'>Master of Science in Development Communication</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Education'>Master of Science in Education</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Environmental Management'>Master of Science in Environmental Management</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Grain Science'>Master of Science in Grain Science</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Guidance and Counselling'>Master of Science in Guidance and Counselling</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Rural Development'>Master of Science in Rural Development</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Soil Science'>Master of Science in Soil Science</option>";
+            break;
+          case "Other Masteral Programs":
+            courseDropdown.innerHTML += "<option value='Master of Arts in Language and Literature'>Master of Arts in Language and Literature</option>";
+            courseDropdown.innerHTML += "<option value='Master of Science in Renewable Energy Systems (DOTUni)'>Master of Science in Renewable Energy Systems (DOTUni)</option>";
+            courseDropdown.innerHTML += "<option value='Master of Veterinary Studies'>Master of Veterinary Studies</option>";
+            courseDropdown.innerHTML += "<option value='Master in Agribusiness Management'>Master in Agribusiness Management</option>";
+            courseDropdown.innerHTML += "<option value='Master in Biology'>Master in Biology</option>";
+            courseDropdown.innerHTML += "<option value='Master in Business Administration'>Master in Business Administration</option>";
+            courseDropdown.innerHTML += "<option value='Master in Chemistry'>Master in Chemistry</option>";
+            courseDropdown.innerHTML += "<option value='Master in Environmental Management (DOTUni)'>Master in Environmental Management (DOTUni)</option>";
+            courseDropdown.innerHTML += "<option value='Master in Local Government Management (DOTUni)'>Master in Local Government Management (DOTUni)</option>";
+            break;
+
+            //Other
+          case "Distance, Open, and Transnational University (DOTUni)":
+            courseDropdown.innerHTML += "<option value='Diploma in Land Use Planning'>Diploma in Land Use Planning</option>";
+            courseDropdown.innerHTML += "<option value='Diploma in Local Government Management'>Diploma in Local Government Management</option>";
+            courseDropdown.innerHTML += "<option value='Certificate in Agricultural Research Management'>Certificate in Agricultural Research Management</option>";
+            courseDropdown.innerHTML += "<option value='Certificate in Basic Environmental Impact Assessment'>Certificate in Basic Environmental Impact Assessment</option>";
+            courseDropdown.innerHTML += "<option value='Certificate in Basic Local Governance'>Certificate in Basic Local Governance</option>";
+            courseDropdown.innerHTML += "<option value='Certificate in Entrepreneurship'>Certificate in Entrepreneurship</option>";
+            courseDropdown.innerHTML += "<option value='Certificate in Local Development Planning'>Certificate in Local Development Planning</option>";
+            courseDropdown.innerHTML += "<option value='Certificate in Project Feasibility Preparation and Implementation'>Certificate in Project Feasibility Preparation and Implementation</option>";
+            courseDropdown.innerHTML += "<option value='Certificate in Training Management'>Certificate in Training Management</option>";
+            courseDropdown.innerHTML += "<option value='Certificate in Teaching'>Certificate in Teaching</option>";
+            break;
+
+          case "Institute of Sports, Physical Education and Recreation":
+            courseDropdown.innerHTML += "<option value='Certificate in Physical Education'>Certificate in Physical Education</option>";
+            break;
+
+          case "Vocational Course (1-Year Program)":
+            courseDropdown.innerHTML += "<option value='Certificate in Agricultural Mechanics'>Certificate in Agricultural Mechanics</option>";
+            break;
+        }
+      });
+    }
+  </script>
+  <script>
+    // Get the college and course dropdowns for both offcanvasAddUser and offcanvasEditUser
+    const addUserCollegeDropdown = document.getElementById("add-user-college-add");
+    const addUserCourseDropdown = document.getElementById("add-user-course-add");
+
+    const editUserCollegeDropdown = document.getElementById("add-user-college-edit");
+    const editUserCourseDropdown = document.getElementById("add-user-course-edit");
+
+    // Call the populateCourses function for both offcanvas elements
+    populateCourses(addUserCollegeDropdown, addUserCourseDropdown);
+    populateCourses(editUserCollegeDropdown, editUserCourseDropdown);
+  </script>
+
+  <?php
+  require 'dbconn.php';
+
+  $sql = "SELECT user_id, role, username, fullname, password, user_type, email, avatar_image, college, course, clsu_id_image, home_address, clsu_address, contact, social_links FROM users";
+  $result = $conn->query($sql);
+
+  $data = array();
+
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while ($row = $result->fetch_assoc()) {
+      $links = explode(',', $row['social_links']);
+      $social_links = array();
+      foreach ($links as $link) {
+        if (preg_match('~me\.me/~', $link)) {
+          $social_links['messenger'] = $link;
+        } elseif (preg_match('~t\.me/~', $link)) {
+          $social_links['telegram'] = $link;
+        } elseif (preg_match('~viber\.com/~', $link)) {
+          $social_links['viber'] = $link;
+        } elseif (preg_match('~wa\.me/~', $link)) {
+          $social_links['whatsapp'] = $link;
+        } elseif (preg_match('~linkedin\.com/~', $link)) {
+          $social_links['linkedin'] = $link;
+        } elseif (preg_match('~facebook\.com/~', $link)) {
+          $social_links['facebook'] = $link;
+        } elseif (preg_match('~twitter\.com/~', $link)) {
+          $social_links['twitter'] = $link;
+        } elseif (preg_match('~instagram\.com/~', $link)) {
+          $social_links['instagram'] = $link;
+        }
+      }
+      unset($row['social_links']);
+      $row['social_links'] = $social_links;
+      $data[] = $row;
+    }
+  } else {
+    echo "0 results";
+  }
+  $conn->close();
+
+  // Convert the array to a JSON object
+  $json_data = json_encode(array('data' => $data));
+
+  // Write the JSON data to a file
+  $success = file_put_contents('../../assets/json/user-end-list.json', $json_data);
+  if (!$success) {
+    echo "Error: Unable to write JSON data to file.";
+  }
+
+
+  ?>
+
+
+
 </body>
 
 </html>
