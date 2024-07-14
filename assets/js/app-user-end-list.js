@@ -44,7 +44,7 @@ if (dt_user_table.length) {
       // columns according to JSON
       { data: '' },
       { data: 'fullname' },
-      { data: 'user_type' },
+      { data: 'role' },
       { data: 'user_id' },
       { data: 'course' },
       { data: 'contact' },
@@ -73,7 +73,7 @@ if (dt_user_table.length) {
           if ($image) {
             // For Avatar image
             var $output =
-              '<img src="' + assetsPath + 'uploads/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
+              '<img src="' + assetsPath + 'uploads/user-avatar/' + $image + '" alt="Avatar" class="rounded-circle">';
           } else {
             // For Avatar badge
             var stateNum = Math.floor(Math.random() * 6);
@@ -110,12 +110,12 @@ if (dt_user_table.length) {
         // User Type
         targets: 2,
         render: function (data, type, full, meta) {
-          var $userType = full['user_type'];
+          var $userType = full['role'];
           var userTypeBadgeObj = {
             Student:
-              '<span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30 me-2"><i class="ti ti-user ti-sm"></i></span>',
+              '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30 me-2"><i class="ti ti-user ti-sm"></i></span>',
             Faculty:
-              '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30 me-2"><i class="ti ti-circle-check ti-sm"></i></span>',
+              '<span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30 me-2"><i class="ti ti-circle-check ti-sm"></i></span>',
             Staff:
               '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"><i class="ti ti-chart-pie-2 ti-sm"></i></span>'
           };

@@ -65,13 +65,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Insert the data into the database
-    $sql = "INSERT INTO ulaf.users (User_ID, role, Username, FullName, User_Type, Password, Email, College, Course, Home_Address, CLSU_Address, Contact, Social_Links, Avatar_Image, CLSU_ID_Image)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO ulaf.users (User_ID, role, Username, FullName, Password, Email, College, Course, Home_Address, CLSU_Address, Contact, Social_Links, Avatar_Image, CLSU_ID_Image)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if ($stmt === false) {
       die('Error preparing statement: ' . $conn->error);
     }
-    $stmt->bind_param("sssssssssssssss", $userID, $userType, $username, $fullName, $userType, $hashedPassword, $email, $college, $course, $homeAddress, $clsuAddress, $contact, $socialLinks, $targetFilePathAvatar, $targetFilePathIDImage);
+    $stmt->bind_param("ssssssssssssss", $userID, $username, $fullName, $userType, $hashedPassword, $email, $college, $course, $homeAddress, $clsuAddress, $contact, $socialLinks, $targetFilePathAvatar, $targetFilePathIDImage);
 
     if ($stmt->execute()) {
       http_response_code(201);

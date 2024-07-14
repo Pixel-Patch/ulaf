@@ -51,14 +51,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Move the uploaded files to the target directory
             if (move_uploaded_file($_FILES["editavatar"]["tmp_name"], $targetFilePathAvatar) && move_uploaded_file($_FILES["editclsuidimage"]["tmp_name"], $targetFilePathIDImage)) {
                 // Update the data in the database
-                $sql = "UPDATE ulaf.users SET role = ?, Username = ?, FullName = ?, User_Type = ?, Password = ?, Email = ?, College = ?, Course = ?, Home_Address = ?, CLSU_Address = ?, Contact = ?, Social_Links = ?, Avatar_Image = ?, CLSU_ID_Image = ?";
+                $sql = "UPDATE ulaf.users SET role = ?, Username = ?, FullName = ?, Password = ?, Email = ?, College = ?, Course = ?, Home_Address = ?, CLSU_Address = ?, Contact = ?, Social_Links = ?, Avatar_Image = ?, CLSU_ID_Image = ?";
                 $sql .= " WHERE User_ID = ?";
                 $stmt = $conn->prepare($sql);
                 if ($stmt === false) {
                     die('Error preparing statement: ' . $conn->error);
                 }
                 // Fix the type definition string to match the number of bind variables
-                $stmt->bind_param("ssssssssssssssi", $userType, $username, $fullName, $userType, $hashedPassword, $email, $college, $course, $homeAddress, $clsuAddress, $contact, $socialLinks, $targetFilePathAvatar, $targetFilePathIDImage, $userID);
+                $stmt->bind_param("ssssssssssssssi", $userType, $username, $fullName, $hashedPassword, $email, $college, $course, $homeAddress, $clsuAddress, $contact, $socialLinks, $avatarFileName, $idImageFileName, $userID);
 
                 if ($stmt->execute()) {
                     http_response_code(200);

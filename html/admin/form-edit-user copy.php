@@ -104,9 +104,9 @@ include('get_user_data.php');
                         <label class="form-label" for="editrole">User Type</label>
                         <select id="editrole" name="editrole" class="form-select">
                           <option value="">Select a user type</option>
-                          <option value="Student" <?php if ($user['User_Type'] == 'Student') echo 'selected'; ?>>Student</option>
-                          <option value="Faculty" <?php if ($user['User_Type'] == 'Faculty') echo 'selected'; ?>>Faculty</option>
-                          <option value="Staff" <?php if ($user['User_Type'] == 'Staff') echo 'selected'; ?>>Staff</option>
+                          <option value="Student" <?php if ($user['Role'] == 'Student') echo 'selected'; ?>>Student</option>
+                          <option value="Faculty" <?php if ($user['Role'] == 'Faculty') echo 'selected'; ?>>Faculty</option>
+                          <option value="Staff" <?php if ($user['Role'] == 'Staff') echo 'selected'; ?>>Staff</option>
                         </select>
                       </div>
 
