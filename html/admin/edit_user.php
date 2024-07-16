@@ -8,6 +8,25 @@ require_once 'dbconn.php';
 $errors = [];
 $hasErrors = false;
 
+// Determine base directory dynamically
+$baseDir = realpath(dirname(__FILE__) . '/../../..');
+
+// Define target directories
+$avatarDir = $baseDir . '/ulaf/assets/uploads/user-avatar/';
+$idDir = $baseDir . '/ulaf/assets/uploads/clsu-id/';
+$itemDir = $baseDir . '/ulaf/assets/uploads/items/';
+
+// Ensure directories exist
+if (!is_dir($avatarDir)) {
+    mkdir($avatarDir, 0777, true);
+}
+if (!is_dir($idDir)) {
+    mkdir($idDir, 0777, true);
+}
+if (!is_dir($itemDir)) {
+    mkdir($itemDir, 0777, true);
+}
+
 // Check if form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
@@ -17,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = isset($_POST['editusername']) ? $_POST['editusername'] : '';
     $password = isset($_POST['editpassword']) ? $_POST['editpassword'] : '';
     $confirmPassword = isset($_POST['confirmPassword']) ? $_POST['confirmPassword'] : '';
-    $email = isset($_POST['editemail']) ? $_POST['editemail'] : ''; // Fixed space in the key
+    $email = isset($_POST['editemail']) ? $_POST['editemail'] : '';
     $college = isset($_POST['editcollege']) ? $_POST['editcollege'] : '';
     $course = isset($_POST['editcourse']) ? $_POST['editcourse'] : '';
     $clsuAddress = isset($_POST['editclsuaddress']) ? $_POST['editclsuaddress'] : '';
@@ -25,67 +44,123 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $homeAddress = isset($_POST['edithomeaddress']) ? $_POST['edithomeaddress'] : '';
     $socialLinks = isset($_POST['editlinks']) ? $_POST['editlinks'] : '';
 
-    // Hash the password if it's not empty
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    // Check if the user exists
+    $sql = "SELECT * FROM ulaf.users WHERE User_ID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $userID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    // If there are no errors, proceed with uploading files and updating data in the database
-    if (!$hasErrors) {
-        // Define the target directory and file names
-        $targetDir = "S:\\xampp\\htdocs\\ulaf\\assets\\uploads\\";
-        $avatarFileName = basename($_FILES["editavatar"]["name"] ?? '');
-        $idImageFileName = basename($_FILES["editclsuidimage"]["name"] ?? '');
-        $targetFilePathAvatar = $targetDir . '\\' . $avatarFileName;
-        $targetFilePathIDImage = $targetDir . '\\' . $idImageFileName;
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
 
-        // Check if file inputs are set before checking for upload errors
-        if (isset($_FILES["editavatar"]) && $_FILES["editavatar"]["error"] !== UPLOAD_ERR_OK) {
-            // Remove echo statement
+        // Prepare update query
+        $updateFields = [];
+        $updateValues = [];
+
+        if (!empty($userType)) {
+            $updateFields[] = "role = ?";
+            $updateValues[] = $userType;
+        }
+        if (!empty($fullName)) {
+            $updateFields[] = "FullName = ?";
+            $updateValues[] = $fullName;
+        }
+        if (!empty($username)) {
+            $updateFields[] = "Username = ?";
+            $updateValues[] = $username;
+        }
+        if (!empty($password)) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $updateFields[] = "Password = ?";
+            $updateValues[] = $hashedPassword;
+        }
+        if (!empty($email)) {
+            $updateFields[] = "Email = ?";
+            $updateValues[] = $email;
+        }
+        if (!empty($college)) {
+            $updateFields[] = "College = ?";
+            $updateValues[] = $college;
+        }
+        if (!empty($course)) {
+            $updateFields[] = "Course = ?";
+            $updateValues[] = $course;
+        }
+        if (!empty($clsuAddress)) {
+            $updateFields[] = "CLSU_Address = ?";
+            $updateValues[] = $clsuAddress;
+        }
+        if (!empty($contact)) {
+            $updateFields[] = "Contact = ?";
+            $updateValues[] = $contact;
+        }
+        if (!empty($homeAddress)) {
+            $updateFields[] = "Home_Address = ?";
+            $updateValues[] = $homeAddress;
+        }
+        if (!empty($socialLinks)) {
+            $updateFields[] = "Social_Links = ?";
+            $updateValues[] = $socialLinks;
         }
 
-        if (isset($_FILES["editclsuidimage"]) && $_FILES["editclsuidimage"]["error"] !== UPLOAD_ERR_OK) {
-            // Remove echo statement
-        }
+        // Handle avatar upload
+        if (isset($_FILES["editavatar"]) && $_FILES["editavatar"]["error"] == UPLOAD_ERR_OK) {
+            $avatarFileExtension = pathinfo($_FILES["editavatar"]["name"], PATHINFO_EXTENSION);
+            $avatarFileName = $userID . '.' . $avatarFileExtension;
+            $targetFilePathAvatar = $avatarDir . $avatarFileName;
 
-        // Check if files were uploaded
-        if ((isset($_FILES["editavatar"]) && ($_FILES["editavatar"]["error"] ?? UPLOAD_ERR_NO_FILE) == UPLOAD_ERR_OK) && (isset($_FILES["editclsuidimage"]) && ($_FILES["editclsuidimage"]["error"] ?? UPLOAD_ERR_NO_FILE) == UPLOAD_ERR_OK)) {
-            // Move the uploaded files to the target directory
-            if (move_uploaded_file($_FILES["editavatar"]["tmp_name"], $targetFilePathAvatar) && move_uploaded_file($_FILES["editclsuidimage"]["tmp_name"], $targetFilePathIDImage)) {
-                // Update the data in the database
-                $sql = "UPDATE ulaf.users SET role = ?, Username = ?, FullName = ?, Password = ?, Email = ?, College = ?, Course = ?, Home_Address = ?, CLSU_Address = ?, Contact = ?, Social_Links = ?, Avatar_Image = ?, CLSU_ID_Image = ?";
-                $sql .= " WHERE User_ID = ?";
-                $stmt = $conn->prepare($sql);
-                if ($stmt === false) {
-                    die('Error preparing statement: ' . $conn->error);
-                }
-                // Fix the type definition string to match the number of bind variables
-                $stmt->bind_param("ssssssssssssssi", $userType, $username, $fullName, $hashedPassword, $email, $college, $course, $homeAddress, $clsuAddress, $contact, $socialLinks, $avatarFileName, $idImageFileName, $userID);
-
-                if ($stmt->execute()) {
-                    http_response_code(200);
-                    $message = "User has been updated successfully!";
-                    // Use JavaScript to redirect the user without displaying the message
-                    echo "<script>window.location.href = 'end-user_list.php';</script>";
-                    exit();
-                } else {
-                    http_response_code(500);
-                    $message = "Error: " . $sql . "<br>" . $conn->error;
-                    // Use JavaScript to redirect the user without displaying the message
-                    echo "<script>window.location.href = 'end-user_list.php';</script>";
-                    exit();
-                }
-
-                $stmt->close();
+            if (move_uploaded_file($_FILES["editavatar"]["tmp_name"], $targetFilePathAvatar)) {
+                $updateFields[] = "Avatar_Image = ?";
+                $updateValues[] = $avatarFileName;
             } else {
-                // Remove echo statements
-                $hasErrors = true;
+                $errors[] = "Failed to upload avatar image.";
             }
-        } elseif (isset($_FILES["editavatar"]) && ($_FILES["editavatar"]["error"] ?? UPLOAD_ERR_NO_FILE != UPLOAD_ERR_OK)) {
-            // No avatar was uploaded, set a default avatar or leave the field blank
-            $targetFilePathAvatar = "default_avatar.jpg"; // Replace with your default avatar file path
-        } elseif (isset($_FILES["editclsuidimage"]) && ($_FILES["editclsuidimage"]["error"] ?? UPLOAD_ERR_NO_FILE != UPLOAD_ERR_OK)) {
-            // No ID image was uploaded, set a default ID image or leave the field blank
-            $targetFilePathIDImage = "default_id_image.jpg"; // Replace with your default ID image file path
         }
+
+        // Handle CLSU ID image upload
+        if (isset($_FILES["editclsuidimage"]) && $_FILES["editclsuidimage"]["error"] == UPLOAD_ERR_OK) {
+            $idImageFileExtension = pathinfo($_FILES["editclsuidimage"]["name"], PATHINFO_EXTENSION);
+            $idImageFileName = $userID . '.' . $idImageFileExtension;
+            $targetFilePathIDImage = $idDir . $idImageFileName;
+
+            if (move_uploaded_file($_FILES["editclsuidimage"]["tmp_name"], $targetFilePathIDImage)) {
+                $updateFields[] = "CLSU_ID_Image = ?";
+                $updateValues[] = $idImageFileName;
+            } else {
+                $errors[] = "Failed to upload ID image.";
+            }
+        }
+
+        if (empty($errors) && !empty($updateFields)) {
+            $updateValues[] = $userID;
+            $sql = "UPDATE ulaf.users SET " . implode(", ", $updateFields) . " WHERE User_ID = ?";
+            $stmt = $conn->prepare($sql);
+            if ($stmt === false) {
+                die('Error preparing statement: ' . $conn->error);
+            }
+
+            $stmt->bind_param(str_repeat("s", count($updateValues)), ...$updateValues);
+
+            if ($stmt->execute()) {
+                http_response_code(200);
+                echo "<script>window.location.href = 'end-user_list.php';</script>";
+                exit();
+            } else {
+                http_response_code(500);
+                $errors[] = "Error: " . $sql . "<br>" . $conn->error;
+            }
+
+            $stmt->close();
+        } else {
+            http_response_code(400);
+            foreach ($errors as $error) {
+                echo $error . "<br>";
+            }
+        }
+    } else {
+        http_response_code(404);
+        echo "User not found.";
     }
 }
 

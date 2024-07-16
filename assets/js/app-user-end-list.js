@@ -1,7 +1,3 @@
-/**
- * Page User List
- */
-
 'use strict';
 
 // Datatable (jquery)
@@ -37,154 +33,152 @@ $(function () {
   }
 
   // Users datatable
-if (dt_user_table.length) {
-  var dt_user = dt_user_table.DataTable({
-    ajax: assetsPath + 'json/user-end-list.json',// JSON file to add data''
-    columns: [
-      // columns according to JSON
-      { data: '' },
-      { data: 'fullname' },
-      { data: 'role' },
-      { data: 'user_id' },
-      { data: 'course' },
-      { data: 'contact' },
-      { data: 'action' }
-    ],
-    columnDefs: [
-      {
-        // For Responsive
-        className: 'control',
-        searchable: false,
-        orderable: false,
-        responsivePriority: 2,
-        targets: 0,
-        render: function (data, type, full, meta) {
-          return '';
-        }
-      },
-      {
-        // User full name and email
-        targets: 1,
-        responsivePriority: 4,
-        render: function (data, type, full, meta) {
-          var $name = full['fullname'],
-            $email = full['email'],
-            $image = full['avatar_image'];
-          if ($image) {
-            // For Avatar image
-            var $output =
-              '<img src="' + assetsPath + 'uploads/user-avatar/' + $image + '" alt="Avatar" class="rounded-circle">';
-          } else {
-            // For Avatar badge
-            var stateNum = Math.floor(Math.random() * 6);
-            var states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'];
-            var $state = states[stateNum],
-              $name = full['fullname'],
-              $initials = $name.match(/\b\w/g) || [];
-            $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-            $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
+  if (dt_user_table.length) {
+    var dt_user = dt_user_table.DataTable({
+      ajax: assetsPath + 'json/user-end-list.json', // JSON file to add data
+      columns: [
+        // columns according to JSON
+        { data: '' },
+        { data: 'fullname' },
+        { data: 'role' },
+        { data: 'user_id' },
+        { data: 'course' },
+        { data: 'contact' },
+        { data: 'action' }
+      ],
+      columnDefs: [
+        {
+          // For Responsive
+          className: 'control',
+          searchable: false,
+          orderable: false,
+          responsivePriority: 2,
+          targets: 0,
+          render: function (data, type, full, meta) {
+            return '';
           }
-          // Creates full output for row
-          var $row_output =
-            '<div class="d-flex justify-content-start align-items-center user-name">' +
-            '<div class="avatar-wrapper">' +
-            '<div class="avatar me-3">' +
-            $output +
-            '</div>' +
-            '</div>' +
-            '<div class="d-flex flex-column">' +
-            '<a href="' +
-            userView +
-            '" class="text-body text-truncate"><span class="fw-medium">' +
-            $name +
-            '</span></a>' +
-            '<small class="text-muted">' +
-            $email +
-            '</small>' +
-            '</div>' +
-            '</div>';
-          return $row_output;
+        },
+        {
+          // User full name and email
+          targets: 1,
+          responsivePriority: 4,
+          render: function (data, type, full, meta) {
+            var $name = full['fullname'] || '',
+              $email = full['email'] || '',
+              $image = full['avatar_image'];
+            if ($image) {
+              // For Avatar image
+              var $output =
+                '<img src="' + assetsPath + 'uploads/user-avatar/' + $image + '" alt="Avatar" class="rounded-circle">';
+            } else {
+              // For Avatar badge
+              var stateNum = Math.floor(Math.random() * 6);
+              var states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'];
+              var $state = states[stateNum],
+                $initials = $name.match(/\b\w/g) || [];
+              $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+              $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
+            }
+            // Creates full output for row
+            var $row_output =
+              '<div class="d-flex justify-content-start align-items-center user-name">' +
+              '<div class="avatar-wrapper">' +
+              '<div class="avatar me-3">' +
+              $output +
+              '</div>' +
+              '</div>' +
+              '<div class="d-flex flex-column">' +
+              '<a href="' +
+              userView +
+              '" class="text-body text-truncate"><span class="fw-medium">' +
+              $name +
+              '</span></a>' +
+              '<small class="text-muted">' +
+              $email +
+              '</small>' +
+              '</div>' +
+              '</div>';
+            return $row_output;
+          }
+        },
+        {
+          // User Type
+          targets: 2,
+          render: function (data, type, full, meta) {
+            var $userType = full['role'] || '';
+            var userTypeBadgeObj = {
+              Student:
+                '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30 me-2"><i class="ti ti-user ti-sm"></i></span>',
+              Faculty:
+                '<span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30 me-2"><i class="ti ti-circle-check ti-sm"></i></span>',
+              Staff:
+                '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"><i class="ti ti-chart-pie-2 ti-sm"></i></span>'
+            };
+            return "<span class='text-truncate d-flex align-items-center'>" + (userTypeBadgeObj[$userType] || '') + $userType + '</span>';
+          }
+        },
+        {
+          // User ID
+          targets: 3,
+          render: function (data, type, full, meta) {
+            var $userID = full['user_id'] || '';
+            return '<span class="fw-medium">' + $userID + '</span>';
+          }
+        },
+        {
+          // Course
+          targets: 4,
+          render: function (data, type, full, meta) {
+            var $course = full['course'] || '';
+            return '<span class="fw-medium">' + $course + '</span>';
+          }
+        },
+        {
+          // Contact
+          targets: 5,
+          render: function (data, type, full, meta) {
+            var $contact = full['contact'] || '';
+            return '<span class="fw-medium">' + $contact + '</span>';
+          }
+        },
+        {
+          // Actions
+          targets: -1,
+          title: 'Actions',
+          searchable: false,
+          orderable: false,
+          render: function (data, type, full, meta) {
+            return (
+              '<div class="d-flex align-items-center">' +
+              '<a href="form-edit-user.php?user_id=' + full['user_id'] + '"><i class="ti ti-edit ti-sm me-2"></i></a>' +
+              '<a href="javascript:;" class="text-body delete-record" data-user-id="' + full['user_id'] + '"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
+              '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
+              '<div class="dropdown-menu dropdown-menu-end m-0">' +
+              '<a href="' +
+              userView +
+              '" class="dropdown-item">View</a>' +
+              '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
+              '</div>' +
+              '</div>'
+            );
+          }
         }
+      ],
+      order: [[1, 'desc']],
+      dom:
+        '<"row me-2"' +
+        '<"col-md-2"<"me-3"l>>' +
+        '<"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' +
+        '>t' +
+        '<"row mx-2"' +
+        '<"col-sm-12 col-md-6"i>' +
+        '<"col-sm-12 col-md-6"p>' +
+        '>',
+      language: {
+        sLengthMenu: '_MENU_',
+        search: '',
+        searchPlaceholder: 'Search..'
       },
-      {
-        // User Type
-        targets: 2,
-        render: function (data, type, full, meta) {
-          var $userType = full['role'];
-          var userTypeBadgeObj = {
-            Student:
-              '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30 me-2"><i class="ti ti-user ti-sm"></i></span>',
-            Faculty:
-              '<span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30 me-2"><i class="ti ti-circle-check ti-sm"></i></span>',
-            Staff:
-              '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"><i class="ti ti-chart-pie-2 ti-sm"></i></span>'
-          };
-          return "<span class='text-truncate d-flex align-items-center'>" + userTypeBadgeObj[$userType] + $userType + '</span>';
-        }
-      },
-      {
-        // User ID
-        targets: 3,
-        render: function (data, type, full, meta) {
-          var $userID = full['user_id'];
-          return '<span class="fw-medium">' + $userID + '</span>';
-        }
-      },
-      {
-        // Course
-        targets: 4,
-        render: function (data, type, full, meta) {
-          var $course = full['course'];
-          return '<span class="fw-medium">' + $course + '</span>';
-        }
-      },
-      {
-        // Contact
-        targets: 5,
-        render: function (data, type, full, meta) {
-          var $contact = full['contact'];
-          return '<span class="fw-medium">' + $contact + '</span>';
-        }
-      },
-
-      {
-     // Actions
-  targets: -1,
-  title: 'Actions',
-  searchable: false,
-  orderable: false,
-  render: function (data, type, full, meta) {
-    return (
-      '<div class="d-flex align-items-center">' +
-      '<a href="form-edit-user.php?user_id=' + full['user_id'] + '"><i class="ti ti-edit ti-sm me-2"></i></a>'+ // Pass the user ID as a query parameter
-      '<a href="javascript:;" class="text-body delete-record"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
-      '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
-      '<div class="dropdown-menu dropdown-menu-end m-0">' +
-      '<a href="' +
-      userView +
-      '" class="dropdown-item">View</a>' +
-      '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
-      '</div>' +
-      '</div>'
-          );
-        }
-      }
-    ],
-    order: [[1, 'desc']],
-    dom:
-      '<"row me-2"' +
-      '<"col-md-2"<"me-3"l>>' +
-      '<"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' +
-      '>t' +
-      '<"row mx-2"' +
-      '<"col-sm-12 col-md-6"i>' +
-      '<"col-sm-12 col-md-6"p>' +
-      '>',
-    language: {
-      sLengthMenu: '_MENU_',
-      search: '',
-      searchPlaceholder: 'Search..'
-    },
       // Buttons with Dropdown
       buttons: [
         {
@@ -358,7 +352,7 @@ if (dt_user_table.length) {
                     ':' +
                     '</td> ' +
                     '<td>' +
-                    col.data +
+                    (col.data || '') +
                     '</td>' +
                     '</tr>'
                 : '';
@@ -433,9 +427,9 @@ if (dt_user_table.length) {
               .each(function (d, j) {
                 select.append(
                   '<option value="' +
-                    statusObj[d].title +
+                    (statusObj[d]?.title || '') +
                     '" class="text-capitalize">' +
-                    statusObj[d].title +
+                    (statusObj[d]?.title || '') +
                     '</option>'
                 );
               });
@@ -444,10 +438,39 @@ if (dt_user_table.length) {
     });
   }
 
-  // Delete Record
-  $('.datatables-users tbody').on('click', '.delete-record', function () {
-    dt_user.row($(this).parents('tr')).remove().draw();
+ // Delete Record
+$('.datatables-users tbody').on('click', '.delete-record', function () {
+  var userId = $(this).data('user-id');
+  $('#userToDelete').text(userId);
+  $('#deleteModal').modal('show');
+
+  $('#confirmDeleteBtn').off('click').on('click', function () {
+    $.ajax({
+      url: 'delete-user.php?user_id=' + userId,
+      type: 'GET',
+      success: function (response) {
+        if (response.includes('success')) {
+          // Close the modal
+          $('#deleteModal').modal('hide');
+          // Optionally, you can reload or update your datatable here
+           location.reload();
+        } else {
+          alert('Failed to delete user.');
+        }
+        console.log(response);
+        $('#deleteModal .modal-body').append('<p>' + response + '</p>');
+      },
+      error: function (xhr, status, error) {
+        console.error('AJAX Error:', status, error);
+        console.error('Response:', xhr.responseText);
+        alert('Failed to delete user.');
+      }
+    });
   });
+});
+
+
+
 
   // Filter form control to default size
   // ? setTimeout used for multilingual table initialization
@@ -457,7 +480,7 @@ if (dt_user_table.length) {
   }, 300);
 });
 
-
+// Additional functionality for phone masks and form validation
 (function () {
   const phoneMaskList = document.querySelectorAll('.phone-mask');
 
@@ -504,7 +527,7 @@ if (dt_user_table.length) {
               message: 'Please enter a password'
             },
             identical: {
-              compare: function() {
+              compare: function () {
                 return document.getElementById('add-user-confirm-password').value;
               },
               message: 'Passwords do not match'
@@ -517,7 +540,7 @@ if (dt_user_table.length) {
               message: 'Please confirm your password'
             },
             identical: {
-              compare: function() {
+              compare: function () {
                 return document.getElementById('add-user-password').value;
               },
               message: 'Passwords do not match'

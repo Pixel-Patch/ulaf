@@ -23,5 +23,4 @@ if (!empty($userId)) {
     $stmt->close();
 }
 
-// Return user data as a JSON object
-echo json_encode($user);
+

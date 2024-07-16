@@ -207,41 +207,49 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     
     
-/// Select2 (User Type)
-const userTypeSelect = jQuery(formValidationExamples.querySelector('[name="userType"]'));
 
-if (userTypeSelect.length) {
-  userTypeSelect.wrap('<div class="position-relative"></div>');
+  // Select2 (User Role)
+  const addUserRoleSelect = jQuery('#add-admin-userRole');
+  if (addUserRoleSelect.length) {
+    addUserRoleSelect.wrap('<div class="position-relative"></div>');
+    addUserRoleSelect
+      .select2({
+        placeholder: 'Select a user role',
+        dropdownParent: addUserRoleSelect.parent()
+      })
+      .on('change', function () {
+        // Optionally, you can revalidate the field if you have form validation setup
+        // fv.revalidateField('userRole');
+      });
+  }
 
-  userTypeSelect.select2({
-    placeholder: 'Select a user type',
-    dropdownParent: userTypeSelect.parent(),
-  });
 
-  userTypeSelect.on('change', function () {
-    const selectedUserType = this.value;
+// Select2 (ID Number)
+const addIDNumberSelect = jQuery('#add-admin-IDnumber');
 
-    // Enable/disable validators based on the selected user type
-    fv.enableValidator('formValidationUserID', 'stringLength', selectedUserType === 'Student');
-    fv.enableValidator('formValidationUserID', 'regexp', selectedUserType === 'Student');
+addIDNumberSelect.wrap('<div class="position-relative"></div>');
+addIDNumberSelect.select2({
+  placeholder: 'Select an ID Number',
+  dropdownParent: addIDNumberSelect.parent(),
+  ajax: {
+    url: 'fetch-userids.php', // Replace with your backend script URL
+    dataType: 'json',
+    delay: 250,
+    processResults: function (data) {
+      return {
+        results: $.map(data, function (item) {
+          return {
+            id: item.User_ID,
+            text: item.User_ID
+          };
+        })
+      };
+    },
+    cache: true
+  }
+});
 
-    if (selectedUserType !== 'Student') {
-      fv.disableValidator('formValidationUserID', 'stringLength');
-      fv.disableValidator('formValidationUserID', 'regexp');
-    }
 
-    if (selectedUserType === 'Student') {
-      fv.enableValidator('addCollege', 'notEmpty');
-      fv.enableValidator('addCourse', 'notEmpty');
-    } else {
-      fv.disableValidator('addCollege', 'notEmpty');
-      fv.disableValidator('addCourse', 'notEmpty');
-    }
-
-    // Revalidate the userType field when an option is chosen
-    fv.revalidateField('userType');
-  });
-}
 
 
 

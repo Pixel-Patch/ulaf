@@ -1,0 +1,4 @@
+Attempting to delete user with ID: 24-0000
+Invalid user_id: 24-0000
+Attempting to delete user with ID: 24-0000
+Invalid user_id: 24-0000

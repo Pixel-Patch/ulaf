@@ -90,15 +90,16 @@
                         <label class="form-label" for="add-admin-userRole">User Role</label>
                         <select id="add-admin-userRole" name="userRole" class="form-select">
                           <option value="">Select a user role</option>
-                          <option value="admin">Admin</option>
-                          <option value="admin_staff">Admin Staff</option>
+                          <option value="Admin">Admin</option>
+                          <option value="Staff">Staff</option>
                         </select>
                       </div>
 
                       <div class="col-md-6">
                         <label class="form-label" for="add-admin-IDnumber">ID Number</label>
-                        <input type="text" class="form-control" id="add-admin-IDnumber" placeholder="24-0001" name="userIDnumber" aria-label="IDnumber" />
+                        <select class="form-control" id="add-admin-IDnumber" name="userIDnumber" aria-label="IDnumber"></select>
                       </div>
+
 
                       <div class="col-md-6">
                         <label class="form-label" for="add-admin-username">Username</label>

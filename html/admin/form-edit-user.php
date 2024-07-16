@@ -161,31 +161,45 @@ include('get_user_data.php');
                         <div id="editemailFeedback" class="invalid-feedback"></div>
                       </div>
 
+                      <?php
+                      $colleges = [
+                        "Undergraduate" => [
+                          "College of Agriculture",
+                          "College of Arts and Social Sciences",
+                          "College of Business Administration and Accountancy",
+                          "College of Education",
+                          "College of Engineering",
+                          "College of Fisheries",
+                          "College of Home Science and Industry",
+                          "College of Science",
+                          "College of Veterinary Science and Medicine"
+                        ],
+                        "Graduate" => [
+                          "Doctor of Philosophy",
+                          "Master of Science",
+                          "Other Masteral Programs"
+                        ],
+                        "Other Curricular Offerings" => [
+                          "Distance, Open, and Transnational University (DOTUni)",
+                          "Institute of Sports, Physical Education and Recreation",
+                          "Vocational Course (1-Year Program)"
+                        ]
+                      ];
+                      ?>
+
                       <div class="col-md-6">
                         <label class="form-label" for="editcollege">College</label>
                         <select id="editcollege" name="editcollege" class="form-select">
                           <option value="">Select a college</option>
-                          <optgroup label="Undergraduate">
-                            <option value="College of Agriculture">College of Agriculture</option>
-                            <option value="College of Arts and Social Sciences">College of Arts and Social Sciences</option>
-                            <option value="College of Business Administration and Accountancy">College of Business Administration and Accountancy</option>
-                            <option value="College of Education">College of Education</option>
-                            <option value="College of Engineering">College of Engineering</option>
-                            <option value="College of Fisheries">College of Fisheries</option>
-                            <option value="College of Home Science and Industry">College of Home Science and Industry</option>
-                            <option value="College of Science">College of Science</option>
-                            <option value="College of Veterinary Science and Medicine">College of Veterinary Science and Medicine</option>
-                          </optgroup>
-                          <optgroup label="Graduate">
-                            <option value="Doctor of Philosophy">Doctor of Philosophy</option>
-                            <option value="Master of Science">Master of Science</option>
-                            <option value="Other Masteral Programs">Other Masteral Programs</option>
-                          </optgroup>
-                          <optgroup label="Other Curricular Offerings">
-                            <option value="Distance, Open, and Transnational University (DOTUni)">Distance, Open, and Transnational University (DOTUni)</option>
-                            <option value="Institute of Sports, Physical Education and Recreation">Institute of Sports, Physical Education and Recreation</option>
-                            <option value="Vocational Course (1-Year Program)">Vocational Course (1-Year Program)</option>
-                          </optgroup>
+                          <?php foreach ($colleges as $label => $group) : ?>
+                            <optgroup label="<?php echo $label; ?>">
+                              <?php foreach ($group as $college) : ?>
+                                <option value="<?php echo $college; ?>" <?php if (isset($user['College']) && $user['College'] == $college) echo 'selected'; ?>>
+                                  <?php echo $college; ?>
+                                </option>
+                              <?php endforeach; ?>
+                            </optgroup>
+                          <?php endforeach; ?>
                         </select>
                       </div>
 
@@ -194,7 +208,9 @@ include('get_user_data.php');
                         <select id="editcourse" name="editcourse" class="form-select">
                           <option value="">Select a course</option>
                         </select>
+                        <input type="hidden" id="currentcourse" value="<?php echo htmlspecialchars(isset($user['Course']) ? $user['Course'] : '', ENT_QUOTES, 'UTF-8'); ?>">
                       </div>
+
 
                       <div class="col-md-6">
                         <label for="editclsuidimage" class="form-label">CLSU ID Image</label>
