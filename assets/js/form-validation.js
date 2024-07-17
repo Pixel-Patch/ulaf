@@ -384,8 +384,8 @@ addfullname: {
             // Prevent the default form submission behavior
             event.preventDefault();
         
-            // You can process the form data if needed, and then redirect to add_user.php
-            location.assign('../.../admin/add_user.php');
+            // You can process the form data if needed, and then redirect to add-user.php
+            location.assign('../.../admin/add-user.php');
           }
         }),
       

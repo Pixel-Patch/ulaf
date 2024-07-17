@@ -1,53 +1,10 @@
-<!doctype html>
+<?php
+require 'dbconn.php';
+$title = 'Form Add Admin - Pages | ULAF Admin';
+require 'header.php';
 
-<html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="horizontal-menu-template">
+?>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
-  <title>Add User Form - ULAF | Pixel-Patch Inc. </title>
-
-  <meta name="description" content="" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&ampdisplay=swap" rel="stylesheet" />
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
-  <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css" />
-  <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
-
-  <!-- Core CSS -->
-  <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-  <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-  <link rel="stylesheet" href="../../assets/css/demo.css" />
-
-  <!-- Vendors CSS -->
-  <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/tagify/tagify.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/form-validation.css" />
-
-  <!-- Page CSS -->
-
-  <!-- Helpers -->
-  <script src="../../assets/vendor/js/helpers.js"></script>
-  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-  <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-  <script src="../../assets/vendor/js/template-customizer.js"></script>
-  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-  <script src="../../assets/js/config.js"></script>
 </head>
 
 <body>
@@ -70,19 +27,21 @@
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4"><span class="text-muted fw-light">End-User /</span> Add New User</h4>
+            <h4 class="py-3 mb-4"><span class="text-muted fw-light">End-User /</span> Add New Employee</h4>
 
             <div class="row">
               <!-- FormValidation -->
               <div class="col-12">
                 <div class="card">
-                  <h5 class="card-header">Add User</h5>
+                  <h5 class="card-header">Add Employee</h5>
                   <div class="card-body">
-                    <form id="formValidationExamples" class="row g-3">
+                    <form id="formValidationExamples" class="row g-3" method="post" action="add-admin.php" enctype="multipart/form-data">
                       <!-- Account Details -->
 
+
+                      <!-- Academic Info -->
                       <div class="col-12">
-                        <h6>1. Account Details</h6>
+                        <h6>Account Details</h6>
                         <hr class="mt-0" />
                       </div>
 
@@ -96,20 +55,29 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-admin-IDnumber">ID Number</label>
-                        <select class="form-control" id="add-admin-IDnumber" name="userIDnumber" aria-label="IDnumber"></select>
+                        <label class="form-label" for="adduserid">ID Number</label>
+                        <select class="form-control" id="adduserid" name="adduserid" aria-label="IDnumber"></select>
                       </div>
 
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-admin-username">Username</label>
-                        <input type="text" class="form-control" id="add-admin-username" placeholder="John Doe" name="formValidationUsername" aria-label="John Doe" />
+                        <label class="form-label" for="addusername">Username</label>
+                        <input type="text" class="form-control" id="addusername" placeholder="John Doe" name="addusername" aria-label="John Doe" />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="addavatar">Upload Avatar Image</label>
+                        <input type="file" class="form-control" id="addavatar" name="addavatar" />
                       </div>
 
                       <div class="col-md-6">
-                        <label class="form-label" for="add-admin-email">Email</label>
-                        <input type="text" id="add-admin-email" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="formValidationEmail" />
+                        <label class="form-label" for="adduserid">Email</label>
+                        <input type="text" id="addemail" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="addemail" />
                       </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="addcontact">Contact</label>
+                        <input type="text" class="form-control phone-mask" id="addcontact" name="addcontact" placeholder="+63 988 888 8888" aria-label="+63 988 888 8888" required />
+                      </div>
+
 
                       <div class="col-md-6">
                         <label class="form-label" for="add-admin-password">Password</label>
@@ -122,7 +90,9 @@
                       </div>
 
                       <div class="col-12">
+                        <div id="submitFeedback" class="invalid-feedback"></div>
                         <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+
                       </div>
                     </form>
                   </div>
@@ -183,8 +153,11 @@
   <!-- Main JS -->
   <script src="../../assets/js/main.js"></script>
 
-  <!-- Page JS -->
+  <!-- Validation -->
   <script src="../../assets/js/form-validation-admin.js"></script>
+
+
+
 </body>
 
 </html>

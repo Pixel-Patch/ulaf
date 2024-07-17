@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     $sql = "SELECT COUNT(*) FROM ulaf.users WHERE User_ID = ? AND User_ID != ?";
                     break;
                 case 'editusername':
-                    $sql = "SELECT COUNT(*) FROM ulaf.users WHERE Username = ? AND Username != ?";
+                    $sql = "SELECT COUNT(*) FROM ulaf.users WHERE BINARY Username = ? AND Username != ?";
                     break;
                 case 'editemail':
                     $sql = "SELECT COUNT(*) FROM ulaf.users WHERE LOWER(Email) = LOWER(?) AND Email != ?";

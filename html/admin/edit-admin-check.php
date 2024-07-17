@@ -2,12 +2,15 @@
 // Connect to database
 include 'dbconn.php'; // Adjust this line to your DB connection setup
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+header('Content-Type: application/json');
 
 // Initialize the result variable
 $result = ['valid' => true];
+
+if (!$conn) {
+    echo json_encode(['valid' => false, 'message' => 'Database connection failed: ' . mysqli_connect_error()]);
+    exit;
+}
 
 // Check if the request method is GET
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -32,20 +35,22 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             // Prepare the SQL statement based on the field
             switch ($field) {
                 case 'edituserid':
-                    $sql = "SELECT COUNT(*) FROM ulaf.users WHERE User_ID = ? AND User_ID != ?";
+                    $sql = "SELECT COUNT(*) FROM ulaf.employee WHERE id_number = ? AND id_number != ?";
                     break;
                 case 'editusername':
-                    $sql = "SELECT COUNT(*) FROM ulaf.users WHERE Username = ? AND Username != ?";
+                    $sql = "SELECT COUNT(*) FROM ulaf.employee WHERE BINARY username = ? AND username != ?";
                     break;
                 case 'editemail':
-                    $sql = "SELECT COUNT(*) FROM ulaf.users WHERE LOWER(Email) = LOWER(?) AND Email != ?";
+                    $sql = "SELECT COUNT(*) FROM ulaf.employee WHERE LOWER(email) = LOWER(?) AND email != ?";
                     break;
+                default:
+                    echo json_encode(['valid' => false, 'message' => "Invalid field: {$field}"]);
+                    exit;
             }
 
             // Prepare the statement
             $stmt = mysqli_prepare($conn, $sql);
 
-            // Check if the statement is prepared successfully
             if ($stmt) {
                 mysqli_stmt_bind_param($stmt, "ss", $value, $currentValue);
 
@@ -54,30 +59,34 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     mysqli_stmt_bind_result($stmt, $count);
                     mysqli_stmt_fetch($stmt);
 
+                    // Log the count result
+                    error_log("Count: {$count}");
+
                     if ($count > 0) {
-                        $result = ['valid' => false, 'message' => 'Value already exists']; // Value exists
+                        $result = ['valid' => false, 'message' => 'Value already exists'];
                     } else {
-                        $result = ['valid' => true]; // Value does not exist, validation passes
+                        $result = ['valid' => true];
                     }
                 } else {
-                    $result = ['valid' => false, 'message' => 'Execution error: ' . mysqli_error($conn)]; // Execution error
+                    $result = ['valid' => false, 'message' => 'Execution error: ' . mysqli_error($conn)];
                 }
 
-                // Close the prepared statement
                 mysqli_stmt_close($stmt);
+            } else {
+                $result = ['valid' => false, 'message' => 'Preparation error: ' . mysqli_error($conn)];
             }
             break;
 
         default:
-            // Invalid field, return a more specific error message
             $result = ['valid' => false, 'message' => "Invalid field: {$field}"];
             break;
     }
+} else {
+    $result = ['valid' => false, 'message' => 'Invalid request method'];
 }
 
 // Log the result variable
 error_log("Result: " . json_encode($result));
 
 // Return the result as a JSON object
-header('Content-Type: application/json');
 echo json_encode($result);

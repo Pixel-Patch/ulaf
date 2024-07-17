@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		$stmt->close();
 
-		// Check if the username already exists
-		$stmt = $conn->prepare("SELECT Username FROM users WHERE Username = ?");
+		// Check if the username already exists (case-sensitive)
+		$stmt = $conn->prepare("SELECT Username FROM users WHERE BINARY Username = ?");
 		$stmt->bind_param("s", $username);
 		$stmt->execute();
 		$stmt->store_result();
@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			exit();
 		}
 		$stmt->close();
-
 
 		// Check if the email already exists
 		$stmt = $conn->prepare("SELECT Email FROM users WHERE Email = ?");

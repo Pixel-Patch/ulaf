@@ -44,7 +44,7 @@ $(function () {
         // columns according to JSON
         { data: '' },
         { data: 'fullname' },
-        { data: 'user_role' },
+        { data: 'role' },
         { data: 'username' }, // Added username column
         { data: 'action' }
       ],
@@ -71,7 +71,7 @@ $(function () {
             if ($image) {
               // For Avatar image
               var $output =
-                '<img src="' + assetsPath + 'uploads/admin-avatar/' + $image + '" alt="Avatar" class="rounded-circle">';
+                '<img src="' + assetsPath + 'img/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
             } else {
               // For Avatar badge
               var stateNum = Math.floor(Math.random() * 6);
@@ -107,10 +107,10 @@ $(function () {
           // User Role
           targets: 2,
           render: function (data, type, full, meta) {
-            var $role = full['user_role'];
+            var $role = full['role'];
             var roleBadgeObj = {
               'Admin': '<span class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30 me-2"><i class="ti ti-device-laptop ti-sm"></i></span>',
-              'Staff': '<span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30 me-2"><i class="ti ti-chart-pie-2 ti-sm"></i></span>'
+              'Admin Staff': '<span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30 me-2"><i class="ti ti-chart-pie-2 ti-sm"></i></span>'
             };
             return "<span class='text-truncate d-flex align-items-center'>" + roleBadgeObj[$role] + $role + '</span>';
           }
@@ -125,8 +125,8 @@ $(function () {
           render: function (data, type, full, meta) {
             return (
               '<div class="d-flex align-items-center">' +
-              '<a href="form-edit-admin.php?id=' + full['id'] + '"><i class="ti ti-edit ti-sm me-2"></i></a>' +
-              '<a href="javascript:;" class="text-body delete-record" data-user-id="' + full['id'] + '"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
+              '<a href="javascript:;" class="text-body" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEditUser"><i class="ti ti-edit ti-sm me-2"></i></a>' +
+              '<a href="javascript:;" class="text-body delete-record"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
               '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
               '<div class="dropdown-menu dropdown-menu-end m-0">' +
               '<a href="' +
@@ -401,36 +401,18 @@ $(function () {
       }
     });
   }
- // Delete Record
-$('.datatables-users tbody').on('click', '.delete-record', function () {
-  var userId = $(this).data('user-id');
-  $('#userToDelete').text(userId);
-  $('#deleteModal').modal('show');
 
-  $('#confirmDeleteBtn').off('click').on('click', function () {
-    $.ajax({
-      url: 'delete-admin.php?id=' + userId,
-      type: 'GET',
-      success: function (response) {
-        if (response.includes('success')) {
-          // Close the modal
-          $('#deleteModal').modal('hide');
-          // Optionally, you can reload or update your datatable here
-           location.reload();
-        } else {
-          alert('Failed to delete user.');
-        }
-        console.log(response);
-        $('#deleteModal .modal-body').append('<p>' + response + '</p>');
-      },
-      error: function (xhr, status, error) {
-        console.error('AJAX Error:', status, error);
-        console.error('Response:', xhr.responseText);
-        alert('Failed to delete user.');
-      }
-    });
+  // Delete Record
+  $('.datatables-users tbody').on('click', '.delete-record', function () {
+    dt_user.row($(this).parents('tr')).remove().draw();
   });
-});
+
+  // Filter form control to default size
+  // ? setTimeout used for multilingual table initialization
+  setTimeout(() => {
+    $('.dataTables_filter .form-control').removeClass('form-control-sm');
+    $('.dataTables_length .form-select').removeClass('form-select-sm');
+  }, 300);
 });
 
 (function () {
@@ -508,22 +490,99 @@ $('.datatables-users tbody').on('click', '.delete-record', function () {
         }
       }
     },
-  plugins: {
-  trigger: new FormValidation.plugins.Trigger(),
-  bootstrap5: new FormValidation.plugins.Bootstrap5({
-    eleValidClass: '', // Specify your valid class if needed
-    rowSelector: function(field, ele) {
-      return '.mb-3';
+    plugins: {
+      trigger: new FormValidation.plugins.Trigger(),
+      bootstrap5: new FormValidation.plugins.Bootstrap5({
+        // Use this for enabling/changing valid/invalid class
+        eleValidClass: '',
+        rowSelector: function (field, ele) {
+          // field is the field name & ele is the field element
+          return '.mb-3';
+        }
+      }),
+      submitButton: new FormValidation.plugins.SubmitButton(),
+      // Submit the form when all fields are valid
+      // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+      autoFocus: new FormValidation.plugins.AutoFocus()
     }
-  }),
-  submitButton: new FormValidation.plugins.SubmitButton(),
-  defaultSubmit: new FormValidation.plugins.DefaultSubmit({
-    onSubmit: function() {
-      window.location.href = 'add-admin.php'; // Redirect to add-admin.php
-    }
-  }),
-  autoFocus: new FormValidation.plugins.AutoFocus()
-}
+  });
 
+  // Edit User Form Validation
+  const fvEditUser = FormValidation.formValidation(editUserForm, {
+    fields: {
+      userRole: {
+        validators: {
+          notEmpty: {
+            message: 'Please select a user role'
+          }
+        }
+      },
+      userIDnumber: {
+        validators: {
+          notEmpty: {
+            message: 'Please enter a username'
+          }
+        }
+      },
+      userUsername: {
+        validators: {
+          notEmpty: {
+            message: 'Please enter a username'
+          }
+        }
+      },
+      userEmail: {
+        validators: {
+          notEmpty: {
+            message: 'Please enter your email'
+          },
+          emailAddress: {
+            message: 'The value is not a valid email address'
+          }
+        }
+      },
+    
+      formValidationPass: {
+        validators: {
+          notEmpty: {
+            message: 'Please enter a password'
+          },
+          identical: {
+            compare: function() {
+              return document.getElementById('formValidationConfirmPass').value;
+            },
+            message: 'The password and its confirm are not the same'
+          }
+        }
+      },
+      formValidationConfirmPass: {
+        validators: {
+          notEmpty: {
+            message: 'Please confirm the password'
+          },
+          identical: {
+            compare: function() {
+              return document.getElementById('formValidationPass').value;
+            },
+            message: 'The password and its confirm are not the same'
+          }
+        }
+      }
+    },
+    plugins: {
+      trigger: new FormValidation.plugins.Trigger(),
+      bootstrap5: new FormValidation.plugins.Bootstrap5({
+        // Use this for enabling/changing valid/invalid class
+        eleValidClass: '',
+        rowSelector: function (field, ele) {
+          // field is the field name & ele is the field element
+          return '.mb-3';
+        }
+      }),
+      submitButton: new FormValidation.plugins.SubmitButton(),
+      // Submit the form when all fields are valid
+      // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+      autoFocus: new FormValidation.plugins.AutoFocus()
+    }
   });
 })();

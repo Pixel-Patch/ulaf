@@ -1,14 +1,9 @@
 <?php
-if (!file_exists('dbconn.php')) {
-  die('Error: dbconn.php not found');
-}
-include('dbconn.php');
 
-if (!file_exists('get_user_data.php')) {
-  die('Error: get_user_data.php not found');
-}
-include('get_user_data.php');
-
+require('dbconn.php');
+require('get_user_data.php');
+$title = 'Form Edit Admin - Pages | ULAF Admin';
+require 'header.php';
 ?>
 
 
@@ -92,7 +87,7 @@ include('get_user_data.php');
                 <div class="card">
                   <h5 class="card-header">Edit User</h5>
                   <div class="card-body">
-                    <form id="formValidationExamples" class="row g-3" method="post" action="edit_user.php" enctype="multipart/form-data">
+                    <form id="formValidationExamples" class="row g-3" method="post" action="edit-user.php" enctype="multipart/form-data">
                       <!-- Account Details -->
 
                       <div class="col-12">

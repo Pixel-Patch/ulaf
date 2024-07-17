@@ -73,14 +73,16 @@ document.addEventListener('DOMContentLoaded', function (e) {
     const fv = FormValidation.formValidation(formValidationExamples, {
       fields: {
 
-        userRole: {
+       
+        editrole: {
           validators: {
             notEmpty: {
-              message: 'The role is required',
+              message: 'The user type is required'
             }
           }
         },
-           adduserid: {
+
+        edituserid: {
           validators: {
             notEmpty: {
               message: 'The ID is required'
@@ -103,12 +105,12 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             },
             remote: {
-              url: 'add-admin-check.php',
+              url: 'edit-admin-check.php',
               message: 'The ID already exists',
               data: function() {
                 return {
-                  field: 'adduserid',
-                  value: $('#adduserid').val()
+                  field: 'edituserid',
+                  value: $('#edituserid').val()
                 };
               },
               dataType: 'json',
@@ -123,7 +125,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
             }
           }
         },
-        formValidationFullname: {
+               
+        editfullname: {
           validators: {
             notEmpty: {
               message: 'The fullname is required'
@@ -138,27 +141,28 @@ document.addEventListener('DOMContentLoaded', function (e) {
             } 
           }
         },
-        addusername: {
+
+        editusername: {
           validators: {
             notEmpty: {
-              message: 'The username is required'
+              message: 'The usernaFDGDFGme is required'
             },
             stringLength: {
               min: 4,
               max: 15,
-              message: 'The name must be more than 4 and less than 15 characfsdfdsters long'
+              message: 'The name must be more than 4 and less than 15 characters long'
             },
             regexp: {
               regexp: /^[a-zA-Z0-9.-]+$/,
               message: 'The name can only consist of alphabetical characters, numbers, periods, and hyphens (with no spaces)'
             },
             remote: {
-              url: 'add-admin-check.php',
+              url: 'edit-admin-check.php',
               message: 'The username already exists',
               data: function() {
                 return {
-                  field: 'addusername',
-                  value: $('#addusername').val()
+                  field: 'editusername',
+                  value: $('#editusername').val()
                 };
               },
               dataType: 'json',
@@ -173,22 +177,63 @@ document.addEventListener('DOMContentLoaded', function (e) {
             }
           }
         },
-          addcontact: {
-      validators: {
-        notEmpty: {
-          message: 'The contact number is required'
+        
+
+        editpassword: {
+          validators: {
+            stringLength: {
+              min: 6,
+              message: 'The password must be at least 6 characters long'
+            }
+          }
         },
-        regexp: {
-          regexp: /^(\+\d{1,3}[-\s]?)?\d{11}$/,
-          message: 'The contact number must be a phone number (e.g. +63 988 888 8888)'
-        }
-      }
-    },
-    addavatar: {
-        validators: {
+        formValidationConfirmPass: {
+          validators: {
+            identical: {
+              compare: function () {
+                return formValidationExamples.querySelector('[name="editpassword"]').value;
+              },
+              message: 'The password and its confirm are not the same'
+            }
+          }
+        },
+
+        editemail: {
+          validators: {
             notEmpty: {
-                message: 'Uploading avatar is required'
+              message: 'The Email is required'
             },
+            emailAddress: {
+              message: 'The value is not a valid email address'
+            },
+            regexp: {
+              regexp: /^[^@]+@(clsu2\.edu\.ph|clsu\.edu\.ph)$/,
+              message: 'The email address must end with @clsu2.edu.ph or @clsu.edu.ph'
+            },
+            remote: {
+              url: 'edit-admin-check.php',
+              message: 'The email address already exists',
+              data: function() {
+                return {
+                  field: 'editemail',
+                  value: $('#editemail').val()
+                };
+              },
+              dataType: 'json',
+              success: function(response) {
+                if (!response.valid) {
+                  return {
+                    valid: false,
+                    message: response.message
+                  };
+                }
+              }
+            }
+          }
+        },
+        
+      editavatar: {
+        validators: {
             file: {
                 extension: 'jpg,jpeg,png',
                 type: 'image/jpeg,image/png',
@@ -206,80 +251,20 @@ document.addEventListener('DOMContentLoaded', function (e) {
         }
     },
 
-        formValidationPass: {
-          validators: {
-            notEmpty: {
-              message: 'Please enter your password'
-            },
-            stringLength: {
-              min: 6,
-              message: 'The password must be at least 6 characters long'
-            }
-          }
+    editcontact: {
+      validators: {
+        notEmpty: {
+          message: 'The contact number is required'
         },
-        formValidationConfirmPass: {
-          validators: {
-            notEmpty: {
-              message: 'Please confirm password'
-            },
-            identical: {
-              compare: function () {
-                return formValidationExamples.querySelector('[name="formValidationPass"]').value;
-              },
-              message: 'The password and its confirm are not the same'
-            }
-          }
-        },
-        formValidationEmail: {
-          validators: {
-            notEmpty: {
-              message: 'The Email is required'
-            },
-            emailAddress: {
-              message: 'The value is not a valid email address'
-            },
-            regexp: {
-              regexp: /^[^@]+@(clsu2\.edu\.ph|clsu\.edu\.ph)$/,
-              message: 'The email address must end with @clsu2.edu.ph or @clsu.edu.ph'
-            }
-          }
-        },
-         addemail: {
-          validators: {
-            notEmpty: {
-              message: 'The Email is required'
-            },
-            emailAddress: {
-              message: 'The value is not a valid email address'
-            },
-            regexp: {
-              regexp: /^[^@]+@(clsu2\.edu\.ph|clsu\.edu\.ph)$/,
-              message: 'The email address must end with @clsu2.edu.ph or @clsu.edu.ph'
-            },
-            remote: {
-              url: 'add-admin-check.php',
-              message: 'The email address already exists',
-              data: function() {
-                return {
-                  field: 'addemail',
-                  value: $('#addemail').val()
-                };
-              },
-              dataType: 'json',
-              success: function(response) {
-                if (!response.valid) {
-                  return {
-                    valid: false,
-                    message: response.message || 'The email address already exists'
-                  };
-                }
-              }
-            }
-          }
-        },
-     
+        regexp: {
+          regexp: /^(\+\d{1,3}[-\s]?)?\d{11}$/,
+          message: 'The contact number must be a phone number (e.g. +63 988 888 8888)'
+        }
+      }
+    },
+   
       },
-    
+
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
         bootstrap5: new FormValidation.plugins.Bootstrap5({
@@ -289,14 +274,15 @@ document.addEventListener('DOMContentLoaded', function (e) {
           rowSelector: function (field, ele) {
             // field is the field name & ele is the field element
             switch (field) {
-              case 'userRole':
-                case 'userIDnumber':
-                case 'formValidationUsername':
-                case 'formValidationEmail':
-                   case 'addcontact':
-                   case 'addavatar':
-                case 'formValidationPass':
-                case 'formValidationConfirmPass':
+              case 'editrole':
+              case 'edituserid':
+              case 'editfullname':
+              case 'editusername':
+              case 'editpassword':
+              case 'formValidationConfirmPass':
+              case 'editemail':
+              case 'editavatar':
+              case 'editcontact':
                 return '.col-12';
               default:
                 return '.row';
@@ -315,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             event.preventDefault();
         
             // You can process the form data if needed, and then redirect to add-user.php
-            location.assign('../.../admin/add-admin.php');
+            location.assign('../.../admin/edit-admin.php');
           }
         }),
       
@@ -356,25 +342,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
       });
     }
 
-    
-// Select2 (User Role)
-  const addUserRoleSelect = jQuery('#add-admin-userRole');
-  if (addUserRoleSelect.length) {
-    addUserRoleSelect.wrap('<div class="position-relative"></div>');
-    addUserRoleSelect
-      .select2({
-        placeholder: 'Select a user role',
-        dropdownParent: addUserRoleSelect.parent()
-      })
-      .on('change', function () {
-        // Optionally, you can revalidate the field if you have form validation setup
-       fv.revalidateField('userRole');
-      });
-  }
-
-
-// Select2 (ID Number)
-const addIDNumberSelect = jQuery('#adduserid');
+   // Select2 (ID Number)
+const addIDNumberSelect = jQuery('#edituserid');
 
 addIDNumberSelect.wrap('<div class="position-relative"></div>');
 addIDNumberSelect.select2({
@@ -398,11 +367,27 @@ addIDNumberSelect.select2({
   }
 });
 
+
 // Revalidate the userIDnumber field when the Select2 control is changed
 addIDNumberSelect.on('change', function () {
   fv.revalidateField('adduserid');
 });
+    
 
+// Select2 (User Role)
+const editroleSelect = jQuery(formValidationExamples.querySelector('[name="editrole"]'));
+if (editroleSelect.length) {
+  editroleSelect.wrap('<div class="position-relative"></div>');
+  editroleSelect
+    .select2({
+      placeholder: 'Select a user role',
+      dropdownParent: editroleSelect.parent()
+    })
+    .on('change', function () {
+      // Revalidate the editrole field when an option is chosen
+      fv.revalidateField('editrole');
+    });
+}
 
 
 

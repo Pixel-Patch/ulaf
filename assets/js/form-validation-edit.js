@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         defaultSubmit: new FormValidation.plugins.DefaultSubmit(null, {
           onSuccess: function(event) {
             event.preventDefault();
-            location.assign('../.../admin/edit_user.php');
+            location.assign('../.../admin/edit-user.php');
           }
         }),
       },

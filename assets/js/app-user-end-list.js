@@ -446,7 +446,7 @@ $('.datatables-users tbody').on('click', '.delete-record', function () {
 
   $('#confirmDeleteBtn').off('click').on('click', function () {
     $.ajax({
-      url: 'delete-user.php?user_id=' + userId,
+      url: 'delete-admin.php?user_id=' + userId,
       type: 'GET',
       success: function (response) {
         if (response.includes('success')) {

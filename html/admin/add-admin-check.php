@@ -19,15 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $stmt = null;
     switch ($field) {
         case 'adduserid':
-            $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.users WHERE user_id = ?");
+            $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.employee WHERE id_number = ?");
             break;
         case 'addusername':
-            $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.users WHERE  BINARY username = ?");
+            $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.employee WHERE  BINARY username = ?");
             break;
         case 'addemail':
             // Trim the value to remove any leading or trailing whitespace
             $value = trim($value);
-            $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.users WHERE email = ?");
+            $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.employee WHERE email = ?");
             break;
         default:
             // Invalid field, return false

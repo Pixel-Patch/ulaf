@@ -27,7 +27,7 @@
                  </a>
                  <ul class="menu-sub">
                      <li class="menu-item">
-                         <a href="admin_list.php" class="menu-link">
+                         <a href="admin-list.php" class="menu-link">
                              <i class="menu-icon tf-icons ti ti-mail"></i>
                              <div data-i18n="Admin User">Admin User</div>
                          </a>

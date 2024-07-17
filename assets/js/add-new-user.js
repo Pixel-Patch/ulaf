@@ -204,7 +204,7 @@ $('#submitFeedback').on('click', function(event) {
 
       // Submit the form data to the server using jQuery
       $.ajax({
-        url: 'add_user.php', // Replace with your server-side script URL
+        url: 'add-user.php', // Replace with your server-side script URL
         type: 'POST',
         data: formData,
         processData: false,
