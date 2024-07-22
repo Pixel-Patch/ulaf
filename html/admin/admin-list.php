@@ -2,19 +2,11 @@
 $title = 'Form Edit Admin - Pages | ULAF Admin';
 require 'header.php';
 ?>
-
-
-
-
 <!-- Vendors CSS -->
-<link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+
 <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
 <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
 <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/form-validation.css" />
 
 
 </head>
@@ -86,6 +78,7 @@ require 'header.php';
           <?php require 'footer.php'; ?>
 
           <!-- / Footer -->
+           
 
           <div class="content-backdrop fade"></div>
         </div>

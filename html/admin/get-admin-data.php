@@ -22,4 +22,4 @@ if (!empty($adminId)) {
     // Close the statement
     $stmt->close();
 }
-
+?>

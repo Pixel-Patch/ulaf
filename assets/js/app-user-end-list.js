@@ -43,6 +43,7 @@ $(function () {
         { data: 'role' },
         { data: 'user_id' },
         { data: 'course' },
+        { data: 'college' },
         { data: 'contact' },
         { data: 'action' }
       ],
@@ -134,8 +135,16 @@ $(function () {
           }
         },
         {
-          // Contact
+          // Course
           targets: 5,
+          render: function (data, type, full, meta) {
+            var $course = full['college'] || '';
+            return '<span class="fw-medium">' + $course + '</span>';
+          }
+        },
+        {
+          // Contact
+          targets: 6,
           render: function (data, type, full, meta) {
             var $contact = full['contact'] || '';
             return '<span class="fw-medium">' + $contact + '</span>';
@@ -191,7 +200,7 @@ $(function () {
               text: '<i class="ti ti-printer me-2" ></i>Print',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5],
+                columns: [1, 2, 3, 4, 5, 6],
                 // prevent avatar to be print
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -228,7 +237,7 @@ $(function () {
               text: '<i class="ti ti-file-text me-2" ></i>Csv',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5],
+                columns: [1, 2, 3, 4, 5, 6],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -252,7 +261,7 @@ $(function () {
               text: '<i class="ti ti-file-spreadsheet me-2"></i>Excel',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5],
+                columns: [1, 2, 3, 4, 5, 6],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -276,7 +285,7 @@ $(function () {
               text: '<i class="ti ti-file-code-2 me-2"></i>Pdf',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5],
+                columns: [1, 2, 3, 4, 5, 6],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -300,7 +309,7 @@ $(function () {
               text: '<i class="ti ti-copy me-2" ></i>Copy',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5],
+                columns: [1, 2, 3, 4, 5, 6],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -393,6 +402,28 @@ $(function () {
               '<select id="UserCourse" class="form-select text-capitalize"><option value=""> Select Course </option></select>'
             )
               .appendTo('.user_course')
+              .on('change', function () {
+                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                column.search(val ? '^' + val + '$' : '', true, false).draw();
+              });
+
+            column
+              .data()
+              .unique()
+              .sort()
+              .each(function (d, j) {
+                select.append('<option value="' + d + '">' + d + '</option>');
+              });
+          });
+          // Adding plan filter once table initialized
+        this.api()
+          .columns(5)
+          .every(function () {
+            var column = this;
+            var select = $(
+              '<select id="UserCollege" class="form-select text-capitalize"><option value=""> Select College </option></select>'
+            )
+              .appendTo('.user_college')
               .on('change', function () {
                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
                 column.search(val ? '^' + val + '$' : '', true, false).draw();

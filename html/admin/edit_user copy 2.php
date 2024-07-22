@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stmt->execute()) {
                 http_response_code(200);
-                echo "<script>window.location.href = 'end-user_list.php';</script>";
+                echo "<script>window.location.href = 'end-user-list.php';</script>";
                 exit();
             } else {
                 http_response_code(500);

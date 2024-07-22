@@ -33,7 +33,7 @@
                          </a>
                      </li>
                      <li class="menu-item">
-                         <a href="end-user_list.php" class="menu-link">
+                         <a href="end-user-list.php" class="menu-link">
                              <i class="menu-icon tf-icons ti ti-messages"></i>
                              <div data-i18n="End-User">End-User</div>
                          </a>
@@ -43,10 +43,24 @@
 
              <!-- Items -->
              <li class="menu-item">
-                 <a href="item_list.php" class="menu-link  ">
+                 <a href="javascript:void(0)" class="menu-link menu-toggle ">
                      <i class="menu-icon tf-icons ti ti-layout-grid-add"></i>
                      <div data-i18n="Items">Items</div>
                  </a>
+                 <ul class="menu-sub">
+                     <li class="menu-item">
+                         <a href="item-list.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-mail"></i>
+                             <div data-i18n="Item List">Item List</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="item-claims.php" class="menu-link">
+                             <i class="menu-icon tf-icons ti ti-messages"></i>
+                             <div data-i18n="Item Claims">Item Claims</div>
+                         </a>
+                     </li>
+                 </ul>
              </li>
 
              <!-- Reports -->
@@ -69,7 +83,7 @@
                          </a>
                      </li>
                      <li class="menu-item">
-                         <a href="user_reports.php" class="menu-link">
+                         <a href="users-report.php" class="menu-link">
                              <i class="menu-icon tf-icons ti ti-messages"></i>
                              <div data-i18n="User Reports">User Reports</div>
                          </a>
@@ -169,7 +183,7 @@
 
                  // Define an array of related URLs for each menu link
                  var relatedUrls = [];
-                 if (menuLinkUrl === 'end-user_list.php') {
+                 if (menuLinkUrl === 'end-user-list.php') {
                      relatedUrls = ['form-add-user.php', 'form-edit-user.php'];
                  }
 

@@ -190,7 +190,7 @@ if ($itemId) {
                             <div id="map"></div>
                             <br>
                             <?php if (strtolower($itemDetails['Type']) == 'found') : ?>
-                                <?php if (strtolower($itemDetails['Current_Location']) == 'reporter') : ?>
+                                <?php if (strtolower($itemDetails['Current_Location']) == 'Reporter') : ?>
                                     <label class="form-label" for="currentLocation">Current Location</label>
                                     <div class="alert alert-info">
                                         To see details, verify your claim to the item founder.

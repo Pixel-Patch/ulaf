@@ -115,14 +115,14 @@ require("header.php");
                         <label class="form-label" for="item-current-location">Current Location</label>
                         <select class="form-control" id="item-current-location" name="itemCurrentLocation" aria-label="Current Location">
                             <option value="" disabled selected>Select Current Location</option>
-                            <option value="reporter">In my Possession</option>
+                            <option value="Reporter">In my Possession</option>
                             <option value="USF Office">USF Office</option>
                             <option value="OAd Office">OAd Office</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label id="pin-location-label" class="form-label" for="pin-location-add">Pin Location</label>
-                        <input type="text" id="addpinlocation" name="addpinlocation" class="form-control" placeholder="Search for a location" style="z-index: 9999 !important;">
+                        <input type="text" id="addpinlocation" name="addpinlocation" class="form-control" placeholder="Search for a location">
                         <div id="map-add" style="height: 400px;"></div>
                         <input id="pin-latitude-add" type="hidden" name="latitude">
                         <input id="pin-longitude-add" type="hidden" name="longitude">

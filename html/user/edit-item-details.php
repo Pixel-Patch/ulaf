@@ -131,7 +131,7 @@ $itemData = $_SESSION['item_data'] ?? [];
                         <label class="form-label" for="item-current-location">Current Location</label>
                         <select class="form-control" id="item-current-location" name="itemCurrentLocation" aria-label="Current Location">
                             <option value="">Select Current Location</option>
-                            <option value="reporter" <?php echo ($itemData['Current_Location'] == 'reporter') ? 'selected' : ''; ?>>In my Possession</option>
+                            <option value="Reporter" <?php echo ($itemData['Current_Location'] == 'Reporter') ? 'selected' : ''; ?>>In my Possession</option>
                             <option value="USF Office" <?php echo ($itemData['Current_Location'] == 'USF Office') ? 'selected' : ''; ?>>USF Office</option>
                             <option value="OAd Office" <?php echo ($itemData['Current_Location'] == 'OAd Office') ? 'selected' : ''; ?>>OAd Office</option>
                         </select>

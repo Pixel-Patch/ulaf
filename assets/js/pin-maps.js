@@ -1,23 +1,38 @@
 let markerAdd, markerEdit;
 
 function initMap(mapId, searchBoxId, latitudeId, longitudeId) {
+  const zoomLevel = mapId === "map-edit" ? 20 : 15;
+
   const map = new google.maps.Map(document.getElementById(mapId), {
-    center: { lat: 15.730555136929185, lng: 120.92987291131153 },
-    zoom: 15,
+    center: {
+      lat: parseFloat(document.getElementById(latitudeId).value) || 15.730555136929185,
+      lng: parseFloat(document.getElementById(longitudeId).value) || 120.92987291131153
+    },
+    zoom: zoomLevel,
   });
 
   let marker;
   if (mapId === "map-add") {
+    markerAdd = new google.maps.Marker({
+      position: {
+        lat: parseFloat(document.getElementById(latitudeId).value) || 15.730555136929185,
+        lng: parseFloat(document.getElementById(longitudeId).value) || 120.92987291131153
+      },
+      map: map,
+      draggable: true,
+    });
     marker = markerAdd;
   } else if (mapId === "map-edit") {
+    markerEdit = new google.maps.Marker({
+      position: {
+        lat: parseFloat(document.getElementById(latitudeId).value) || 15.730555136929185,
+        lng: parseFloat(document.getElementById(longitudeId).value) || 120.92987291131153
+      },
+      map: map,
+      draggable: true,
+    });
     marker = markerEdit;
   }
-
-  marker = new google.maps.Marker({
-    position: { lat: 15.730555136929185, lng: 120.92987291131153 },
-    map: map,
-    draggable: true,
-  });
 
   marker.addListener("dragend", () => {
     const position = marker.getPosition().toJSON();
@@ -44,15 +59,34 @@ function initMap(mapId, searchBoxId, latitudeId, longitudeId) {
     map.setCenter(place.geometry.location);
     map.setZoom(15);
   });
+
+  document.getElementById(latitudeId).addEventListener('change', () => {
+    const lat = parseFloat(document.getElementById(latitudeId).value);
+    const lng = parseFloat(document.getElementById(longitudeId).value);
+    const position = { lat, lng };
+    marker.setPosition(position);
+    map.setCenter(position);
+    reverseGeocode(position, searchBoxId);
+  });
+
+  document.getElementById(longitudeId).addEventListener('change', () => {
+    const lat = parseFloat(document.getElementById(latitudeId).value);
+    const lng = parseFloat(document.getElementById(longitudeId).value);
+    const position = { lat, lng };
+    marker.setPosition(position);
+    map.setCenter(position);
+    reverseGeocode(position, searchBoxId);
+  });
 }
 
 function reverseGeocode(position, searchBoxId) {
   const geocoder = new google.maps.Geocoder();
-  geocoder.geocode({ location: position }, (results, status) => {
+  geocoder.geocode({
+    location: position
+  }, (results, status) => {
     if (status === "OK") {
       if (results[0]) {
-        document.getElementById(searchBoxId).value =
-          results[0].formatted_address;
+        document.getElementById(searchBoxId).value = results[0].formatted_address;
       } else {
         window.alert("No results found");
       }
@@ -64,10 +98,5 @@ function reverseGeocode(position, searchBoxId) {
 
 window.addEventListener("load", () => {
   initMap("map-add", "addpinlocation", "pin-latitude-add", "pin-longitude-add");
-  initMap(
-    "map-edit",
-    "editpinlocation",
-    "pin-latitude-edit",
-    "pin-longitude-edit"
-  );
+  initMap("map-edit", "editpinlocation", "pin-latitude-edit", "pin-longitude-edit");
 });

@@ -132,7 +132,6 @@ $(function () {
               '<a href="' +
               userView +
               '" class="dropdown-item">View</a>' +
-              '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
               '</div>' +
               '</div>'
             );

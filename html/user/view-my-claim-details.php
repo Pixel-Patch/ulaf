@@ -228,7 +228,7 @@ $itemId = $claimDetails['Item_ID'] ?? null;
 					<?php elseif ($approveClaim) : ?>
 						<div class="fixed bg-white">
 							<div class="container buttonf">
-								<?php if ($claimDetails['Current_Location'] == 'reporter') : ?>
+								<?php if ($claimDetails['Current_Location'] == 'Reporter') : ?>
 									<button type="button" class="btn btn-primary btn-lg rounded-xl btn-thin w-100 gap-2" onclick="messageNow(<?php echo $itemId; ?>, <?php echo $claimId; ?>)">Message Now</button>
 								<?php elseif (in_array($claimDetails['Current_Location'], ['OAd Office', 'USF Office'])) : ?>
 									<button type="button" class="btn btn-primary btn-lg rounded-xl btn-thin w-100 gap-2" onclick="claimNow(<?php echo $itemId; ?>, <?php echo $claimId; ?>)">Claim Now</button>

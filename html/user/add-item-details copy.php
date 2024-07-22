@@ -110,7 +110,7 @@ require("header.php");
                         <label class="form-label" for="item-current-location">Current Location</label>
                         <select class="form-control" id="item-current-location" name="itemCurrentLocation" aria-label="Current Location">
                             <option value="" disabled selected>Select Current Location</option>
-                            <option value="reporter">In my Possession</option>
+                            <option value="Reporter">In my Possession</option>
                             <option value="USF Office">USF Office</option>
                             <option value="OAd Office">OAd Office</option>
                         </select>

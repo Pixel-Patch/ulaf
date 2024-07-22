@@ -1,10 +1,3 @@
-/**
- * app-ecommerce-product-list
- */
-
-'use strict';
-
-// Datatable (jquery)
 $(function () {
   let borderColor, bodyBg, headingColor;
 
@@ -19,43 +12,53 @@ $(function () {
   }
 
   // Variable declaration for table
-  var dt_product_table = $('.datatables-products'), 
+  var dt_product_table = $('.datatables-products'),
     statusObj = {
-      0: { title: 'Posted', class: 'bg-label-primary' },
-  1: { title: 'Claiming', class: 'bg-label-info' },
-  2: { title: 'Claimed', class: 'bg-label-success' },
-  3: { title: 'Returning', class: 'bg-label-warning' },
-  4: { title: 'Returned', class: 'bg-label-danger' }
-
+      0: { title: 'Posted', class: 'bg-label-secondary' },
+      1: { title: 'Claiming', class: 'bg-label-danger' },
+      2: { title: 'Claimed', class: 'bg-label-success' },
+      3: { title: 'Returning', class: 'bg-label-warning' },
+      4: { title: 'Returned', class: 'bg-label-info' },
+      5: { title: 'Retrieving', class: 'bg-label-warning' },
+      6: { title: 'Retrieved', class: 'bg-label-info' }
     },
     typeObj = {
       0: { title: 'Lost', class: 'bg-label-danger' },
-  1: { title: 'Found', class: 'bg-label-info' }, 
-
+      1: { title: 'Found', class: 'bg-label-success' }
     },
     categoryObj = {
-      0: { title: 'Household' },
-      1: { title: 'Office' },
-      2: { title: 'Electronics' },
-      3: { title: 'Shoes' },
-      4: { title: 'Accessories' },
-      5: { title: 'Game' }
-    }  ;
+      1: { title: 'Electronics' },
+      10: { title: 'Musical Instruments' },
+      11: { title: 'Toys' },
+      12: { title: 'Documents' },
+      13: { title: 'Cameras' },
+      14: { title: 'Wallets' },
+      15: { title: 'Headphones' },
+      16: { title: 'School Supplies' },
+      17: { title: 'Miscellaneous' },
+      2: { title: 'Clothing' },
+      3: { title: 'Books' },
+      4: { title: 'Keys' },
+      5: { title: 'Bags' },
+      6: { title: 'Water Bottles' },
+      7: { title: 'Glasses' },
+      8: { title: 'Umbrellas' },
+      9: { title: 'Sports Equipment' }
+    };
 
   // E-commerce Products datatable
-
   if (dt_product_table.length) {
     var dt_products = dt_product_table.DataTable({
-      ajax: assetsPath + 'json/item-list-admin.json', // JSON file to add data
+      ajax: assetsPath + 'json/item-list.json', // JSON file to add data
       columns: [
         // columns according to JSON
-        { data: 'id' },
-        { data: 'item_name' },
-        { data: 'item_type' },
-        { data: 'category' },
-        { data: 'current_location' },
-        { data: 'post_date' },
-        { data: 'item_status' },
+        { data: 'Item_ID' },
+        { data: 'Item_Name' },
+        { data: 'Type' },
+        { data: 'Category_ID' },
+        { data: 'Poster_ID' },
+        { data: 'Posted_Date' },
+        { data: 'Item_Status' },
         { data: '' }
       ],
       columnDefs: [
@@ -75,17 +78,22 @@ $(function () {
           targets: 1,
           responsivePriority: 1,
           render: function (data, type, full, meta) {
-            var $name = full['item_name'],
-              $id = full['id'],
-              $item_type = full['description'],
-              $image = full['image'];
+            var $name = full['Item_Name'],
+              $id = full['Item_ID'],
+              $item_type = full['Description'],
+              $image = full['Image'];
+
+            // Truncate description to 25 characters
+            if ($item_type.length > 25) {
+              $item_type = $item_type.substring(0, 25) + '...';
+            }
+
             if ($image) {
               // For Product image
-  
               var $output =
                 '<img src="' +
                 assetsPath +
-                'img/items-images/' +
+                'uploads/items/' +
                 $image +
                 '" alt="Product-' +
                 $id +
@@ -95,7 +103,7 @@ $(function () {
               var stateNum = Math.floor(Math.random() * 6);
               var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
               var $state = states[stateNum],
-                $name = full['description'],
+                $name = full['Description'],
                 $initials = $name.match(/\b\w/g) || [];
               $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
               $output = '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
@@ -120,13 +128,12 @@ $(function () {
             return $row_output;
           }
         },
-        
         {
           // item_type
           targets: 2,
           render: function (data, type, full, meta) {
-            var $type = full['item_type'];
-  
+            var $type = full['Type'];
+
             return (
               '<span class="badge ' +
               typeObj[$type].class +
@@ -135,25 +142,32 @@ $(function () {
               '</span>'
             );
           }
-        }, 
+        },
         {
           // Category
           targets: 3,
           responsivePriority: 5,
           render: function (data, type, full, meta) {
-            var $category = categoryObj[full['category']] ? categoryObj[full['category']].title : 'Unknown';
+            var $category = categoryObj[full['Category_ID']] ? categoryObj[full['Category_ID']].title : 'Unknown';
             var categoryBadgeObj = {
-              Household:
-                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2 p-3"><i class="ti ti-home-2 ti-xs"></i></span>',
-              Office:
-                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-briefcase ti-xs"></i></span>',
-              Electronics:
-                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-2 p-3"><i class="ti ti-device-mobile ti-xs"></i></span>',
-              Shoes:
-                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2"><i class="ti ti-shoe ti-xs"></i></span>',
-              Accessories:
-                '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2"><i class="ti ti-device-watch ti-xs"></i></span>',
-              Game: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2"><i class="ti ti-device-gamepad-2 ti-xs"></i></span>'
+              Electronics: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-2 p-3"><i class="ti ti-device-mobile ti-xs"></i></span>',
+              'Musical Instruments': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2 p-3"><i class="ti ti-music ti-xs"></i></span>',
+              Toys: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-game ti-xs"></i></span>',
+              Documents: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-file ti-xs"></i></span>',
+              Cameras: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2 p-3"><i class="ti ti-camera ti-xs"></i></span>',
+              Wallets: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-wallet ti-xs"></i></span>',
+              Headphones: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-dark me-2 p-3"><i class="ti ti-headphones ti-xs"></i></span>',
+              'School Supplies': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-book ti-xs"></i></span>',
+              Miscellaneous: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-box ti-xs"></i></span>',
+              Clothing: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-shirt ti-xs"></i></span>',
+              Books: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2 p-3"><i class="ti ti-book-open ti-xs"></i></span>',
+              Keys: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-2 p-3"><i class="ti ti-key ti-xs"></i></span>',
+              Bags: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2 p-3"><i class="ti ti-briefcase ti-xs"></i></span>',
+              'Water Bottles': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-droplet ti-xs"></i></span>',
+              Glasses: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-dark me-2 p-3"><i class="ti ti-eye ti-xs"></i></span>',
+              Umbrellas: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-umbrella ti-xs"></i></span>',
+              'Sports Equipment': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-bell ti-xs"></i></span>',
+              Unknown: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-question ti-xs"></i></span>'
             };
             return (
               "<span class='text-truncate d-flex align-items-center'>" +
@@ -164,10 +178,10 @@ $(function () {
           }
         },
         {
-          // post_date
+          // Posted_Date
           targets: 5, // assuming this is the correct column index
           render: function (data, type, full, meta) {
-            var $post_date = full['post_date'];
+            var $post_date = full['Posted_Date'];
             return '<h12 class="badge bg-label-secondary text-capitalize">' + $post_date + '</h12>';
           }
         },
@@ -175,8 +189,8 @@ $(function () {
           // Item Status
           targets: -2,
           render: function (data, type, full, meta) {
-            var $status = full['item_status'];
-  
+            var $status = full['Item_Status'];
+
             return (
               '<span class="badge ' +
               statusObj[$status].class +
@@ -195,21 +209,18 @@ $(function () {
           render: function (data, type, full, meta) {
             return (
               '<div class="d-inline-block text-nowrap">' +
-              '<button class="btn btn-sm btn-icon" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEditItem"><i class="ti ti-edit"></i></button>' +
-              '<button class="btn btn-sm btn-icon delete-record"><i class="ti ti-trash"></i></button>' +
+              '<a href="form-edit-item.php?item_id=' + full['Item_ID'] + '"><i class="ti ti-edit ti-sm me-2"></i></a>' +
+              '<a href="javascript:;" class="text-body delete-record" data-item-id="' + full['Item_ID'] + '"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
               '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical me-2"></i></button>' +
               '<div class="dropdown-menu dropdown-menu-end m-0">' +
               '<a href="javascript:0;" class="dropdown-item">View</a>' +
-              '<a href="javascript:0;" class="dropdown-item">Suspend</a>' +
               '</div>' +
               '</div>'
             );
           }
         }
       ],
- 
-  
-      order: [2, 'asc'], //set any columns order asc/desc
+      order: [5, 'desc'], //set any columns order asc/desc
       dom:
         '<"card-header d-flex border-top rounded-0 flex-wrap py-2"' +
         '<"me-5 ms-n2 pe-5"f>' +
@@ -364,11 +375,10 @@ $(function () {
           ]
         },
         {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add Product</span>',
+          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add New Item</span>',
           className: 'add-new btn btn-primary ms-2 ms-sm-0 waves-effect waves-light',
           attr: {
-            'data-bs-toggle': 'offcanvas',
-            'data-bs-target': '#offcanvasAddItem'
+            'onclick': 'window.location.href="form-add-item.php"'
           }
         }
       ],
@@ -378,7 +388,7 @@ $(function () {
           display: $.fn.dataTable.Responsive.display.modal({
             header: function (row) {
               var data = row.data();
-              return 'Details of ' + data['item_name'];
+              return 'Details of ' + data['Item_Name'];
             }
           }),
           type: 'column',
@@ -386,18 +396,18 @@ $(function () {
             var data = $.map(columns, function (col, i) {
               return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
                 ? '<tr data-dt-row="' +
-                    col.rowIndex +
-                    '" data-dt-column="' +
-                    col.columnIndex +
-                    '">' +
-                    '<td>' +
-                    col.title +
-                    ':' +
-                    '</td> ' +
-                    '<td>' +
-                    col.data +
-                    '</td>' +
-                    '</tr>'
+                  col.rowIndex +
+                  '" data-dt-column="' +
+                  col.columnIndex +
+                  '">' +
+                  '<td>' +
+                  col.title +
+                  ':' +
+                  '</td> ' +
+                  '<td>' +
+                  col.data +
+                  '</td>' +
+                  '</tr>'
                 : '';
             }).join('');
 
@@ -472,6 +482,44 @@ $(function () {
                 select.append('<option value="' + typeObj[d].title + '">' + typeObj[d].title + '</option>');
               });
           });
+
+        // Adding additional filters for Current_Location, Pin_Location, Posted_Date
+        $.ajax({
+          url: assetsPath + 'json/item-list.json',
+          method: 'GET',
+          dataType: 'json',
+          success: function (data) {
+            var currentLocationSet = new Set();
+            var pinLocationSet = new Set();
+            var postedDateSet = new Set();
+            
+            data.data.forEach(function (item) {
+              currentLocationSet.add(item.Current_Location);
+              pinLocationSet.add(item.Pin_Location);
+              postedDateSet.add(item.Posted_Date);
+            });
+
+            populateFilterFromSet(currentLocationSet, 'currentLocation', 'Current Location', '.item_currentLocation');
+            populateFilterFromSet(pinLocationSet, 'pinLocation', 'Pin Location', '.item_pinLocation');
+            populateFilterFromSet(postedDateSet, 'postedDate', 'Posted Date', '.item_postedDate');
+          }
+        });
+
+        // Function to populate filter from set
+        function populateFilterFromSet(set, filterId, filterTitle, className) {
+          var select = $(
+            '<select id="' + filterId + '" class="form-select text-capitalize"><option value="">' + filterTitle + '</option></select>'
+          )
+            .appendTo(className)
+            .on('change', function () {
+              var val = $.fn.dataTable.util.escapeRegex($(this).val());
+              dt_products.column($(this).parent().index() + 1).search(val ? '^' + val + '$' : '', true, false).draw();
+            });
+
+          set.forEach(function (value) {
+            select.append('<option value="' + value + '">' + value + '</option>');
+          });
+        }
       }
     });
     $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
@@ -480,11 +528,36 @@ $(function () {
 
   // Delete Record
   $('.datatables-products tbody').on('click', '.delete-record', function () {
-    dt_products.row($(this).parents('tr')).remove().draw();
+    var itemId = $(this).data('item-id');
+    $('#itemToDelete').text(itemId);
+    $('#deleteModal').modal('show');
+
+    $('#confirmDeleteBtn').off('click').on('click', function () {
+      $.ajax({
+        url: 'delete-item.php?id=' + itemId,
+        type: 'GET',
+        success: function (response) {
+          if (response.includes('success')) {
+            // Close the modal
+            $('#deleteModal').modal('hide');
+            // Optionally, you can reload or update your datatable here
+            location.reload();
+          } else {
+            alert('Failed to delete item.');
+          }
+          console.log(response);
+          $('#deleteModal .modal-body').append('<p>' + response + '</p>');
+        },
+        error: function (xhr, status, error) {
+          console.error('AJAX Error:', status, error);
+          console.error('Response:', xhr.responseText);
+          alert('Failed to delete item.');
+        }
+      });
+    });
   });
 
   // Filter form control to default size
-  // ? setTimeout used for multilingual table initialization
   setTimeout(() => {
     $('.dataTables_filter .form-control').removeClass('form-control-sm');
     $('.dataTables_length .form-select').removeClass('form-select-sm');
