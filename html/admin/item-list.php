@@ -5,6 +5,9 @@ require 'header.php';
 ?>
 <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
 
+<link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+
+
 </head>
 
 <body>
@@ -103,13 +106,14 @@ require 'header.php';
               <div class="card-header">
                 <h5 class="card-title mb-0">Filter</h5>
                 <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
-                  <div class="col-md-4 product_status"></div>
-                  <div class="col-md-4 product_category"></div>
-                  <div class="col-md-4 product_stock"></div>
+                  <div class="col-md-4 item_status"></div>
+                  <div class="col-md-4 item_category"></div>
+                  <div class="col-md-4 item_type"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
                   <div class="col-md-4 item_currentLocation"></div>
-                  <div class="col-md-4 item_pinLocation"></div>
                   <div class="col-md-4 item_postedDate"></div>
-
+                  <div class="col-md-4 item_pinLocation"></div>
                 </div>
               </div>
               <div class="card-datatable table-responsive">
@@ -122,8 +126,11 @@ require 'header.php';
                       <th>Category</th>
                       <th>Poster ID</th>
                       <th>Date & Time</th>
+                      <th>Current Location</th>
                       <th>Status</th>
+                      <th>Pin Location</th>
                       <th>actions</th>
+
                     </tr>
                   </thead>
                 </table>
@@ -186,6 +193,10 @@ require 'header.php';
     <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
     <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
     <script src="../../assets/vendor/js/menu.js"></script>
+
+   
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
 
     <!-- endbuild -->
 

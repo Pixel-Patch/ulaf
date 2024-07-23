@@ -36,9 +36,10 @@
   <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
   <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
   <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
   <link rel="stylesheet" href="../../assets/vendor/libs/tagify/tagify.css" />
   <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/form-validation.css" />
+  <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+  <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
 
   <!-- Page CSS -->
 
