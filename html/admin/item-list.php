@@ -155,6 +155,71 @@ require 'header.php';
                 </div>
               </div>
 
+              <!-- Modal for card -->
+              <div class="modal fade" id="cardModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="cardModalTitle">Card Title</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h3><span id="modalItemType" class="badge"></span></h3>
+                      <h3><span id="modalItemName"></span></h3>
+                      <h5 class="card-subtitle text-muted"><span id="modalCategoryName"></span></h5>
+
+                      <div id="modalItemImages" class="d-flex flex-column align-items-center mb-4">
+                        <!-- Images will be inserted here dynamically -->
+                      </div>
+
+                      <div class="col-md-12 mb-3">
+                        <label class="form-label" for="modalItemDescription">Description</label>
+                        <textarea class="form-control" id="modalItemDescription" rows="3" name="itemDescription" disabled></textarea>
+                      </div>
+
+                      <div class="col-md-12 mb-3">
+                        <label class="form-label" for="modalPinLocation">Pin Location</label>
+                        <input type="text" class="form-control" id="modalPinLocation" name="pinLocation" disabled />
+                      </div>
+
+                      <div class="col-md-12 mb-3">
+                        <label class="form-label" for="modalPostedDate">Posted Date</label>
+                        <input type="text" class="form-control" id="modalPostedDate" name="postedDate" disabled />
+                      </div>
+
+                      <div class="col-md-12 mb-3">
+                        <label class="form-label" for="modalCurrentLocation">Current Location</label>
+                        <input type="text" class="form-control" id="modalCurrentLocation" name="currentLocation" disabled />
+                      </div>
+
+                      <div class="col-md-12 mb-3" id="modalRetrievedByWrapper">
+                        <label class="form-label" for="modalRetrievedBy">Retrieved By</label>
+                        <input type="text" class="form-control" id="modalRetrievedBy" name="retrievedBy" disabled />
+                      </div>
+
+                      <div class="col-md-12 mb-3" id="modalRetrievedDateWrapper">
+                        <label class="form-label" for="modalRetrievedDate">Retrieved Date</label>
+                        <input type="text" class="form-control" id="modalRetrievedDate" name="retrievedDate" disabled />
+                      </div>
+
+                      <p class="mt-3"><strong>Status:</strong> &nbsp; <span id="modalItemStatus" class="badge" style="font-size:20px;"></span></p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
               <div class="content-backdrop fade"></div>
             </div>
 
@@ -194,7 +259,7 @@ require 'header.php';
     <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
     <script src="../../assets/vendor/js/menu.js"></script>
 
-   
+
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
 
@@ -209,6 +274,115 @@ require 'header.php';
 
     <!-- Page JS -->
     <script src="../../assets/js/item-list.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var statusMap = {
+          0: {
+            title: 'Posted',
+            class: 'bg-label-secondary'
+          },
+          1: {
+            title: 'Claiming',
+            class: 'bg-label-danger'
+          },
+          2: {
+            title: 'Claimed',
+            class: 'bg-label-success'
+          },
+          3: {
+            title: 'Returning',
+            class: 'bg-label-warning'
+          },
+          4: {
+            title: 'Returned',
+            class: 'bg-label-info'
+          },
+          5: {
+            title: 'Retrieving',
+            class: 'bg-label-warning'
+          },
+          6: {
+            title: 'Retrieved',
+            class: 'bg-label-info'
+          }
+        };
+
+        var typeMap = {
+          0: {
+            title: 'Lost',
+            class: 'bg-label-danger'
+          },
+          1: {
+            title: 'Found',
+            class: 'bg-label-success'
+          }
+        };
+
+        // Event delegation to handle click event on dynamically created 'View' links
+        document.addEventListener('click', function(event) {
+          if (event.target.matches('.view-modal-trigger')) {
+            event.preventDefault();
+            try {
+              // Parse the JSON data
+              var itemData = JSON.parse(event.target.getAttribute('data-item'));
+
+              document.getElementById('cardModalTitle').innerText = 'Item ID: ' + itemData.itemId;
+              document.getElementById('modalItemName').innerText = itemData.itemName;
+              document.getElementById('modalCategoryName').innerText = itemData.categoryName;
+
+              // Handle multiple images
+              var imagesContainer = document.getElementById('modalItemImages');
+              imagesContainer.innerHTML = ''; // Clear previous images
+              var images = itemData.image.split(',');
+              images.forEach(function(image) {
+                var imgElement = document.createElement('img');
+                imgElement.src = '../../assets/uploads/items/' + image.trim();
+                imgElement.className = 'img-fluid rounded mx-1 my-1';
+                imgElement.style.maxWidth = '500px'; // Adjust as needed
+                imagesContainer.appendChild(imgElement);
+              });
+
+              document.getElementById('modalItemDescription').value = itemData.description;
+
+              var itemTypeElement = document.getElementById('modalItemType');
+              itemTypeElement.innerText = typeMap[itemData.itemType].title;
+              itemTypeElement.className = 'badge ' + typeMap[itemData.itemType].class;
+
+              var itemStatusElement = document.getElementById('modalItemStatus');
+              itemStatusElement.innerText = statusMap[itemData.itemStatus].title;
+              itemStatusElement.className = 'badge ' + statusMap[itemData.itemStatus].class;
+
+              document.getElementById('modalPinLocation').value = itemData.pinLocation;
+              document.getElementById('modalPostedDate').value = itemData.postedDate;
+              document.getElementById('modalCurrentLocation').value = itemData.currentLocation;
+
+              if (itemData.retrievedBy) {
+                document.getElementById('modalRetrievedByWrapper').style.display = 'block';
+                document.getElementById('modalRetrievedBy').value = itemData.retrievedBy;
+              } else {
+                document.getElementById('modalRetrievedByWrapper').style.display = 'none';
+              }
+
+              if (itemData.retrievedDate) {
+                document.getElementById('modalRetrievedDateWrapper').style.display = 'block';
+                document.getElementById('modalRetrievedDate').value = itemData.retrievedDate;
+              } else {
+                document.getElementById('modalRetrievedDateWrapper').style.display = 'none';
+              }
+
+              // Show the modal
+              var cardModal = new bootstrap.Modal(document.getElementById('cardModal'));
+              cardModal.show();
+            } catch (error) {
+              console.error('Error parsing item data:', error);
+            }
+          }
+        });
+      });
+    </script>
+
+
+
 
     <?php
     require 'dbconn.php';

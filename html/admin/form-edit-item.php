@@ -149,14 +149,12 @@ require 'header.php';
                         <input id="pin-longitude-edit" type="hidden" name="longitude" value="<?php echo htmlspecialchars($item['Longitude'], ENT_QUOTES, 'UTF-8'); ?>">
                       </div>
 
-                      <div class="col-md-12">
-                        <label class="form-label" for="item-description">Description</label>
-                        <textarea class="form-control" id="item-description" rows="3" name="itemDescription" required><?php echo htmlspecialchars($item['Description'], ENT_QUOTES, 'UTF-8'); ?></textarea>
-                      </div>
-
                       <div class="col-12">
+                        <input type="hidden" name="itemId" value="<?php echo htmlspecialchars($item['Item_ID'], ENT_QUOTES, 'UTF-8'); ?>">
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </div>
+
+                  
                     </form>
 
                   </div>

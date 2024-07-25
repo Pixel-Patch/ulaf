@@ -10,6 +10,7 @@ $(function () {
     bodyBg = config.colors.bodyBg;
     headingColor = config.colors.headingColor;
   }
+  
 
   // Variable declaration for table
   var dt_product_table = $('.datatables-products'),
@@ -75,61 +76,57 @@ if (dt_product_table.length) {
           return '';
         }
       },
-      {
-        // Product name and product_brand
-        targets: 1,
-        responsivePriority: 1,
-        render: function (data, type, full, meta) {
-          var $name = full['Item_Name'],
-            $id = full['Item_ID'],
-            $item_type = full['Description'],
-            $image = full['Image'];
+     {
+  // Product name and product_brand
+  targets: 1,
+  responsivePriority: 1,
+  render: function (data, type, full, meta) {
+    var $name = full['Item_Name'],
+        $id = full['Item_ID'],
+        $description = full['Description'],
+        $images = full['Image'].split(','); // Split the images string into an array
 
-          // Truncate description to 25 characters
-          if ($item_type.length > 25) {
-            $item_type = $item_type.substring(0, 25) + '...';
-          }
+    // Truncate description to 25 characters
+    if ($description.length > 25) {
+      $description = $description.substring(0, 25) + '...';
+    }
 
-          if ($image) {
-            // For Product image
-            var $output =
-              '<img src="' +
-              assetsPath +
-              'uploads/items/' +
-              $image +
-              '" alt="Product-' +
-              $id +
-              '" class="rounded-2">';
-          } else {
-            // For Product badge
-            var stateNum = Math.floor(Math.random() * 6);
-            var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-            var $state = states[stateNum],
-              $name = full['Description'],
-              $initials = $name.match(/\b\w/g) || [];
-            $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-            $output = '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
-          }
-          // Creates full output for Product name and product_brand
-          var $row_output =
-            '<div class="d-flex justify-content-start align-items-center product-name">' +
-            '<div class="avatar-wrapper">' +
-            '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
-            $output +
-            '</div>' +
-            '</div>' +
-            '<div class="d-flex flex-column">' +
-            '<h6 class="text-body text-nowrap mb-0">' +
-            $name +
-            '</h6>' +
-            '<small class="text-muted text-truncate d-none d-sm-block">' +
-            $item_type +
-            '</small>' +
-            '</div>' +
-            '</div>';
-          return $row_output;
-        }
-      },
+    if ($images.length > 0 && $images[0].trim() !== '') {
+      // Use only the first image
+      var $output =
+        '<img src="' + assetsPath + 'uploads/items/' + $images[0].trim() + 
+        '" alt="Product-' + $id + '" class="rounded-2">';
+    } else {
+      // For Product badge
+      var stateNum = Math.floor(Math.random() * 6);
+      var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
+      var $state = states[stateNum],
+          $name = full['Description'],
+          $initials = $name.match(/\b\w/g) || [];
+      $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+      $output = '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
+    }
+
+    // Creates full output for Product name and product_brand
+    var $row_output =
+      '<div class="d-flex justify-content-start align-items-center product-name">' +
+      '<div class="avatar-wrapper">' +
+      '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
+      $output +
+      '</div>' +
+      '</div>' +
+      '<div class="d-flex flex-column">' +
+      '<h6 class="text-body text-nowrap mb-0">' +
+      $name +
+      '</h6>' +
+      '<small class="text-muted text-truncate d-none d-sm-block">' +
+      $description +
+      '</small>' +
+      '</div>' +
+      '</div>';
+    return $row_output;
+  }
+},
       {
         // item_type
         targets: 2,
@@ -154,7 +151,7 @@ if (dt_product_table.length) {
           var categoryBadgeObj = {
             Electronics: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-2 p-3"><i class="ti ti-device-mobile ti-xs"></i></span>',
             'Musical Instruments': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2 p-3"><i class="ti ti-music ti-xs"></i></span>',
-            Toys: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-game ti-xs"></i></span>',
+            Toys: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-horse-toy ti-xs"></i></span>',
             Documents: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-file ti-xs"></i></span>',
             Cameras: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2 p-3"><i class="ti ti-camera ti-xs"></i></span>',
             Wallets: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-wallet ti-xs"></i></span>',
@@ -162,13 +159,13 @@ if (dt_product_table.length) {
             'School Supplies': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-book ti-xs"></i></span>',
             Miscellaneous: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-box ti-xs"></i></span>',
             Clothing: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-shirt ti-xs"></i></span>',
-            Books: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2 p-3"><i class="ti ti-book-open ti-xs"></i></span>',
+            Books: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2 p-3"><i class="ti ti-book ti-xs"></i></span>',
             Keys: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-2 p-3"><i class="ti ti-key ti-xs"></i></span>',
             Bags: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2 p-3"><i class="ti ti-briefcase ti-xs"></i></span>',
-            'Water Bottles': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-droplet ti-xs"></i></span>',
-            Glasses: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-dark me-2 p-3"><i class="ti ti-eye ti-xs"></i></span>',
+            'Water Bottles': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-bottle ti-xs"></i></span>',
+            Glasses: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-dark me-2 p-3"><i class="ti ti-eyeglass ti-xs"></i></span>',
             Umbrellas: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-umbrella ti-xs"></i></span>',
-            'Sports Equipment': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-bell ti-xs"></i></span>',
+            'Sports Equipment': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-brand-dribbble ti-xs"></i></span>',
             Unknown: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-question ti-xs"></i></span>'
           };
           return (
@@ -207,20 +204,38 @@ if (dt_product_table.length) {
         targets: 8,
         visible: false
       },
-      {
+      
+   {
         // Actions
         targets: -1,
         title: 'Actions',
         searchable: false,
         orderable: false,
-        render: function (data, type, full, meta) {
+        render: function(data, type, full, meta) {
+          var itemData = {
+            itemId: full['Item_ID'],
+            itemName: full['Item_Name'],
+            image: full['Image'],
+            categoryName: full['Category_Name'],
+            description: full['Description'],
+            itemType: full['Type'],
+            itemStatus: full['Item_Status'],
+            pinLocation: full['Pin_Location'],
+            postedDate: full['Posted_Date'],
+            currentLocation: full['Current_Location'],
+            retrievedBy: full['Retrieved_By'],
+            retrievedDate: full['Retrieved_Date']
+          };
           return (
             '<div class="d-inline-block text-nowrap">' +
             '<a href="form-edit-item.php?item_id=' + full['Item_ID'] + '"><i class="ti ti-edit ti-sm me-2"></i></a>' +
             '<a href="javascript:;" class="text-body delete-record" data-item-id="' + full['Item_ID'] + '"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
             '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical me-2"></i></button>' +
             '<div class="dropdown-menu dropdown-menu-end m-0">' +
-            '<a href="javascript:0;" class="dropdown-item">View</a>' +
+            '<a href="javascript:;" class="dropdown-item view-modal-trigger" ' +
+              'data-item=\'' + JSON.stringify(itemData) + '\'>' +
+              'View' +
+            '</a>' +
             '</div>' +
             '</div>'
           );
@@ -422,153 +437,198 @@ if (dt_product_table.length) {
         }
       }
     },
-  initComplete: function () {
-  // Adding status filter once table initialized
-  this.api()
-    .columns(-3)
-    .every(function () {
-      var column = this;
-      var select = $(
-        '<select id="itemStatus" class="form-select text-capitalize"><option value="">Status</option></select>'
-      )
-        .appendTo('.item_status')
-        .on('change', function () {
-          var val = $.fn.dataTable.util.escapeRegex($(this).val());
-          column.search(val ? '^' + val + '$' : '', true, false).draw();
-        });
+initComplete: function () {
+  var api = this.api();
 
-      column
-        .data()
-        .unique()
-        .sort()
-        .each(function (d, j) {
-          select.append('<option value="' + statusObj[d].title + '">' + statusObj[d].title + '</option>');
-        });
+  // Adding status filter once table initialized
+  api.columns(-3).every(function () {
+    var column = this;
+    var select = $('<select id="itemStatus" class="form-select text-capitalize"><option value="">Status</option></select>')
+      .appendTo('.item_status')
+      .on('change', function () {
+        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        column.search(val ? '^' + val + '$' : '', true, false).draw();
+      });
+
+    column.data().unique().sort().each(function (d, j) {
+      select.append('<option value="' + statusObj[d].title + '">' + statusObj[d].title + '</option>');
     });
+
+    // Initialize Select2 on the new select element
+    $('#itemStatus').select2({
+      placeholder: 'Select a status',
+      allowClear: true,
+      width: 'resolve'
+    });
+  });
 
   // Adding category filter once table initialized
-  this.api()
-    .columns(3)
-    .every(function () {
-      var column = this;
-      var select = $(
-        '<select id="itemCategory" class="form-select text-capitalize"><option value="">Category</option></select>'
-      )
-        .appendTo('.item_category')
-        .on('change', function () {
-          var val = $.fn.dataTable.util.escapeRegex($(this).val());
-          column.search(val ? '^' + val + '$' : '', true, false).draw();
-        });
+  api.columns(3).every(function () {
+    var column = this;
+    var select = $('<select id="itemCategory" class="form-select text-capitalize"><option value="">Category</option></select>')
+      .appendTo('.item_category')
+      .on('change', function () {
+        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        column.search(val ? '^' + val + '$' : '', true, false).draw();
+      });
 
-      column
-        .data()
-        .unique()
-        .sort()
-        .each(function (d, j) {
-          select.append('<option value="' + categoryObj[d].title + '">' + categoryObj[d].title + '</option>');
-        });
+    column.data().unique().sort().each(function (d, j) {
+      select.append('<option value="' + categoryObj[d].title + '">' + categoryObj[d].title + '</option>');
     });
+
+    // Initialize Select2 on the new select element
+    $('#itemCategory').select2({
+      placeholder: 'Select a category',
+      allowClear: true,
+      width: 'resolve'
+    });
+  });
 
   // Adding stock filter once table initialized
-  this.api()
-    .columns(2)
-    .every(function () {
-      var column = this;
-      var select = $(
-        '<select id="itemType" class="form-select text-capitalize"><option value="">Type</option></select>'
-      )
-        .appendTo('.item_type')
-        .on('change', function () {
-          var val = $.fn.dataTable.util.escapeRegex($(this).val());
-          column.search(val ? '^' + val + '$' : '', true, false).draw();
-        });
+  api.columns(2).every(function () {
+    var column = this;
+    var select = $('<select id="itemType" class="form-select text-capitalize"><option value="">Type</option></select>')
+      .appendTo('.item_type')
+      .on('change', function () {
+        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        column.search(val ? '^' + val + '$' : '', true, false).draw();
+      });
 
-      column
-        .data()
-        .unique()
-        .sort()
-        .each(function (d, j) {
-          select.append('<option value="' + typeObj[d].title + '">' + typeObj[d].title + '</option>');
-        });
+    column.data().unique().sort().each(function (d, j) {
+      select.append('<option value="' + typeObj[d].title + '">' + typeObj[d].title + '</option>');
     });
+
+    // Initialize Select2 on the new select element
+    $('#itemType').select2({
+      placeholder: 'Select a type',
+      allowClear: true,
+      width: 'resolve'
+    });
+  });
 
   // Adding current location filter once table initialized
-  this.api()
-    .columns(6)
-    .every(function () {
-      var column = this;
-      var select = $(
-        '<select id="currentLocation" class="form-select text-capitalize"><option value="">Current Location</option></select>'
-      )
-        .appendTo('.item_currentLocation')
-        .on('change', function () {
-          var val = $.fn.dataTable.util.escapeRegex($(this).val());
-          column.search(val ? '^' + val + '$' : '', true, false).draw();
-        });
+  api.columns(6).every(function () {
+    var column = this;
+    var select = $('<select id="currentLocation" class="form-select text-capitalize"><option value="">Current Location</option></select>')
+      .appendTo('.item_currentLocation')
+      .on('change', function () {
+        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        column.search(val ? '^' + val + '$' : '', true, false).draw();
+      });
 
-      column
-        .data()
-        .unique()
-        .sort()
-        .each(function (d, j) {
-          select.append('<option value="' + d + '">' + d + '</option>');
-        });
+    column.data().unique().sort().each(function (d, j) {
+      select.append('<option value="' + d + '">' + d + '</option>');
     });
+
+    // Initialize Select2 on the new select element
+    $('#currentLocation').select2({
+      placeholder: 'Select a location',
+      allowClear: true,
+      width: 'resolve'
+    });
+  });
 
   // Adding posted date filter with date range once table initialized
-  this.api()
-    .columns(5)
-    .every(function () {
-      var column = this;
-      var input = $('<input type="text" id="postedDate" class="form-control flatpickr-range" placeholder="Posted Date Range"/>')
-        .appendTo('.item_postedDate');
+  api.columns(5).every(function () {
+    var column = this;
+    var input = $('<input type="text" id="postedDate" class="form-control flatpickr-range" placeholder="Posted Date Range"/>')
+      .appendTo('.item_postedDate');
 
-      $('.flatpickr-range').flatpickr({
-        mode: 'range',
-        dateFormat: 'Y-m-d',
-        onClose: function (selectedDates, dateStr, instance) {
-          var startDate = '',
-            endDate = '';
-          if (selectedDates[0] != undefined) {
-            startDate = moment(selectedDates[0]).format('YYYY-MM-DD');
-          }
-          if (selectedDates[1] != undefined) {
-            endDate = moment(selectedDates[1]).format('YYYY-MM-DD');
-          }
-          column.search(startDate + '|' + endDate, true, false).draw();
+    $('.flatpickr-range').flatpickr({
+      mode: 'range',
+      dateFormat: 'Y-m-d',
+      onClose: function (selectedDates, dateStr, instance) {
+        if (selectedDates.length === 2) {
+          startDate = moment(selectedDates[0]).startOf('day');
+          endDate = moment(selectedDates[1]).endOf('day');
+        } else if (selectedDates.length === 1) {
+          startDate = moment(selectedDates[0]).startOf('day');
+          endDate = moment(selectedDates[0]).endOf('day');
         }
-      });
+
+        api.draw();
+      }
+    });
+  });
+
+  var startDate, endDate;
+
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      if (startDate && endDate) {
+        var postedDate = moment(data[5], 'YYYY-MM-DD').startOf('day');
+        return postedDate.isSameOrAfter(startDate) && postedDate.isSameOrBefore(endDate);
+      }
+      return true;
+    }
+  );
+
+// Adding pin location filter as a search input once table initialized
+// Adding pin location filter as a search input once table initialized
+api.columns(8).every(function () {
+  var column = this;
+  var locations = new Set();
+  var pattern = /^[A-Za-z0-9]{4}\+[A-Za-z0-9]{3}$/;
+
+  // Preprocess the data to extract general locations
+  column.data().each(function (d, j) {
+    var match = d.match(pattern);
+    if (match) {
+      // If it matches the specific pattern, use the entire value
+      locations.add(d);
+    } else {
+      // Otherwise, extract the general location part
+      var generalLocation = d.split(", ").slice(1).join(", ");
+      locations.add(generalLocation);
+    }
+  });
+
+  // Create the select element
+  var select = $('<select id="pinLocation" class="form-select text-capitalize"><option value="">Pin Location</option></select>')
+    .appendTo('.item_pinLocation')
+    .on('change', function () {
+      var val = $.fn.dataTable.util.escapeRegex($(this).val());
+      column.search(val ? val : '', true, false).draw();
     });
 
-  // Adding pin location filter as a search input once table initialized
-  this.api()
-    .columns(8)
-    .every(function () {
-      var column = this;
-      var input = $('<input type="text" id="pinLocation" class="form-control" placeholder="Pin Location"/>')
-        .appendTo('.item_pinLocation')
-        .on('keyup change', function () {
-          var val = $.fn.dataTable.util.escapeRegex($(this).val());
-          column.search(val, true, false).draw();
-        });
-    });
+  // Populate the select element with the locations
+  locations.forEach(function (value) {
+    select.append('<option value="' + value + '">' + value + '</option>');
+  });
+
+  // Initialize Select2 on the new select element
+  $('#pinLocation').select2({
+    placeholder: 'Select a pin location',
+    allowClear: true,
+    width: 'resolve'
+  });
+});
+
+
 
   // Function to populate filter from set
   function populateFilterFromSet(set, filterId, filterTitle, className) {
-    var select = $(
-      '<select id="' + filterId + '" class="form-select text-capitalize"><option value="">' + filterTitle + '</option></select>'
-    )
+    var select = $('<select id="' + filterId + '" class="form-select text-capitalize"><option value="">' + filterTitle + '</option></select>')
       .appendTo(className)
       .on('change', function () {
         var val = $.fn.dataTable.util.escapeRegex($(this).val());
-        dt_products.column($(this).parent().index() + 1).search(val ? '^' + val + '$' : '', true, false).draw();
+        api.column($(this).parent().index() + 1).search(val ? '^' + val + '$' : '', true, false).draw();
       });
 
     set.forEach(function (value) {
       select.append('<option value="' + value + '">' + value + '</option>');
     });
+
+    // Initialize Select2 on the new select element
+    $('#' + filterId).select2({
+      placeholder: 'Select ' + filterTitle.toLowerCase(),
+      allowClear: true,
+      width: 'resolve'
+    });
   }
 }
+
+
 
   });
   $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
@@ -605,6 +665,7 @@ if (dt_product_table.length) {
       });
     });
   });
+  
 
   // Filter form control to default size
   setTimeout(() => {

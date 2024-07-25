@@ -111,14 +111,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($stmt = $conn->prepare($updateQuery)) {
                 $stmt->bind_param("s", $itemId);
                 $stmt->execute();
-                $stmt->close();
 
-                // Redirect back to the edit form or another page after updating
-                header("Location: item-list.php");
-                exit();
+                // Check if any rows were affected
+                if ($stmt->affected_rows > 0) {
+                    $stmt->close();
+                    // Redirect back to the edit form or another page after updating
+                    header("Location: item-list.php");
+                    exit();
+                } else {
+                    $errors[] = 'No changes were made.';
+                }
+                $stmt->close();
             } else {
                 $errors[] = 'Database error: ' . $conn->error;
             }
+        } else {
+            $errors[] = 'No changes detected.';
         }
     }
 }

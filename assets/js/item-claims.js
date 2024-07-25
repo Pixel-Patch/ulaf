@@ -65,6 +65,7 @@ $(function () {
         { data: 'Poster_ID' },
         { data: 'Claim_Status' },
         { data: 'Verification_Status' },
+         { data: 'Claim_Date' }, 
         { data: '' }
       ],
       columnDefs: [
@@ -79,61 +80,57 @@ $(function () {
             return '';
           }
         },
-        {
-          // Product name and product_brand
-          targets: 1,
-          responsivePriority: 1,
-          render: function (data, type, full, meta) {
-            var $name = full['Item_Name'],
-              $id = full['Claim_ID'],
-              $item_type = "Claim #" +full['Claim_ID'],
-              $image = full['Proof_Image'];
+      {
+  // Product name and product_brand
+  targets: 1,
+  responsivePriority: 1,
+  render: function (data, type, full, meta) {
+    var $name = full['Item_Name'],
+        $id = full['Claim_ID'],
+        $item_type = "Claim #" + full['Claim_ID'],
+        $images = full['Proof_Image'].split(','); // Split the images string into an array
 
-            // Truncate description to 25 characters
-            if ($item_type.length > 25) {
-              $item_type = $item_type.substring(0, 25) + '...';
-            }
+    // Truncate description to 25 characters
+    if ($item_type.length > 25) {
+      $item_type = $item_type.substring(0, 25) + '...';
+    }
 
-            if ($image) {
-              // For Proof_Image
-              var $output =
-                '<img src="' +
-                assetsPath +
-                'uploads/proofs/' +
-                $image +
-                '" alt="Product-' +
-                $id +
-                '" class="rounded-2">';
-            } else {
-              // For Product badge
-              var stateNum = Math.floor(Math.random() * 6);
-              var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-              var $state = states[stateNum],
-                $name = full['Claim_ID'],
-                $initials = $name.match(/\b\w/g) || [];
-              $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-              $output = '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
-            }
-            // Creates full output for Product name and product_brand
-            var $row_output =
-              '<div class="d-flex justify-content-start align-items-center product-name">' +
-              '<div class="avatar-wrapper">' +
-              '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
-              $output +
-              '</div>' +
-              '</div>' +
-              '<div class="d-flex flex-column">' +
-              '<h6 class="text-body text-nowrap mb-0">' +
-              $name +
-              '</h6>' +
-              '<small class="text-muted text-truncate d-none d-sm-block">' +
-              $item_type +
-              '</small>' +
-              '</div>' +
-              '</div>';
-            return $row_output;
-          }
-        },
+    if ($images.length > 0 && $images[0].trim() !== '') {
+      // Use only the first image
+      var $output =
+        '<img src="' + assetsPath + 'uploads/proofs/' + $images[0].trim() + 
+        '" alt="Product-' + $id + '" class="rounded-2">';
+    } else {
+      // For Product badge
+      var stateNum = Math.floor(Math.random() * 6);
+      var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
+      var $state = states[stateNum],
+          $initials = $id.toString().match(/\b\w/g) || [];
+      $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+      $output = '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
+    }
+
+    // Creates full output for Product name and product_brand
+    var $row_output =
+      '<div class="d-flex justify-content-start align-items-center product-name">' +
+      '<div class="avatar-wrapper">' +
+      '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
+      $output +
+      '</div>' +
+      '</div>' +
+      '<div class="d-flex flex-column">' +
+      '<h6 class="text-body text-nowrap mb-0">' +
+      $name +
+      '</h6>' +
+      '<small class="text-muted text-truncate d-none d-sm-block">' +
+      $item_type +
+      '</small>' +
+      '</div>' +
+      '</div>';
+    return $row_output;
+  }
+}
+,
         {
           // item_type
           targets: 2,
@@ -156,24 +153,24 @@ $(function () {
           render: function (data, type, full, meta) {
             var $category = categoryObj[full['Category_ID']] ? categoryObj[full['Category_ID']].title : 'Unknown';
             var categoryBadgeObj = {
-              Electronics: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-2 p-3"><i class="ti ti-device-mobile ti-xs"></i></span>',
-              'Musical Instruments': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2 p-3"><i class="ti ti-music ti-xs"></i></span>',
-              Toys: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-game ti-xs"></i></span>',
-              Documents: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-file ti-xs"></i></span>',
-              Cameras: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2 p-3"><i class="ti ti-camera ti-xs"></i></span>',
-              Wallets: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-wallet ti-xs"></i></span>',
-              Headphones: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-dark me-2 p-3"><i class="ti ti-headphones ti-xs"></i></span>',
-              'School Supplies': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-book ti-xs"></i></span>',
-              Miscellaneous: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-box ti-xs"></i></span>',
-              Clothing: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-shirt ti-xs"></i></span>',
-              Books: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2 p-3"><i class="ti ti-book-open ti-xs"></i></span>',
-              Keys: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-2 p-3"><i class="ti ti-key ti-xs"></i></span>',
-              Bags: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2 p-3"><i class="ti ti-briefcase ti-xs"></i></span>',
-              'Water Bottles': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-droplet ti-xs"></i></span>',
-              Glasses: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-dark me-2 p-3"><i class="ti ti-eye ti-xs"></i></span>',
-              Umbrellas: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-umbrella ti-xs"></i></span>',
-              'Sports Equipment': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-bell ti-xs"></i></span>',
-              Unknown: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-question ti-xs"></i></span>'
+               Electronics: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-2 p-3"><i class="ti ti-device-mobile ti-xs"></i></span>',
+            'Musical Instruments': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2 p-3"><i class="ti ti-music ti-xs"></i></span>',
+            Toys: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-horse-toy ti-xs"></i></span>',
+            Documents: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-file ti-xs"></i></span>',
+            Cameras: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2 p-3"><i class="ti ti-camera ti-xs"></i></span>',
+            Wallets: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-wallet ti-xs"></i></span>',
+            Headphones: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-dark me-2 p-3"><i class="ti ti-headphones ti-xs"></i></span>',
+            'School Supplies': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-book ti-xs"></i></span>',
+            Miscellaneous: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-box ti-xs"></i></span>',
+            Clothing: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-shirt ti-xs"></i></span>',
+            Books: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-success me-2 p-3"><i class="ti ti-book ti-xs"></i></span>',
+            Keys: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-danger me-2 p-3"><i class="ti ti-key ti-xs"></i></span>',
+            Bags: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2 p-3"><i class="ti ti-briefcase ti-xs"></i></span>',
+            'Water Bottles': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2 p-3"><i class="ti ti-bottle ti-xs"></i></span>',
+            Glasses: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-dark me-2 p-3"><i class="ti ti-eyeglass ti-xs"></i></span>',
+            Umbrellas: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-umbrella ti-xs"></i></span>',
+            'Sports Equipment': '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2 p-3"><i class="ti ti-brand-dribbble ti-xs"></i></span>',
+            Unknown: '<span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2 p-3"><i class="ti ti-question ti-xs"></i></span>'
             };
             return (
               "<span class='text-truncate d-flex align-items-center'>" +
@@ -186,7 +183,7 @@ $(function () {
        
         {
           // Item Status
-          targets: -3,
+          targets: 6,
           render: function (data, type, full, meta) {
             var $status = full['Claim_Status'];
 
@@ -201,7 +198,7 @@ $(function () {
         },
          {
           // Item Status
-          targets: -2,
+          targets: 8,
           render: function (data, type, full, meta) {
             var $status = full['Verification_Status'];
 
@@ -214,29 +211,60 @@ $(function () {
             );
           }
         },
-      {
+         {
+        // Posted_Date
+        targets: 7, // assuming this is the correct column index
+        render: function (data, type, full, meta) {
+          var $post_date = full['Claim_Date'];
+          return '<h12 class="badge bg-label-secondary text-capitalize">' + $post_date + '</h12>';
+        }
+      },
+     {
   // Actions
   targets: -1,
   title: 'Actions',
   searchable: false,
   orderable: false,
   render: function (data, type, full, meta) {
+    var claimData = {
+      claimId: full['Claim_ID'],
+      itemId: full['Item_ID'],
+      claimerId: full['Claimer_ID'],
+      claimStatus: full['Claim_Status'],
+      proof: full['Proof'],
+      proofImage: full['Proof_Image'],
+      returnedImage: full['Returned_Image'],
+      remarks: full['Remarks'],
+      claimDate: full['Claim_Date'],
+      verificationStatus: full['Verification_Status'],
+      verificationDate: full['Verification_Date'],
+      claimAgain: full['Claim_Again'],
+      itemName: full['Item_Name'],
+      itemImage: full['Image'],
+      itemType: full['Type'],
+      categoryId: full['Category_ID'],
+      posterId: full['Poster_ID'],
+      categoryName: full['Category_Name']
+    };
+
     return (
       '<div class="d-inline-block text-nowrap">' +
       '<a href="form-edit-claim.php?claim_id=' + full['Claim_ID'] + '"><i class="ti ti-edit ti-sm me-2"></i></a>' +
       '<a href="javascript:;" class="text-body delete-record" data-item-id="' + full['Claim_ID'] + '"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
       '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical me-2"></i></button>' +
       '<div class="dropdown-menu dropdown-menu-end m-0">' +
-      '<a href="javascript:0;" class="dropdown-item">View</a>' +
+      '<a href="javascript:;" class="dropdown-item view-modal-trigger" ' +
+        'data-claim=\'' + JSON.stringify(claimData) + '\'>' +
+        'View' +
+      '</a>' +
       '</div>' +
       '</div>'
     );
   }
 }
-
       ],
 
-      order: [2, 'desc'], //set any columns order asc/desc
+      order: [7, 'desc'], //set any columns order asc/desc
       dom:
         '<"card-header d-flex border-top rounded-0 flex-wrap py-2"' +
         '<"me-5 ms-n2 pe-5"f>' +
@@ -431,96 +459,134 @@ $(function () {
           }
         }
       },
-      initComplete: function () {
-        // Adding status filter once table initialized
-        this.api()
-          .columns(-2)
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select id="ProductStatus" class="form-select text-capitalize"><option value="">Claim Status</option></select>'
-            )
-              .appendTo('.item_claim_status')
-              .on('change', function () {
+     initComplete: function () {
+    var api = this.api();
+
+    // Adding status filter once table initialized
+    api.columns(6).every(function () {
+        var column = this;
+        var select = $('<select id="ProductStatus" class="form-select text-capitalize"><option value="">Claim Status</option></select>')
+            .appendTo('.item_claim_status')
+            .on('change', function () {
                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
                 column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
+            });
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + statusObj[d].title + '">' + statusObj[d].title + '</option>');
-              });
-          });
-        // Adding category filter once table initialized
-        this.api()
-          .columns(3)
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select id="ProductCategory" class="form-select text-capitalize"><option value="">Category</option></select>'
-            )
-              .appendTo('.product_category')
-              .on('change', function () {
+        column.data().unique().sort().each(function (d, j) {
+            select.append('<option value="' + statusObj[d].title + '">' + statusObj[d].title + '</option>');
+        });
+
+        // Initialize Select2 on the new select element
+        $('#ProductStatus').select2({
+            placeholder: 'Select a status',
+            allowClear: true,
+            width: 'resolve'
+        });
+    });
+
+    // Adding category filter once table initialized
+    api.columns(3).every(function () {
+        var column = this;
+        var select = $('<select id="ProductCategory" class="form-select text-capitalize"><option value="">Category</option></select>')
+            .appendTo('.product_category')
+            .on('change', function () {
                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
                 column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
+            });
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + categoryObj[d].title + '">' + categoryObj[d].title + '</option>');
-              });
-          });
-        // Adding stock filter once table initialized
-        this.api()
-          .columns(2)
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select id="ProductStock" class="form-select text-capitalize"><option value=""> Type </option></select>'
-            )
-              .appendTo('.item_type')
-              .on('change', function () {
+        column.data().unique().sort().each(function (d, j) {
+            select.append('<option value="' + categoryObj[d].title + '">' + categoryObj[d].title + '</option>');
+        });
+
+        // Initialize Select2 on the new select element
+        $('#ProductCategory').select2({
+            placeholder: 'Select a category',
+            allowClear: true,
+            width: 'resolve'
+        });
+    });
+
+    // Adding type filter once table initialized
+    api.columns(2).every(function () {
+        var column = this;
+        var select = $('<select id="ProductStock" class="form-select text-capitalize"><option value="">Type</option></select>')
+            .appendTo('.item_type')
+            .on('change', function () {
                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
                 column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
+            });
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + typeObj[d].title + '">' + typeObj[d].title + '</option>');
-              });
-          });
-          // Adding stock filter once table initialized
-        this.api()
-          .columns(-3)
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select id="ProductStock" class="form-select text-capitalize"><option value=""> Verification Status </option></select>'
-            )
-              .appendTo('.item_status')
-              .on('change', function () {
+        column.data().unique().sort().each(function (d, j) {
+            select.append('<option value="' + typeObj[d].title + '">' + typeObj[d].title + '</option>');
+        });
+
+        // Initialize Select2 on the new select element
+        $('#ProductStock').select2({
+            placeholder: 'Select a type',
+            allowClear: true,
+            width: 'resolve'
+        });
+    });
+
+    // Adding verification status filter once table initialized
+    api.columns(7).every(function () {
+        var column = this;
+        var select = $('<select id="VerificationStatus" class="form-select text-capitalize"><option value="">Verification Status</option></select>')
+            .appendTo('.item_status')
+            .on('change', function () {
                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
                 column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
+            });
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + verifyObj[d].title + '">' + verifyObj[d].title + '</option>');
-              });
-          });
-      }
+        column.data().unique().sort().each(function (d, j) {
+            select.append('<option value="' + verifyObj[d].title + '">' + verifyObj[d].title + '</option>');
+        });
+
+        // Initialize Select2 on the new select element
+        $('#VerificationStatus').select2({
+            placeholder: 'Select a verification status',
+            allowClear: true,
+            width: 'resolve'
+        });
+    });
+
+    // Adding claim date filter once table initialized
+    api.columns(7).every(function () {
+        var column = this;
+        var input = $('<input type="text" id="ClaimDate" class="form-control flatpickr-range" placeholder="Claim Date Range"/>')
+            .appendTo('.item_claim_date');
+
+        $('.flatpickr-range').flatpickr({
+            mode: 'range',
+            dateFormat: 'Y-m-d',
+            onClose: function (selectedDates, dateStr, instance) {
+                if (selectedDates.length === 2) {
+                    startDate = moment(selectedDates[0]).startOf('day');
+                    endDate = moment(selectedDates[1]).endOf('day');
+                } else if (selectedDates.length === 1) {
+                    startDate = moment(selectedDates[0]).startOf('day');
+                    endDate = moment(selectedDates[0]).endOf('day');
+                }
+
+                api.draw();
+            }
+        });
+
+        // Initialize Select2 on the new select element
+      
+    });
+
+    var startDate, endDate;
+
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        if (startDate && endDate) {
+            var claimDate = moment(data[7], 'YYYY-MM-DD').startOf('day');
+            return claimDate.isSameOrAfter(startDate) && claimDate.isSameOrBefore(endDate);
+        }
+        return true;
+    });
+}
+
     });
     $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
     $('.dt-buttons').addClass('d-flex flex-wrap');
