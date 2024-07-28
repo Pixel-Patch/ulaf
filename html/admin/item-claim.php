@@ -4,70 +4,6 @@ require 'header.php';
 
 ?>
 
-<?php
-require 'dbconn.php';
-
-// Query to fetch claims details, corresponding item and category names, and map the "Claim_Status" and "Type" fields to integers
-$sql = "SELECT `claims`.`Claim_ID`, `claims`.`Item_ID`, `claims`.`Claimer_ID`,
-        CASE `claims`.`Claim_Status`
-            WHEN 'Posted' THEN 0
-            WHEN 'Claiming' THEN 1
-            WHEN 'Claimed' THEN 2
-            WHEN 'Returning' THEN 3
-            WHEN 'Returned' THEN 4
-            WHEN 'Retrieving' THEN 5
-            WHEN 'Retrieved' THEN 6
-        END AS `Claim_Status`,
-        `claims`.`Proof`, `claims`.`Proof_Image`, `claims`.`Returned_Image`,
-        `claims`.`Remarks`, `claims`.`Claim_Date`,
-        CASE `claims`.`Verification_Status`
-            WHEN 'Pending' THEN 0
-            WHEN 'Declined' THEN 1
-            WHEN 'Approved' THEN 2
-        END AS `Verification_Status`,
-        `claims`.`Verification_Date`, `claims`.`Claim_Again`,
-        `items`.`Item_Name`, `items`.`Image`,
-        CASE `items`.`Type`
-            WHEN 'Found' THEN 1
-            WHEN 'Lost' THEN 0
-        END AS `Type`,
-        CAST(`items`.`Category_ID` AS UNSIGNED) AS `Category_ID`,
-        `items`.`Poster_ID`, `categories`.`Category_Name`
-    FROM `claims`
-    INNER JOIN `items` ON `claims`.`Item_ID` = `items`.`Item_ID`
-    INNER JOIN `categories` ON `items`.`Category_ID` = `categories`.`Category_ID`
-    ORDER BY `claims`.`Claim_ID` DESC";
-
-$result = $conn->query($sql);
-
-$data = array();
-
-if ($result->num_rows > 0) {
-  // Output data of each row
-  while ($row = $result->fetch_assoc()) {
-    // Cast Type, Category_ID, Claim_Status, and Verification_Status as integers
-    $row['Type'] = (int) $row['Type'];
-    $row['Category_ID'] = (int) $row['Category_ID'];
-    $row['Claim_Status'] = (int) $row['Claim_Status'];
-    $row['Verification_Status'] = (int) $row['Verification_Status'];
-    $data[] = $row;
-  }
-} else {
-  echo "0 results";
-}
-$conn->close();
-
-// Convert the array to a JSON object
-$json_data = json_encode(array('data' => $data));
-
-// Write the JSON data to a file
-$success = file_put_contents('../../assets/json/item-claims.json', $json_data);
-if (!$success) {
-  echo "Error: Unable to write JSON data to file.";
-} else {
-  echo "JSON data successfully written to file.";
-}
-?>
 <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
 
 </head>
@@ -94,7 +30,7 @@ if (!$success) {
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4"><span class="text-muted fw-light">Items /</span> Item List</h4>
+            <h4 class="py-3 mb-4"><span class="text-muted fw-light">Items /</span> Item CLaims</h4>
 
             <!-- Product List Widget -->
 
@@ -260,6 +196,71 @@ if (!$success) {
 
     <!-- Page JS -->
     <script src="../../assets/js/item-list.js"></script>
+
+    <?php
+    require 'dbconn.php';
+
+    // Query to fetch claims details, corresponding item and category names, and map the "Claim_Status" and "Type" fields to integers
+    $sql = "SELECT `claims`.`Claim_ID`, `claims`.`Item_ID`, `claims`.`Claimer_ID`,
+        CASE `claims`.`Claim_Status`
+            WHEN 'Posted' THEN 0
+            WHEN 'Claiming' THEN 1
+            WHEN 'Claimed' THEN 2
+            WHEN 'Returning' THEN 3
+            WHEN 'Returned' THEN 4
+            WHEN 'Retrieving' THEN 5
+            WHEN 'Retrieved' THEN 6
+        END AS `Claim_Status`,
+        `claims`.`Proof`, `claims`.`Proof_Image`, `claims`.`Returned_Image`,
+        `claims`.`Remarks`, `claims`.`Claim_Date`,
+        CASE `claims`.`Verification_Status`
+            WHEN 'Pending' THEN 0
+            WHEN 'Declined' THEN 1
+            WHEN 'Approved' THEN 2
+        END AS `Verification_Status`,
+        `claims`.`Verification_Date`, `claims`.`Claim_Again`,
+        `items`.`Item_Name`, `items`.`Image`,
+        CASE `items`.`Type`
+            WHEN 'Found' THEN 1
+            WHEN 'Lost' THEN 0
+        END AS `Type`,
+        CAST(`items`.`Category_ID` AS UNSIGNED) AS `Category_ID`,
+        `items`.`Poster_ID`, `categories`.`Category_Name`
+    FROM `claims`
+    INNER JOIN `items` ON `claims`.`Item_ID` = `items`.`Item_ID`
+    INNER JOIN `categories` ON `items`.`Category_ID` = `categories`.`Category_ID`
+    ORDER BY `claims`.`Claim_ID` DESC";
+
+    $result = $conn->query($sql);
+
+    $data = array();
+
+    if ($result->num_rows > 0) {
+      // Output data of each row
+      while ($row = $result->fetch_assoc()) {
+        // Cast Type, Category_ID, Claim_Status, and Verification_Status as integers
+        $row['Type'] = (int) $row['Type'];
+        $row['Category_ID'] = (int) $row['Category_ID'];
+        $row['Claim_Status'] = (int) $row['Claim_Status'];
+        $row['Verification_Status'] = (int) $row['Verification_Status'];
+        $data[] = $row;
+      }
+    } else {
+      echo "0 results";
+    }
+    $conn->close();
+
+    // Convert the array to a JSON object
+    $json_data = json_encode(array('data' => $data));
+
+    // Write the JSON data to a file
+    $success = file_put_contents('../../assets/json/item-claims.json', $json_data);
+    if (!$success) {
+      echo "Error: Unable to write JSON data to file.";
+    } else {
+      echo "JSON data successfully written to file.";
+    }
+    ?>
 
 
 

@@ -2,6 +2,39 @@
 $title = 'Item List - Page | ULAF Admin';
 require 'header.php';
 
+$jsonFilePath = '../../assets/json/item-list.json';
+$jsonData = file_get_contents($jsonFilePath);
+$items = json_decode($jsonData, true)['data'];
+
+$totalItems = count($items);
+$returnedRetrievedCount = 0;
+$pendingCount = 0;
+$overdueCount = 0;
+
+// Current date in PHT timezone
+$currentDate = new DateTime('now', new DateTimeZone('Asia/Manila'));
+
+// Check each item for its status and posted date
+foreach ($items as $item) {
+  // Check if the item is returned or retrieved
+  if ($item['Item_Status'] == 4 || $item['Item_Status'] == 6) {
+    $returnedRetrievedCount++;
+  }
+
+  // Check if the item is pending
+  if (in_array($item['Item_Status'], [1, 2, 3, 5])) {
+    $pendingCount++;
+  }
+
+  // Check if the item is overdue
+  if ($item['Item_Status'] == 0) {
+    $postedDate = new DateTime($item['Posted_Date'], new DateTimeZone('Asia/Manila'));
+    $interval = $currentDate->diff($postedDate);
+    if ($interval->m + ($interval->y * 12) > 4) { 
+      $overdueCount++;
+    }
+  }
+}
 ?>
 <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
 
@@ -43,14 +76,14 @@ require 'header.php';
                     <div class="col-sm-6 col-lg-3">
                       <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
                         <div>
-                          <h6 class="mb-2">In-store Sales</h6>
-                          <h4 class="mb-2">$5,345.43</h4>
+                          <h6 class="mb-2">Total Items</h6>
+                          <h4 class="mb-2"><?php echo $totalItems; ?></h4>
                           <p class="mb-0">
-                            <span class="text-muted me-2">5k orders</span><span class="badge bg-label-success">+5.7%</span>
+                            <span class="text-muted me-2">All items</span>
                           </p>
                         </div>
                         <span class="avatar me-sm-4">
-                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-smart-home text-body"></i></span>
+                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-clipboard-data text-body"></i></span>
                         </span>
                       </div>
                       <hr class="d-none d-sm-block d-lg-none me-4" />
@@ -58,14 +91,14 @@ require 'header.php';
                     <div class="col-sm-6 col-lg-3">
                       <div class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
                         <div>
-                          <h6 class="mb-2">Website Sales</h6>
-                          <h4 class="mb-2">$674,347.12</h4>
+                          <h6 class="mb-2">Returned/Retrieved Items</h6>
+                          <h4 class="mb-2"><?php echo $returnedRetrievedCount; ?></h4>
                           <p class="mb-0">
-                            <span class="text-muted me-2">21k orders</span><span class="badge bg-label-success">+12.4%</span>
+                            <span class="text-muted me-2">Items returned/retrieved</span>
                           </p>
                         </div>
                         <span class="avatar p-2 me-lg-4">
-                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-device-laptop text-body"></i></span>
+                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-file-check text-body"></i></span>
                         </span>
                       </div>
                       <hr class="d-none d-sm-block d-lg-none" />
@@ -73,26 +106,26 @@ require 'header.php';
                     <div class="col-sm-6 col-lg-3">
                       <div class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
                         <div>
-                          <h6 class="mb-2">Discount</h6>
-                          <h4 class="mb-2">$14,235.12</h4>
-                          <p class="mb-0 text-muted">6k orders</p>
+                          <h6 class="mb-2">Pending Items</h6>
+                          <h4 class="mb-2"><?php echo $pendingCount; ?></h4>
+                          <p class="mb-0 text-muted">Items in process of claiming</p>
                         </div>
                         <span class="avatar p-2 me-sm-4">
-                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-gift text-body"></i></span>
+                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-file-orientation text-body"></i></span>
                         </span>
                       </div>
                     </div>
                     <div class="col-sm-6 col-lg-3">
                       <div class="d-flex justify-content-between align-items-start">
                         <div>
-                          <h6 class="mb-2">Affiliate</h6>
-                          <h4 class="mb-2">$8,345.23</h4>
+                          <h6 class="mb-2">Overdue Items</h6>
+                          <h4 class="mb-2"><?php echo $overdueCount; ?></h4>
                           <p class="mb-0">
-                            <span class="text-muted me-2">150 orders</span><span class="badge bg-label-danger">-3.5%</span>
+                            <span class="text-muted me-2">Items overdue for more than 6 months</span>
                           </p>
                         </div>
                         <span class="avatar p-2">
-                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-wallet text-body"></i></span>
+                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-file-alert text-body"></i></span>
                         </span>
                       </div>
                     </div>

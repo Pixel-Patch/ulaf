@@ -17,7 +17,6 @@ $(function () {
   // Variable declaration for table
   var dt_user_table = $('.datatables-users'),
     select2 = $('.select2'),
-    userView = 'app-user-view-account.php',
     statusObj = {
       1: { title: 'Pending', class: 'bg-label-warning' },
       2: { title: 'Active', class: 'bg-label-success' },
@@ -89,9 +88,8 @@ $(function () {
               '</div>' +
               '</div>' +
               '<div class="d-flex flex-column">' +
-              '<a href="' +
-              userView +
-              '" class="text-body text-truncate"><span class="fw-medium">' +
+              '<a href="app-user-view-account.php?user_id=' + full['user_id'] +
+              '" class="text-body text-truncate"><span class="fw-medium">'+
               $name +
               '</span></a>' +
               '<small class="text-muted">' +
@@ -157,19 +155,17 @@ $(function () {
           searchable: false,
           orderable: false,
           render: function (data, type, full, meta) {
-            return (
-              '<div class="d-flex align-items-center">' +
-              '<a href="form-edit-user.php?user_id=' + full['user_id'] + '"><i class="ti ti-edit ti-sm me-2"></i></a>' +
-              '<a href="javascript:;" class="text-body delete-record" data-user-id="' + full['user_id'] + '"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
-              '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
-              '<div class="dropdown-menu dropdown-menu-end m-0">' +
-              '<a href="' +
-              userView +
-              '" class="dropdown-item">View</a>' +
-              '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
-              '</div>' +
-              '</div>'
-            );
+           return (
+  '<div class="d-flex align-items-center">' +
+  '<a href="form-edit-user.php?user_id=' + full['user_id'] + '"><i class="ti ti-edit ti-sm me-2"></i></a>' +
+  '<a href="javascript:;" class="text-body delete-record" data-user-id="' + full['user_id'] + '"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
+  '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
+  '<div class="dropdown-menu dropdown-menu-end m-0">' +
+  '<a href="app-user-view-account.php?user_id=' + full['user_id'] + '" class="dropdown-item">View</a>' +
+  '</div>' +
+  '</div>'
+);
+
           }
         }
       ],
@@ -371,101 +367,63 @@ $(function () {
           }
         }
       },
-      initComplete: function () {
-        // Adding role filter once table initialized
-        this.api()
-          .columns(2)
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select id="UserRole" class="form-select text-capitalize"><option value=""> Select User Type</option></select>'
-            )
-              .appendTo('.user_role')
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + d + '">' + d + '</option>');
-              });
-          });
-        // Adding plan filter once table initialized
-        this.api()
-          .columns(4)
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select id="UserCourse" class="form-select text-capitalize"><option value=""> Select Course </option></select>'
-            )
-              .appendTo('.user_course')
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
+   initComplete: function () {
+    var dataTable = this.api();
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + d + '">' + d + '</option>');
-              });
-          });
-          // Adding plan filter once table initialized
-        this.api()
-          .columns(5)
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select id="UserCollege" class="form-select text-capitalize"><option value=""> Select College </option></select>'
-            )
-              .appendTo('.user_college')
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
+    function addFilter(columnIndex, selectId, selectClass, placeholder) {
+        dataTable
+            .columns(columnIndex)
+            .every(function () {
+                var column = this;
+                var select = $(
+                    `<select id="${selectId}" class="form-select text-capitalize"><option value="">${placeholder}</option></select>`
+                )
+                    .appendTo(selectClass)
+                    .on('change', function () {
+                        var val = $(this).val();
+                        if (val === "null") {
+                            column.search('^$', true, false).draw();
+                        } else {
+                            val = $.fn.dataTable.util.escapeRegex(val);
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        }
+                    });
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + d + '">' + d + '</option>');
-              });
-          });
-        // Adding status filter once table initialized
-        this.api()
-          .columns(5)
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select id="FilterTransaction" class="form-select text-capitalize"><option value=""> Select Status </option></select>'
-            )
-              .appendTo('.user_status')
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
+                column
+                    .data()
+                    .unique()
+                    .sort()
+                    .each(function (d, j) {
+                        if (d !== null && d !== "") {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        }
+                    });
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append(
-                  '<option value="' +
-                    (statusObj[d]?.title || '') +
-                    '" class="text-capitalize">' +
-                    (statusObj[d]?.title || '') +
-                    '</option>'
-                );
-              });
-          });
-      }
+                // Append the "Null" option last
+                select.append('<option value="null">Null</option>');
+
+                // Initialize Select2
+                $('#' + selectId).select2({
+                    placeholder: placeholder,
+                    allowClear: true
+                });
+            });
+    }
+
+    // Adding role filter once table initialized
+    addFilter(2, 'UserRole', '.user_role', 'Select User Type');
+
+    // Adding course filter once table initialized
+    addFilter(4, 'UserCourse', '.user_course', 'Select Course');
+
+    // Adding college filter once table initialized
+    addFilter(5, 'UserCollege', '.user_college', 'Select College');
+
+    // Adding status filter once table initialized
+    addFilter(6, 'FilterTransaction', '.user_status', 'Select Status');
+}
+
+
     });
   }
 

@@ -2,6 +2,47 @@
 $title = 'Item List - Page | ULAF Admin';
 require 'header.php';
 ?>
+
+<?php include '../user/session-manager.php';
+// Adjust the path accordingly 
+?>
+
+<?php
+// Query Redis for active users
+$redis = new Predis\Client();
+
+$activeUserCount = 0;
+$keys = $redis->keys('user:*:last_activity');
+foreach ($keys as $key) {
+  if ($redis->ttl($key) > 0) {
+    $activeUserCount++;
+  }
+}
+
+// Read the JSON file
+$jsonFilePath = '../../assets/json/user-end-list.json';
+$jsonData = file_get_contents($jsonFilePath);
+$users = json_decode($jsonData, true)['data'];
+
+$completedCount = 0;
+$incompleteCount = 0;
+$totalUsers = count($users);
+
+// Check each user for null values
+foreach ($users as $user) {
+  if (
+    is_null($user['role']) || is_null($user['fullname']) || is_null($user['avatar_image']) ||
+    is_null($user['college']) || is_null($user['course']) || is_null($user['clsu_id_image']) ||
+    is_null($user['home_address']) || is_null($user['clsu_address']) || is_null($user['contact'])
+  ) {
+    $incompleteCount++;
+  } else {
+    $completedCount++;
+  }
+}
+?>
+
+
 <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
 </head>
 
@@ -32,12 +73,11 @@ require 'header.php';
                   <div class="card-body">
                     <div class="d-flex align-items-start justify-content-between">
                       <div class="content-left">
-                        <span>Session</span>
+                        <span>Active Users</span>
                         <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">21,459</h3>
-                          <p class="text-success mb-0">(+29%)</p>
+                          <h3 class="mb-0 me-2"><?php echo $activeUserCount; ?></h3>
                         </div>
-                        <p class="mb-0">Total Users</p>
+                        <p class="mb-0">Total Active Users</p>
                       </div>
                       <div class="avatar">
                         <span class="avatar-initial rounded bg-label-primary">
@@ -53,16 +93,15 @@ require 'header.php';
                   <div class="card-body">
                     <div class="d-flex align-items-start justify-content-between">
                       <div class="content-left">
-                        <span>Paid Users</span>
+                        <span>Total Users</span>
                         <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">4,567</h3>
-                          <p class="text-success mb-0">(+18%)</p>
+                          <h3 class="mb-0 me-2"><?php echo $totalUsers; ?></h3>
                         </div>
-                        <p class="mb-0">Last week analytics</p>
+                        <p class="mb-0">Total number of users</p>
                       </div>
                       <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-danger">
-                          <i class="ti ti-user-plus ti-sm"></i>
+                        <span class="avatar-initial rounded bg-label-info">
+                          <i class="ti ti-user ti-sm"></i>
                         </span>
                       </div>
                     </div>
@@ -74,12 +113,11 @@ require 'header.php';
                   <div class="card-body">
                     <div class="d-flex align-items-start justify-content-between">
                       <div class="content-left">
-                        <span>Active Users</span>
+                        <span>Completed Registrations</span>
                         <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">19,860</h3>
-                          <p class="text-danger mb-0">(-14%)</p>
+                          <h3 class="mb-0 me-2"><?php echo $completedCount; ?></h3>
                         </div>
-                        <p class="mb-0">Last week analytics</p>
+                        <p class="mb-0">Users with complete profiles</p>
                       </div>
                       <div class="avatar">
                         <span class="avatar-initial rounded bg-label-success">
@@ -95,12 +133,11 @@ require 'header.php';
                   <div class="card-body">
                     <div class="d-flex align-items-start justify-content-between">
                       <div class="content-left">
-                        <span>Pending Users</span>
+                        <span>Incomplete Registrations</span>
                         <div class="d-flex align-items-center my-2">
-                          <h3 class="mb-0 me-2">237</h3>
-                          <p class="text-success mb-0">(+42%)</p>
+                          <h3 class="mb-0 me-2"><?php echo $incompleteCount; ?></h3>
                         </div>
-                        <p class="mb-0">Last week analytics</p>
+                        <p class="mb-0">Users with incomplete profiles</p>
                       </div>
                       <div class="avatar">
                         <span class="avatar-initial rounded bg-label-warning">
@@ -164,7 +201,6 @@ require 'header.php';
 
           <!-- Footer -->
           <?php require 'footer.php'; ?>
-
           <!-- / Footer -->
 
           <div class="content-backdrop fade"></div>

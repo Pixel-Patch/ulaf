@@ -2,6 +2,27 @@
 $title = 'Item List - Page | ULAF Admin';
 require 'header.php';
 
+// Read the JSON file
+$jsonFilePath = '../../assets/json/item-claims.json';
+$jsonData = file_get_contents($jsonFilePath);
+$claims = json_decode($jsonData, true)['data'];
+
+$totalClaims = count($claims);
+$approvedClaimsCount = 0;
+$rejectedClaimsCount = 0;
+$pendingClaimsCount = 0;
+
+// Check each claim for its verification status
+foreach ($claims as $claim) {
+  if ($claim['Verification_Status'] == 2) {
+    $approvedClaimsCount++;
+  } elseif ($claim['Verification_Status'] == 1) {
+    $rejectedClaimsCount++;
+  } elseif ($claim['Verification_Status'] == 0) {
+    $pendingClaimsCount++;
+  }
+}
+
 ?>
 
 <?php
@@ -107,14 +128,14 @@ if (!$success) {
                     <div class="col-sm-6 col-lg-3">
                       <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
                         <div>
-                          <h6 class="mb-2">In-store Sales</h6>
-                          <h4 class="mb-2">$5,345.43</h4>
+                          <h6 class="mb-2">Total Claims</h6>
+                          <h4 class="mb-2"><?php echo $totalClaims; ?></h4>
                           <p class="mb-0">
-                            <span class="text-muted me-2">5k orders</span><span class="badge bg-label-success">+5.7%</span>
+                            <span class="text-muted me-2">Overall number of claims</span>
                           </p>
                         </div>
                         <span class="avatar me-sm-4">
-                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-smart-home text-body"></i></span>
+                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-clipboard-data  text-body"></i></span>
                         </span>
                       </div>
                       <hr class="d-none d-sm-block d-lg-none me-4" />
@@ -122,14 +143,14 @@ if (!$success) {
                     <div class="col-sm-6 col-lg-3">
                       <div class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
                         <div>
-                          <h6 class="mb-2">Website Sales</h6>
-                          <h4 class="mb-2">$674,347.12</h4>
+                          <h6 class="mb-2">Approved Claims</h6>
+                          <h4 class="mb-2"><?php echo $approvedClaimsCount; ?></h4>
                           <p class="mb-0">
-                            <span class="text-muted me-2">21k orders</span><span class="badge bg-label-success">+12.4%</span>
+                            <span class="text-muted me-2">Claims approved</span>
                           </p>
                         </div>
                         <span class="avatar p-2 me-lg-4">
-                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-device-laptop text-body"></i></span>
+                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-file-check text-body"></i></span>
                         </span>
                       </div>
                       <hr class="d-none d-sm-block d-lg-none" />
@@ -137,26 +158,26 @@ if (!$success) {
                     <div class="col-sm-6 col-lg-3">
                       <div class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
                         <div>
-                          <h6 class="mb-2">Discount</h6>
-                          <h4 class="mb-2">$14,235.12</h4>
-                          <p class="mb-0 text-muted">6k orders</p>
+                          <h6 class="mb-2">Rejected Claims</h6>
+                          <h4 class="mb-2"><?php echo $rejectedClaimsCount; ?></h4>
+                          <p class="mb-0 text-muted">Claims rejected and reasons</p>
                         </div>
                         <span class="avatar p-2 me-sm-4">
-                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-gift text-body"></i></span>
+                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-clipboard-off text-body"></i></span>
                         </span>
                       </div>
                     </div>
                     <div class="col-sm-6 col-lg-3">
                       <div class="d-flex justify-content-between align-items-start">
                         <div>
-                          <h6 class="mb-2">Affiliate</h6>
-                          <h4 class="mb-2">$8,345.23</h4>
+                          <h6 class="mb-2">Pending Claims</h6>
+                          <h4 class="mb-2"><?php echo $pendingClaimsCount; ?></h4>
                           <p class="mb-0">
-                            <span class="text-muted me-2">150 orders</span><span class="badge bg-label-danger">-3.5%</span>
+                            <span class="text-muted me-2">Claims under review</span>
                           </p>
                         </div>
                         <span class="avatar p-2">
-                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-wallet text-body"></i></span>
+                          <span class="avatar-initial bg-label-secondary rounded"><i class="ti-md ti ti-file-report text-body"></i></span>
                         </span>
                       </div>
                     </div>

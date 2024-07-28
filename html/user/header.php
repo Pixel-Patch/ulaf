@@ -1,7 +1,7 @@
 <?php
 session_start(); // Start the session
 
-require_once 'dbconn.php'; // Include your database connection file
+require 'dbconn.php'; // Include your database connection file
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -16,6 +16,8 @@ if (isset($_SESSION['registration_incomplete']) && $_SESSION['registration_incom
 	header("Location: add-user-details.php");
 	exit();
 }
+
+include 'session-manager.php';
 ?>
 
 
