@@ -3,7 +3,6 @@ $title = 'Item List - Page | ULAF Admin';
 require 'header.php';
 require 'dbconn.php';
 
-
 // Get user_id from URL
 $user_id = $_GET['user_id'];
 
@@ -25,11 +24,125 @@ foreach ($user as $key => $value) {
   }
 }
 
-// Close the connection
+// Query to fetch item details for the specific Poster_ID
+$sql = "SELECT `items`.`Item_ID`, `items`.`Item_Name`, `items`.`Image`,
+            CASE `items`.`Type`
+                WHEN 'Found' THEN 1
+                WHEN 'Lost' THEN 0
+            END AS `Type`,
+            CAST(`items`.`Category_ID` AS UNSIGNED) AS `Category_ID`, `categories`.`Category_Name`,
+            CASE `items`.`Item_Status`
+                WHEN 'Posted' THEN 0
+                WHEN 'Claiming' THEN 1
+                WHEN 'Claimed' THEN 2
+                WHEN 'Returning' THEN 3
+                WHEN 'Returned' THEN 4
+                WHEN 'Retrieving' THEN 5
+                WHEN 'Retrieved' THEN 6
+            END AS `Item_Status`,
+            `items`.`Description`, `items`.`Pin_Location`, `items`.`Posted_Date`, `items`.`Current_Location`,
+            `items`.`Poster_ID`, `items`.`Latitude`, `items`.`Longitude`, `items`.`Retrieved_By`, `items`.`Retrieved_Date`
+        FROM `items`
+        INNER JOIN `categories` ON `items`.`Category_ID` = `categories`.`Category_ID`
+        WHERE `items`.`Poster_ID` = ?
+        ORDER BY `items`.`Item_ID` DESC";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$items_data = array();
+
+if ($result->num_rows > 0) {
+  // Output data of each row
+  while ($row = $result->fetch_assoc()) {
+    // Cast Type, Category_ID, and Item_Status as integers
+    $row['Type'] = (int) $row['Type'];
+    $row['Category_ID'] = (int) $row['Category_ID'];
+    $row['Item_Status'] = (int) $row['Item_Status'];
+    $items_data[] = $row;
+  }
+}
+
+// Convert the array to a JSON object
+$items_json_data = json_encode(array('data' => $items_data));
+
+// Write the JSON data to a file
+$success_items = file_put_contents('../../assets/json/user-item-list.json', $items_json_data);
+if (!$success_items) {
+  echo "Error: Unable to write items JSON data to file.";
+} else {
+  echo "Items JSON data successfully written to file.";
+}
+
+// Query to fetch claims details, corresponding item and category names, and map the "Claim_Status" and "Type" fields to integers
+$sql = "SELECT `claims`.`Claim_ID`, `claims`.`Item_ID`, `claims`.`Claimer_ID`,
+        CASE `claims`.`Claim_Status`
+            WHEN 'Posted' THEN 0
+            WHEN 'Claiming' THEN 1
+            WHEN 'Claimed' THEN 2
+            WHEN 'Returning' THEN 3
+            WHEN 'Returned' THEN 4
+            WHEN 'Retrieving' THEN 5
+            WHEN 'Retrieved' THEN 6
+        END AS `Claim_Status`,
+        `claims`.`Proof`, `claims`.`Proof_Image`, `claims`.`Returned_Image`,
+        `claims`.`Remarks`, `claims`.`Claim_Date`,
+        CASE `claims`.`Verification_Status`
+            WHEN 'Pending' THEN 0
+            WHEN 'Declined' THEN 1
+            WHEN 'Approved' THEN 2
+        END AS `Verification_Status`,
+        `claims`.`Verification_Date`, `claims`.`Claim_Again`,
+        `items`.`Item_Name`, `items`.`Image`,
+        CASE `items`.`Type`
+            WHEN 'Found' THEN 1
+            WHEN 'Lost' THEN 0
+        END AS `Type`,
+        CAST(`items`.`Category_ID` AS UNSIGNED) AS `Category_ID`,
+        `items`.`Poster_ID`, `categories`.`Category_Name`
+    FROM `claims`
+    INNER JOIN `items` ON `claims`.`Item_ID` = `items`.`Item_ID`
+    INNER JOIN `categories` ON `items`.`Category_ID` = `categories`.`Category_ID`
+    WHERE `items`.`Poster_ID` = ?
+    ORDER BY `claims`.`Claim_ID` DESC";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$claims_data = array();
+
+if ($result->num_rows > 0) {
+  // Output data of each row
+  while ($row = $result->fetch_assoc()) {
+    // Cast Type, Category_ID, Claim_Status, and Verification_Status as integers
+    $row['Type'] = (int) $row['Type'];
+    $row['Category_ID'] = (int) $row['Category_ID'];
+    $row['Claim_Status'] = (int) $row['Claim_Status'];
+    $row['Verification_Status'] = (int) $row['Verification_Status'];
+    $claims_data[] = $row;
+  }
+}
+
+// Convert the array to a JSON object
+$claims_json_data = json_encode(array('data' => $claims_data));
+
+// Write the JSON data to a file
+$success_claims = file_put_contents('../../assets/json/user-item-claims.json', $claims_json_data);
+if (!$success_claims) {
+  echo "Error: Unable to write claims JSON data to file.";
+} else {
+  echo "Claims JSON data successfully written to file.";
+}
+
 $conn->close();
 ?>
 
-?>
+
+
 
 <link rel="stylesheet" href="../../assets/vendor/css/pages/page-user-view.css" />
 
@@ -174,22 +287,43 @@ $conn->close();
 
                 <!-- Project table -->
                 <div class="card mb-4">
-                  <h5 class="card-header">User's Projects List</h5>
+                  <h5 class="card-header">User's Item List</h5>
                   <div class="table-responsive mb-3">
                     <table class="table datatable-project border-top">
                       <thead>
                         <tr>
                           <th></th>
-                          <th>Project</th>
-                          <th class="text-nowrap">Total Task</th>
-                          <th>Progress</th>
-                          <th>Hours</th>
+                          <th>Item</th>
+                          <th>Category</th>
+                          <th>Type</th>
+                          <th>Status</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                     </table>
                   </div>
                 </div>
                 <!-- /Project table -->
+
+                <!-- Invoice table -->
+                <div class="card mb-4">
+                  <h5 class="card-header">User's Claims List</h5>
+                  <div class="table-responsive mb-3">
+                    <table class="table datatable-claims border-top">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Item</th>
+                          <th>Category</th>
+                          <th>Type</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+                <!-- /Invoice table -->
 
                 <!-- Activity Timeline -->
                 <div class="card mb-4">
@@ -273,156 +407,51 @@ $conn->close();
                 </div>
                 <!-- /Activity Timeline -->
 
-                <!-- Invoice table -->
-                <div class="card mb-4">
-                  <div class="table-responsive mb-3">
-                    <table class="table datatable-invoice border-top">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>ID</th>
-                          <th><i class="ti ti-trending-up text-secondary"></i></th>
-                          <th>Total</th>
-                          <th>Issued Date</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                </div>
-                <!-- /Invoice table -->
+
               </div>
               <!--/ User Content -->
             </div>
 
             <!-- Modal -->
-            <!-- Edit User Modal -->
-            <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-lg modal-simple modal-edit-user">
-                <div class="modal-content p-3 p-md-5">
-                  <div class="modal-body">
+            <!-- Modal for delete confirmation -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalTitle">Confirm Deletion</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <div class="text-center mb-4">
-                      <h3 class="mb-2">Edit User Information</h3>
-                      <p class="text-muted">Updating user details will receive a privacy audit.</p>
-                    </div>
-                    <form id="editUserForm" class="row g-3" onsubmit="return false">
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserFirstName">First Name</label>
-                        <input type="text" id="modalEditUserFirstName" name="modalEditUserFirstName" class="form-control" placeholder="John" />
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserLastName">Last Name</label>
-                        <input type="text" id="modalEditUserLastName" name="modalEditUserLastName" class="form-control" placeholder="Doe" />
-                      </div>
-                      <div class="col-12">
-                        <label class="form-label" for="modalEditUserName">Username</label>
-                        <input type="text" id="modalEditUserName" name="modalEditUserName" class="form-control" placeholder="john.doe.007" />
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserEmail">Email</label>
-                        <input type="text" id="modalEditUserEmail" name="modalEditUserEmail" class="form-control" placeholder="example@domain.com" />
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserStatus">Status</label>
-                        <select id="modalEditUserStatus" name="modalEditUserStatus" class="select2 form-select" aria-label="Default select example">
-                          <option selected>Status</option>
-                          <option value="1">Active</option>
-                          <option value="2">Inactive</option>
-                          <option value="3">Suspended</option>
-                        </select>
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditTaxID">Tax ID</label>
-                        <input type="text" id="modalEditTaxID" name="modalEditTaxID" class="form-control modal-edit-tax-id" placeholder="123 456 7890" />
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserPhone">Phone Number</label>
-                        <div class="input-group">
-                          <span class="input-group-text">US (+1)</span>
-                          <input type="text" id="modalEditUserPhone" name="modalEditUserPhone" class="form-control phone-number-mask" placeholder="202 555 0111" />
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserLanguage">Language</label>
-                        <select id="modalEditUserLanguage" name="modalEditUserLanguage" class="select2 form-select" multiple>
-                          <option value="">Select</option>
-                          <option value="english" selected>English</option>
-
-                        </select>
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserCountry">Country</label>
-                        <select id="modalEditUserCountry" name="modalEditUserCountry" class="select2 form-select" data-allow-clear="true">
-                          <option value="">Select</option>
-                          <option value="Australia" selected>Australia</option>
-
-                        </select>
-                      </div>
-                      <div class="col-12">
-                        <label class="switch">
-                          <input type="checkbox" class="switch-input" />
-                          <span class="switch-toggle-slider">
-                            <span class="switch-on"></span>
-                            <span class="switch-off"></span>
-                          </span>
-                          <span class="switch-label">Use as a billing address?</span>
-                        </label>
-                      </div>
-                      <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
-                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
-                          Cancel
-                        </button>
-                      </div>
-                    </form>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to delete Claim ID#<span id="itemToDelete"></span>?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-primary">Delete</button>
                   </div>
                 </div>
               </div>
             </div>
-            <!--/ Edit User Modal -->
 
-            <!-- Add New Credit Card Modal -->
-            <div class="modal fade" id="upgradePlanModal" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-simple modal-upgrade-plan">
-                <div class="modal-content p-3 p-md-5">
-                  <div class="modal-body">
+            <!-- Modal for delete confirmation -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalTitle">Confirm Deletion</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <div class="text-center mb-4">
-                      <h3 class="mb-2">Upgrade Plan</h3>
-                      <p>Choose the best plan for user.</p>
-                    </div>
-                    <form id="upgradePlanForm" class="row g-3" onsubmit="return false">
-                      <div class="col-sm-8">
-                        <label class="form-label" for="choosePlan">Choose Plan</label>
-                        <select id="choosePlan" name="choosePlan" class="form-select" aria-label="Choose Plan">
-                          <option selected>Choose Plan</option>
-                          <option value="standard">Standard - $99/month</option>
-                          <option value="exclusive">Exclusive - $249/month</option>
-                          <option value="Enterprise">Enterprise - $499/month</option>
-                        </select>
-                      </div>
-                      <div class="col-sm-4 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary">Upgrade</button>
-                      </div>
-                    </form>
                   </div>
-                  <hr class="mx-md-n5 mx-n3" />
                   <div class="modal-body">
-                    <p class="mb-0">User current plan is standard plan</p>
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                      <div class="d-flex justify-content-center me-2">
-                        <sup class="h6 pricing-currency pt-1 mt-3 mb-0 me-1 text-primary">$</sup>
-                        <h1 class="display-5 mb-0 text-primary">99</h1>
-                        <sub class="h5 pricing-duration mt-auto mb-2 text-muted">/month</sub>
-                      </div>
-                      <button class="btn btn-label-danger cancel-subscription mt-3">Cancel Subscription</button>
-                    </div>
+                    <p>Are you sure you want to delete Claim ID#<span id="itemToDelete"></span>?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-primary">Delete</button>
                   </div>
                 </div>
               </div>
             </div>
-            <!--/ Add New Credit Card Modal -->
+
+
 
             <!-- /Modal -->
           </div>
@@ -482,6 +511,151 @@ $conn->close();
   <script src="../../assets/js/modal-edit-user.js"></script>
   <script src="../../assets/js/app-user-view.js"></script>
   <script src="../../assets/js/app-user-view-account.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var statusObj = {
+        0: {
+          title: 'Posted',
+          class: 'bg-label-secondary'
+        },
+        1: {
+          title: 'Claiming',
+          class: 'bg-label-danger'
+        },
+        2: {
+          title: 'Claimed',
+          class: 'bg-label-success'
+        },
+        3: {
+          title: 'Returning',
+          class: 'bg-label-warning'
+        },
+        4: {
+          title: 'Returned',
+          class: 'bg-label-info'
+        },
+        5: {
+          title: 'Retrieving',
+          class: 'bg-label-warning'
+        },
+        6: {
+          title: 'Retrieved',
+          class: 'bg-label-info'
+        }
+      };
+
+      var verifyObj = {
+        0: {
+          title: 'Pending',
+          class: 'bg-label-secondary'
+        },
+        1: {
+          title: 'Declined',
+          class: 'bg-label-warning'
+        },
+        2: {
+          title: 'Approved',
+          class: 'bg-label-success'
+        }
+      };
+
+      var typeObj = {
+        0: {
+          title: 'Lost',
+          class: 'bg-label-danger'
+        },
+        1: {
+          title: 'Found',
+          class: 'bg-label-success'
+        }
+      };
+
+      // Event delegation to handle click event on dynamically created 'View' links
+      document.addEventListener('click', function(event) {
+        if (event.target.matches('.view-modal-trigger')) {
+          event.preventDefault();
+          try {
+            // Parse the JSON data
+            var data = JSON.parse(event.target.getAttribute('data-item')) || JSON.parse(event.target.getAttribute('data-claim'));
+
+            // Common fields
+            document.getElementById('modalItemName').innerText = data.itemName;
+            document.getElementById('modalCategoryName').innerText = data.categoryName;
+
+            // Handle multiple images/proofs
+            var imagesContainer = document.getElementById('modalItemImages') || document.getElementById('modalProofImages');
+            imagesContainer.innerHTML = ''; // Clear previous images
+            var images = data.image ? data.image.split(',') : data.proofImage.split(',');
+            images.forEach(function(image) {
+              var imgElement = document.createElement('img');
+              imgElement.src = data.image ? '../../assets/uploads/items/' + image.trim() : '../../assets/uploads/proofs/' + image.trim();
+              imgElement.className = 'img-fluid rounded mx-1 my-1';
+              imgElement.style.maxWidth = '500px'; // Adjust as needed
+              imagesContainer.appendChild(imgElement);
+            });
+
+            // Modal specific fields
+            if (data.itemId) {
+              document.getElementById('cardModalTitle').innerText = 'Item ID: ' + data.itemId;
+              document.getElementById('modalItemDescription').value = data.description;
+              document.getElementById('modalPinLocation').value = data.pinLocation;
+              document.getElementById('modalPostedDate').value = data.postedDate;
+              document.getElementById('modalCurrentLocation').value = data.currentLocation;
+
+              var itemTypeElement = document.getElementById('modalItemType');
+              itemTypeElement.innerText = typeObj[data.itemType].title;
+              itemTypeElement.className = 'badge ' + typeObj[data.itemType].class;
+
+              var itemStatusElement = document.getElementById('modalItemStatus');
+              itemStatusElement.innerText = statusObj[data.itemStatus].title;
+              itemStatusElement.className = 'badge ' + statusObj[data.itemStatus].class;
+
+              if (data.retrievedBy) {
+                document.getElementById('modalRetrievedByWrapper').style.display = 'block';
+                document.getElementById('modalRetrievedBy').value = data.retrievedBy;
+              } else {
+                document.getElementById('modalRetrievedByWrapper').style.display = 'none';
+              }
+
+              if (data.retrievedDate) {
+                document.getElementById('modalRetrievedDateWrapper').style.display = 'block';
+                document.getElementById('modalRetrievedDate').value = data.retrievedDate;
+              } else {
+                document.getElementById('modalRetrievedDateWrapper').style.display = 'none';
+              }
+
+              var cardModal = new bootstrap.Modal(document.getElementById('cardModal'));
+              cardModal.show();
+            } else {
+              document.getElementById('claimModalTitle').innerText = 'Claim ID: ' + data.claimId;
+              document.getElementById('modalProof').value = data.proof;
+              document.getElementById('modalRemarks').value = data.remarks;
+              document.getElementById('modalClaimDate').value = data.claimDate;
+
+              var itemTypeElement = document.getElementById('modalItemType');
+              itemTypeElement.innerText = typeObj[data.itemType].title;
+              itemTypeElement.className = 'badge ' + typeObj[data.itemType].class;
+
+              var claimStatusElement = document.getElementById('modalClaimStatus');
+              claimStatusElement.innerText = statusObj[data.claimStatus].title;
+              claimStatusElement.className = 'badge ' + statusObj[data.claimStatus].class;
+
+              var verificationStatusElement = document.getElementById('modalVerificationStatus');
+              verificationStatusElement.innerText = verifyObj[data.verificationStatus].title;
+              verificationStatusElement.className = 'badge ' + verifyObj[data.verificationStatus].class;
+
+              var claimModal = new bootstrap.Modal(document.getElementById('claimModal'));
+              claimModal.show();
+            }
+          } catch (error) {
+            console.error('Error parsing data:', error);
+          }
+        }
+      });
+    });
+  </script>
+
 </body>
 
 </html>
