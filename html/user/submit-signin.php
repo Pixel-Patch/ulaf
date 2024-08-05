@@ -1,8 +1,9 @@
 <?php
-
 header('Content-Type: application/json');
 
 require('dbconn.php'); // Include your database connection file
+require '../../vendor/autoload.php'; // Ensure Predis is loaded
+session_start();
 
 $response = [
 	'status' => 'error',
@@ -38,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$stmt->fetch();
 
 			if (password_verify($password, $hashed_password)) {
-				session_start();
 				$_SESSION['user_id'] = $user_id;
 				$_SESSION['username'] = $username;
 
@@ -47,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$response['alertTitle'] = 'Success!';
 				$response['message'] = 'Login successful! Redirecting...';
 
-				// Redirect to a protected page (if necessary)
-				// header('Location: protected-page.php');
-				// exit();
+				// Log the login activity
+				$redis = new Predis\Client();
+				logUserActivity($conn, $redis, $user_id, 'login');
 			} else {
 				$response['message'] = 'Invalid username/email or password.';
 			}
@@ -67,3 +67,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $conn->close();
 echo json_encode($response);
+
+// Function to log user activities
+function logUserActivity($conn, $redis, $userId, $activityType, $itemId = null, $claimId = null)
+{
+	$timestamp = time();
+	$logEntry = json_encode([
+		'user_id' => $userId,
+		'activity_type' => $activityType,
+		'timestamp' => $timestamp
+	]);
+
+	// Log to Redis
+	$redis->rpush("user:{$userId}:activities", $logEntry);
+
+	// Log to database
+	$stmt = $conn->prepare("INSERT INTO activity_log (user_id, activity_type, item_id, claim_id, timestamp) VALUES (?, ?, ?, ?, FROM_UNIXTIME(?))");
+	$stmt->bind_param("sssii", $userId, $activityType, $itemId, $claimId, $timestamp);
+	$stmt->execute();
+	$stmt->close();
+}

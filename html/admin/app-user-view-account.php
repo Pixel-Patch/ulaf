@@ -6,6 +6,75 @@ require 'dbconn.php';
 // Get user_id from URL
 $user_id = $_GET['user_id'];
 
+// Fetch user activities from the database
+$sql = "SELECT activity_type, item_id, claim_id, timestamp FROM activity_log WHERE user_id = ? ORDER BY timestamp DESC";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$activities = [];
+while ($row = $result->fetch_assoc()) {
+  $activities[] = $row;
+}
+
+
+// Helper function to get activity description
+function getActivityDescription($activity)
+{
+  switch ($activity['activity_type']) {
+    case 'login':
+      return 'User logged in';
+    case 'logout':
+      return 'User logged out';
+    case 'add_item':
+      return 'Added a new item (ID: ' . $activity['item_id'] . ')';
+    case 'edit_item':
+      return 'Edited an item (ID: ' . $activity['item_id'] . ')';
+    case 'delete_item':
+      return 'Deleted an item (ID: ' . $activity['item_id'] . ')';
+    case 'add_claim':
+      return 'Added a new claim (ID: ' . $activity['claim_id'] . ')';
+    case 'edit_claim':
+      return 'Edited a claim (ID: ' . $activity['claim_id'] . ')';
+    case 'delete_claim':
+      return 'Deleted a claim (ID: ' . $activity['claim_id'] . ')';
+    case 'approve_claim':
+      return 'Approved a claim (ID: ' . $activity['claim_id'] . ')';
+    case 'decline_claim':
+      return 'Declined a claim (ID: ' . $activity['claim_id'] . ')';
+    case 'edit_profile':
+      return 'Edited user profile';
+    default:
+      return 'Performed an action';
+  }
+}
+
+// Helper function to get activity icon color
+function getActivityTypeColor($activityType)
+{
+  switch ($activityType) {
+    case 'login':
+    case 'logout':
+      return 'primary';
+    case 'add_item':
+    case 'edit_item':
+    case 'delete_item':
+      return 'info';
+    case 'add_claim':
+    case 'edit_claim':
+    case 'delete_claim':
+      return 'warning';
+    case 'approve_claim':
+    case 'decline_claim':
+      return 'success';
+    case 'edit_profile':
+      return 'danger';
+    default:
+      return 'secondary';
+  }
+}
+
 // SQL query to fetch user details
 $sql = "SELECT `id`, `User_ID`, `Role`, `Username`, `FullName`, `Password`, `Email`, `Avatar_Image`, `College`, `Course`, `CLSU_ID_Image`, `Home_Address`, `CLSU_Address`, `Contact`, `Social_Links`, `Date_Created`, `last_activity` FROM `users` WHERE `User_ID` = ?";
 $stmt = $conn->prepare($sql);
@@ -138,6 +207,68 @@ if (!$success_claims) {
   echo "Claims JSON data successfully written to file.";
 }
 
+// Query to fetch claims details, corresponding item and category names, and map the "Claim_Status" and "Type" fields to integers
+$sql = "SELECT `claims`.`Claim_ID`, `claims`.`Item_ID`, `claims`.`Claimer_ID`,
+        CASE `claims`.`Claim_Status`
+            WHEN 'Posted' THEN 0
+            WHEN 'Claiming' THEN 1
+            WHEN 'Claimed' THEN 2
+            WHEN 'Returning' THEN 3
+            WHEN 'Returned' THEN 4
+            WHEN 'Retrieving' THEN 5
+            WHEN 'Retrieved' THEN 6
+        END AS `Claim_Status`,
+        `claims`.`Proof`, `claims`.`Proof_Image`, `claims`.`Returned_Image`,
+        `claims`.`Remarks`, `claims`.`Claim_Date`,
+        CASE `claims`.`Verification_Status`
+            WHEN 'Pending' THEN 0
+            WHEN 'Declined' THEN 1
+            WHEN 'Approved' THEN 2
+        END AS `Verification_Status`,
+        `claims`.`Verification_Date`, `claims`.`Claim_Again`,
+        `items`.`Item_Name`, `items`.`Image`,
+        CASE `items`.`Type`
+            WHEN 'Found' THEN 1
+            WHEN 'Lost' THEN 0
+        END AS `Type`,
+        CAST(`items`.`Category_ID` AS UNSIGNED) AS `Category_ID`,
+        `items`.`Poster_ID`, `categories`.`Category_Name`
+    FROM `claims`
+    INNER JOIN `items` ON `claims`.`Item_ID` = `items`.`Item_ID`
+    INNER JOIN `categories` ON `items`.`Category_ID` = `categories`.`Category_ID`
+    WHERE `claims`.`Claimer_ID` = ?
+    ORDER BY `claims`.`Claim_ID` DESC";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$claims_data = array();
+
+if ($result->num_rows > 0) {
+  // Output data of each row
+  while ($row = $result->fetch_assoc()) {
+    // Cast Type, Category_ID, Claim_Status, and Verification_Status as integers
+    $row['Type'] = (int) $row['Type'];
+    $row['Category_ID'] = (int) $row['Category_ID'];
+    $row['Claim_Status'] = (int) $row['Claim_Status'];
+    $row['Verification_Status'] = (int) $row['Verification_Status'];
+    $claims_data[] = $row;
+  }
+}
+
+// Convert the array to a JSON object
+$claims_json_data = json_encode(array('data' => $claims_data));
+
+// Write the JSON data to a file
+$success_claims = file_put_contents('../../assets/json/user-claims.json', $claims_json_data);
+if (!$success_claims) {
+  echo "Error: Unable to write claims JSON data to file.";
+} else {
+  echo "Claims JSON data successfully written to file.";
+}
+
 $conn->close();
 ?>
 
@@ -221,7 +352,7 @@ $conn->close();
                         <li class="mb-2 pt-1"><strong>Date Created:</strong> <span><?php echo $user['Date_Created']; ?></span></li>
                       </ul>
                       <div class="d-flex justify-content-center">
-                        <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
+                        <a href="javascript:;" class="btn btn-primary me-3" data-user-id="<?php echo $user_id; ?>" id="editUserButton">Edit</a>
                         <a href="javascript:;" class="btn btn-label-danger suspend-user">Suspended</a>
                       </div>
                     </div>
@@ -270,18 +401,6 @@ $conn->close();
                   <li class="nav-item">
                     <a class="nav-link active" href="javascript:void(0);"><i class="ti ti-user-check ti-xs me-1"></i>Account</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="app-user-view-security.php"><i class="ti ti-lock ti-xs me-1"></i>Security</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="app-user-view-billing.php"><i class="ti ti-currency-dollar ti-xs me-1"></i>Billing & Plans</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="app-user-view-notifications.php"><i class="ti ti-bell ti-xs me-1"></i>Notifications</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="app-user-view-connections.php"><i class="ti ti-link ti-xs me-1"></i>Connections</a>
-                  </li>
                 </ul>
                 <!--/ User Pills -->
 
@@ -305,9 +424,9 @@ $conn->close();
                 </div>
                 <!-- /Project table -->
 
-                <!-- Invoice table -->
+                <!-- User's Item Claims table -->
                 <div class="card mb-4">
-                  <h5 class="card-header">User's Claims List</h5>
+                  <h5 class="card-header">User's Item Claims List</h5>
                   <div class="table-responsive mb-3">
                     <table class="table datatable-claims border-top">
                       <thead>
@@ -323,88 +442,50 @@ $conn->close();
                     </table>
                   </div>
                 </div>
-                <!-- /Invoice table -->
+                <!-- User's Item Claims table -->
 
+                <!-- User's Claims table -->
+                <div class="card mb-4">
+                  <h5 class="card-header">User's Claim List</h5>
+                  <div class="table-responsive mb-3">
+                    <table class="table datatable-myclaims border-top">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Item</th>
+                          <th>Category</th>
+                          <th>Type</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+                <!-- User's Claims table -->
+
+                <!-- Activity Timeline -->
                 <!-- Activity Timeline -->
                 <div class="card mb-4">
                   <h5 class="card-header">User Activity Timeline</h5>
                   <div class="card-body pb-0">
                     <ul class="timeline mb-0">
-                      <li class="timeline-item timeline-item-transparent">
-                        <span class="timeline-point timeline-point-primary"></span>
-                        <div class="timeline-event">
-                          <div class="timeline-header mb-1">
-                            <h6 class="mb-0">12 Invoices have been paid</h6>
-                            <small class="text-muted">12 min ago</small>
-                          </div>
-                          <p class="mb-2">Invoices have been paid to the company</p>
-                          <div class="d-flex">
-                            <a href="javascript:void(0)" class="me-3">
-                              <img src="../../assets/img/icons/misc/pdf.png" alt="PDF image" width="15" class="me-2" />
-                              <span class="fw-medium text-heading">invoices.pdf</span>
-                            </a>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="timeline-item timeline-item-transparent">
-                        <span class="timeline-point timeline-point-warning"></span>
-                        <div class="timeline-event">
-                          <div class="timeline-header mb-1">
-                            <h6 class="mb-0">Client Meeting</h6>
-                            <small class="text-muted">45 min ago</small>
-                          </div>
-                          <p class="mb-2">Project meeting with john @10:15am</p>
-                          <div class="d-flex flex-wrap">
-                            <div class="avatar me-3">
-                              <img src="../../assets/img/avatars/3.png" alt="Avatar" class="rounded-circle" />
-                            </div>
-                            <div>
-                              <h6 class="mb-0">Lester McCarthy (Client)</h6>
-                              <small>CEO of Pixinvent</small>
+                      <?php foreach ($activities as $activity) : ?>
+                        <li class="timeline-item timeline-item-transparent">
+                          <span class="timeline-point timeline-point-<?php echo getActivityTypeColor($activity['activity_type']); ?>"></span>
+                          <div class="timeline-event">
+                            <div class="timeline-header mb-1">
+                              <h6 class="mb-0"><?php echo getActivityDescription($activity); ?></h6>
+                              <small class="text-muted"><?php echo date('Y-m-d H:i:s', strtotime($activity['timestamp'])); ?></small>
                             </div>
                           </div>
-                        </div>
-                      </li>
-                      <li class="timeline-item timeline-item-transparent">
-                        <span class="timeline-point timeline-point-info"></span>
-                        <div class="timeline-event">
-                          <div class="timeline-header mb-1">
-                            <h6 class="mb-0">Create a new project for client</h6>
-                            <small class="text-muted">2 Day Ago</small>
-                          </div>
-                          <p class="mb-2">5 team members in a project</p>
-                          <div class="d-flex align-items-center avatar-group">
-                            <div class="avatar pull-up" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Vinnie Mostowy">
-                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </div>
-                            <div class="avatar pull-up" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Marrie Patty">
-                              <img src="../../assets/img/avatars/12.png" alt="Avatar" class="rounded-circle" />
-                            </div>
-                            <div class="avatar pull-up" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Jimmy Jackson">
-                              <img src="../../assets/img/avatars/9.png" alt="Avatar" class="rounded-circle" />
-                            </div>
-                            <div class="avatar pull-up" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Kristine Gill">
-                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </div>
-                            <div class="avatar pull-up" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Nelson Wilson">
-                              <img src="../../assets/img/avatars/4.png" alt="Avatar" class="rounded-circle" />
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="timeline-item timeline-item-transparent border-transparent">
-                        <span class="timeline-point timeline-point-success"></span>
-                        <div class="timeline-event">
-                          <div class="timeline-header mb-1">
-                            <h6 class="mb-0">Design Review</h6>
-                            <small class="text-muted">5 days Ago</small>
-                          </div>
-                          <p class="mb-0">Weekly review of freshly prepared design for our new app.</p>
-                        </div>
-                      </li>
+                        </li>
+                      <?php endforeach; ?>
                     </ul>
                   </div>
                 </div>
+                <!-- /Activity Timeline -->
+
                 <!-- /Activity Timeline -->
 
 
@@ -412,48 +493,153 @@ $conn->close();
               <!--/ User Content -->
             </div>
 
+
+            <!-- Modal for delete confirmation -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalTitle">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to delete this item with ID: <span id="itemToDelete"></span>?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-primary">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
             <!-- Modal -->
-            <!-- Modal for delete confirmation -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="cardModal" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalTitle">Confirm Deletion</h5>
+                    <h5 class="modal-title" id="cardModalTitle">Card Title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <p>Are you sure you want to delete Claim ID#<span id="itemToDelete"></span>?</p>
+                    <h3><span id="modalItemType" class="badge"></span></h3>
+                    <h3><span id="modalItemName"></span></h3>
+                    <h5 class="card-subtitle text-muted"><span id="modalCategoryName"></span></h5>
+
+                    <div id="modalItemImages" class="d-flex flex-column align-items-center mb-4">
+                      <!-- Images will be inserted here dynamically -->
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label" for="modalItemDescription">Description</label>
+                      <textarea class="form-control" id="modalItemDescription" rows="3" name="itemDescription" disabled></textarea>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label" for="modalPinLocation">Pin Location</label>
+                      <input type="text" class="form-control" id="modalPinLocation" name="pinLocation" disabled />
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label" for="modalPostedDate">Posted Date</label>
+                      <input type="text" class="form-control" id="modalPostedDate" name="postedDate" disabled />
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label" for="modalCurrentLocation">Current Location</label>
+                      <input type="text" class="form-control" id="modalCurrentLocation" name="currentLocation" disabled />
+                    </div>
+
+                    <div class="col-md-12 mb-3" id="modalRetrievedByWrapper">
+                      <label class="form-label" for="modalRetrievedBy">Retrieved By</label>
+                      <input type="text" class="form-control" id="modalRetrievedBy" name="retrievedBy" disabled />
+                    </div>
+
+                    <div class="col-md-12 mb-3" id="modalRetrievedDateWrapper">
+                      <label class="form-label" for="modalRetrievedDate">Retrieved Date</label>
+                      <input type="text" class="form-control" id="modalRetrievedDate" name="retrievedDate" disabled />
+                    </div>
+
+                    <p class="mt-3"><strong>Status:</strong> &nbsp; <span id="modalItemStatus" class="badge" style="font-size:20px;"></span></p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="confirmDeleteBtn" class="btn btn-primary">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal -->
+
+            <!-- Modal for delete confirmation for Claims -->
+            <div class="modal fade" id="deleteClaimsModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteClaimsModalTitle">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to delete this claim with ID: <span id="claimToDelete"></span>?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="confirmDeleteClaimsBtn" class="btn btn-primary">Delete</button>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Modal for delete confirmation -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+            <!-- Modal for claim -->
+            <div class="modal fade" id="claimModal" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalTitle">Confirm Deletion</h5>
+                    <h5 class="modal-title" id="claimModalTitle">Claim Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <p>Are you sure you want to delete Claim ID#<span id="itemToDelete"></span>?</p>
+                    <h3><span id="modalItemTypeClaims" class="badge"></span></h3>
+                    <h3><span id="modalItemNameClaim"></span></h3>
+                    <h5 class="card-subtitle text-muted"><span id="modalcategoryNameClaims"></span></h5>
+                    <br>
+
+                    <div id="modalProofImages" class="d-flex flex-column align-items-center mb-4">
+                      <!-- Proof images will be inserted here dynamically -->
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label" for="modalProof">Proof</label>
+                      <textarea class="form-control" id="modalProof" rows="3" name="proof" disabled></textarea>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label" for="modalRemarksClaims">Remarks</label>
+                      <textarea class="form-control" id="modalRemarksClaims" rows="3" name="remarks" disabled></textarea>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label" for="modalClaimDate">Claim Date</label>
+                      <input type="text" class="form-control" id="modalClaimDate" name="claimDate" disabled />
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label" for="modalVerificationStatus">Verification Status:&nbsp;</label>
+                      <span id="modalVerificationStatus" class="badge" style="font-size:20px;"></span>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label" for="modalClaimStatus">Claim Status:&nbsp;</label>
+                      <span id="modalClaimStatus" class="badge" style="font-size:20px;"></span>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="confirmDeleteBtn" class="btn btn-primary">Delete</button>
                   </div>
                 </div>
               </div>
             </div>
 
-
-
-            <!-- /Modal -->
           </div>
           <!--/ Content -->
 
@@ -511,10 +697,16 @@ $conn->close();
   <script src="../../assets/js/modal-edit-user.js"></script>
   <script src="../../assets/js/app-user-view.js"></script>
   <script src="../../assets/js/app-user-view-account.js"></script>
+  <script>
+    document.getElementById('editUserButton').addEventListener('click', function() {
+      var userId = this.getAttribute('data-user-id');
+      window.location.href = 'form-edit-user.php?user_id=' + userId;
+    });
+  </script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var statusObj = {
+      var statusMap = {
         0: {
           title: 'Posted',
           class: 'bg-label-secondary'
@@ -545,6 +737,17 @@ $conn->close();
         }
       };
 
+      var typeMap = {
+        0: {
+          title: 'Lost',
+          class: 'bg-label-danger'
+        },
+        1: {
+          title: 'Found',
+          class: 'bg-label-success'
+        }
+      };
+
       var verifyObj = {
         0: {
           title: 'Pending',
@@ -560,90 +763,97 @@ $conn->close();
         }
       };
 
-      var typeObj = {
-        0: {
-          title: 'Lost',
-          class: 'bg-label-danger'
-        },
-        1: {
-          title: 'Found',
-          class: 'bg-label-success'
-        }
-      };
-
       // Event delegation to handle click event on dynamically created 'View' links
       document.addEventListener('click', function(event) {
         if (event.target.matches('.view-modal-trigger')) {
           event.preventDefault();
           try {
-            // Parse the JSON data
-            var data = JSON.parse(event.target.getAttribute('data-item')) || JSON.parse(event.target.getAttribute('data-claim'));
+            var dataAttr = event.target.getAttribute('data-item') ? 'data-item' : 'data-claim';
+            var itemData = JSON.parse(event.target.getAttribute(dataAttr));
 
-            // Common fields
-            document.getElementById('modalItemName').innerText = data.itemName;
-            document.getElementById('modalCategoryName').innerText = data.categoryName;
+            if (dataAttr === 'data-item') {
+              document.getElementById('cardModalTitle').innerText = 'Item ID: ' + itemData.itemId;
+              document.getElementById('modalItemName').innerText = itemData.itemName;
+              document.getElementById('modalCategoryName').innerText = itemData.categoryName;
 
-            // Handle multiple images/proofs
-            var imagesContainer = document.getElementById('modalItemImages') || document.getElementById('modalProofImages');
-            imagesContainer.innerHTML = ''; // Clear previous images
-            var images = data.image ? data.image.split(',') : data.proofImage.split(',');
-            images.forEach(function(image) {
-              var imgElement = document.createElement('img');
-              imgElement.src = data.image ? '../../assets/uploads/items/' + image.trim() : '../../assets/uploads/proofs/' + image.trim();
-              imgElement.className = 'img-fluid rounded mx-1 my-1';
-              imgElement.style.maxWidth = '500px'; // Adjust as needed
-              imagesContainer.appendChild(imgElement);
-            });
+              // Handle multiple images
+              var imagesContainer = document.getElementById('modalItemImages');
+              imagesContainer.innerHTML = ''; // Clear previous images
+              var images = itemData.image.split(',');
+              images.forEach(function(image) {
+                var imgElement = document.createElement('img');
+                imgElement.src = '../../assets/uploads/items/' + image.trim();
+                imgElement.className = 'img-fluid rounded mx-1 my-1';
+                imgElement.style.maxWidth = '500px'; // Adjust as needed
+                imagesContainer.appendChild(imgElement);
+              });
 
-            // Modal specific fields
-            if (data.itemId) {
-              document.getElementById('cardModalTitle').innerText = 'Item ID: ' + data.itemId;
-              document.getElementById('modalItemDescription').value = data.description;
-              document.getElementById('modalPinLocation').value = data.pinLocation;
-              document.getElementById('modalPostedDate').value = data.postedDate;
-              document.getElementById('modalCurrentLocation').value = data.currentLocation;
+              document.getElementById('modalItemDescription').value = itemData.description;
 
               var itemTypeElement = document.getElementById('modalItemType');
-              itemTypeElement.innerText = typeObj[data.itemType].title;
-              itemTypeElement.className = 'badge ' + typeObj[data.itemType].class;
+              itemTypeElement.innerText = typeMap[itemData.itemType].title;
+              itemTypeElement.className = 'badge ' + typeMap[itemData.itemType].class;
 
               var itemStatusElement = document.getElementById('modalItemStatus');
-              itemStatusElement.innerText = statusObj[data.itemStatus].title;
-              itemStatusElement.className = 'badge ' + statusObj[data.itemStatus].class;
+              itemStatusElement.innerText = statusMap[itemData.itemStatus].title;
+              itemStatusElement.className = 'badge ' + statusMap[itemData.itemStatus].class;
 
-              if (data.retrievedBy) {
+              document.getElementById('modalPinLocation').value = itemData.pinLocation;
+              document.getElementById('modalPostedDate').value = itemData.postedDate;
+              document.getElementById('modalCurrentLocation').value = itemData.currentLocation;
+
+              if (itemData.retrievedBy) {
                 document.getElementById('modalRetrievedByWrapper').style.display = 'block';
-                document.getElementById('modalRetrievedBy').value = data.retrievedBy;
+                document.getElementById('modalRetrievedBy').value = itemData.retrievedBy;
               } else {
                 document.getElementById('modalRetrievedByWrapper').style.display = 'none';
               }
 
-              if (data.retrievedDate) {
+              if (itemData.retrievedDate) {
                 document.getElementById('modalRetrievedDateWrapper').style.display = 'block';
-                document.getElementById('modalRetrievedDate').value = data.retrievedDate;
+                document.getElementById('modalRetrievedDate').value = itemData.retrievedDate;
               } else {
                 document.getElementById('modalRetrievedDateWrapper').style.display = 'none';
               }
 
               var cardModal = new bootstrap.Modal(document.getElementById('cardModal'));
               cardModal.show();
-            } else {
-              document.getElementById('claimModalTitle').innerText = 'Claim ID: ' + data.claimId;
-              document.getElementById('modalProof').value = data.proof;
-              document.getElementById('modalRemarks').value = data.remarks;
-              document.getElementById('modalClaimDate').value = data.claimDate;
 
-              var itemTypeElement = document.getElementById('modalItemType');
-              itemTypeElement.innerText = typeObj[data.itemType].title;
-              itemTypeElement.className = 'badge ' + typeObj[data.itemType].class;
+            } else if (dataAttr === 'data-claim') {
+              document.getElementById('claimModalTitle').innerText = 'Claim ID: ' + itemData.claimId;
+
+              document.getElementById('modalItemNameClaim').innerText = itemData.itemNameClaims || 'N/A';
+              document.getElementById('modalcategoryNameClaims').innerText = itemData.categoryNameClaims || 'N/A';
+              document.getElementById('modalProof').value = itemData.proof || '';
+              document.getElementById('modalRemarksClaims').value = itemData.remarksClaims || '';
+              document.getElementById('modalClaimDate').value = itemData.claimDate || 'N/A';
+
+              var itemTypeElement = document.getElementById('modalItemTypeClaims');
+              itemTypeElement.innerText = (typeMap[itemData.itemType] && typeMap[itemData.itemType].title) || 'Unknown';
+              itemTypeElement.className = 'badge ' + ((typeMap[itemData.itemType] && typeMap[itemData.itemType].class) || 'bg-label-secondary');
 
               var claimStatusElement = document.getElementById('modalClaimStatus');
-              claimStatusElement.innerText = statusObj[data.claimStatus].title;
-              claimStatusElement.className = 'badge ' + statusObj[data.claimStatus].class;
+              claimStatusElement.innerText = (statusMap[itemData.claimStatus] && statusMap[itemData.claimStatus].title) || 'Unknown';
+              claimStatusElement.className = 'badge ' + ((statusMap[itemData.claimStatus] && statusMap[itemData.claimStatus].class) || 'bg-label-secondary');
 
               var verificationStatusElement = document.getElementById('modalVerificationStatus');
-              verificationStatusElement.innerText = verifyObj[data.verificationStatus].title;
-              verificationStatusElement.className = 'badge ' + verifyObj[data.verificationStatus].class;
+              verificationStatusElement.innerText = (verifyObj[itemData.verificationStatus] && verifyObj[itemData.verificationStatus].title) || 'Unknown';
+              verificationStatusElement.className = 'badge ' + ((verifyObj[itemData.verificationStatus] && verifyObj[itemData.verificationStatus].class) || 'bg-label-secondary');
+
+              var proofImagesContainer = document.getElementById('modalProofImages');
+              proofImagesContainer.innerHTML = ''; // Clear previous images
+              if (itemData.proofImage) {
+                var images = itemData.proofImage.split(',');
+                images.forEach(function(image) {
+                  var imgElement = document.createElement('img');
+                  imgElement.src = '../../assets/uploads/proofs/' + image.trim();
+                  imgElement.className = 'img-fluid rounded mx-1 my-1';
+                  imgElement.style.maxWidth = '500px'; // Adjust as needed
+                  proofImagesContainer.appendChild(imgElement);
+                });
+              } else {
+                proofImagesContainer.innerHTML = '<p>No proof images available.</p>';
+              }
 
               var claimModal = new bootstrap.Modal(document.getElementById('claimModal'));
               claimModal.show();
@@ -656,6 +866,7 @@ $conn->close();
     });
   </script>
 
+  </script>
 </body>
 
 </html>

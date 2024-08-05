@@ -244,15 +244,6 @@ foreach ($items as $item) {
                 </div>
               </div>
 
-
-
-
-
-
-
-
-
-
               <div class="content-backdrop fade"></div>
             </div>
 
