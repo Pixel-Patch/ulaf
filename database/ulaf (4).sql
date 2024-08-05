@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2024 at 06:40 PM
+-- Generation Time: Aug 05, 2024 at 10:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,18 +24,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `activity_timeline`
+-- Table structure for table `activity_log`
 --
 
-CREATE TABLE `activity_timeline` (
-  `Activity_ID` varchar(11) NOT NULL,
-  `Activity_Type` varchar(50) DEFAULT NULL,
-  `Record_Type` varchar(50) DEFAULT NULL,
-  `Record_ID` varchar(11) DEFAULT NULL,
-  `Actor_ID` varchar(11) DEFAULT NULL,
-  `Timestamp` datetime DEFAULT NULL,
-  `Description` text DEFAULT NULL
+CREATE TABLE `activity_log` (
+  `id` int(11) NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `activity_type` enum('login','logout','add_item','edit_item','delete_item','add_claim','edit_claim','delete_claim','approve_claim','decline_claim','edit_profile') NOT NULL,
+  `item_id` int(11) DEFAULT NULL,
+  `claim_id` int(11) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `activity_log`
+--
+
+INSERT INTO `activity_log` (`id`, `user_id`, `activity_type`, `item_id`, `claim_id`, `timestamp`) VALUES
+(10, '24-0001', 'login', NULL, NULL, '2024-08-05 20:31:16'),
+(11, '24-0001', 'logout', NULL, NULL, '2024-08-05 20:31:26'),
+(12, '24-0001', 'login', NULL, NULL, '2024-08-05 20:31:28'),
+(13, '24-0001', 'logout', NULL, NULL, '2024-08-05 20:31:34'),
+(14, '24-0001', 'login', NULL, NULL, '2024-08-05 20:32:07'),
+(15, '24-0001', 'logout', NULL, NULL, '2024-08-05 20:32:13');
 
 -- --------------------------------------------------------
 
@@ -142,7 +153,6 @@ INSERT INTO `claims` (`Claim_ID`, `Item_ID`, `Claimer_ID`, `Claim_Status`, `Proo
 (2, 4, '24-009', 'Claiming', 'i claim  item_id=4 LOST', '4-24-009-1.jpg', NULL, '', '2024-07-13 02:33:27', 'Pending', NULL, NULL),
 (3, 5, '24-009', 'Claiming', 'item_id=1 lost', '1-24-009-1.jpg', NULL, '', '2024-07-13 02:34:01', 'Pending', NULL, NULL),
 (13, 3, '24-0000', 'Returned', 'Hhh', '13-24-0000-0.png', '13-24-0000-0.png', 'dsadsaduiui', '2024-07-13 04:28:55', 'Pending', '2024-07-13 08:23:19', 0),
-(14, 2, '24-0000', 'Claimed', 'dsfsdf', '2-24-0000-1.jpg', NULL, '', '2024-07-13 06:06:35', 'Approved', '2024-07-13 08:13:57', NULL),
 (15, 2, '00-0002', 'Claiming', 'dasdas', 'proof-00-0002-1721335114-0.png,proof-00-0002-1721335114-1.png', NULL, NULL, '2024-07-19 04:38:34', 'Pending', NULL, NULL),
 (16, 11, '24-0000', 'Claiming', 'claim lost 6 lost', '6-24-0000-1.jpg', NULL, '', '2024-07-13 02:39:26', 'Declined', '2024-07-13 02:46:54', 1),
 (17, 4, '24-009', 'Claiming', 'dasd', '17-24-009-0.png', '17-24-009-0.png', 'gdfgdfg', '2024-07-19 04:43:55', 'Approved', NULL, 1),
@@ -304,7 +314,7 @@ INSERT INTO `users` (`id`, `User_ID`, `Role`, `Username`, `FullName`, `Password`
 (23, '24-0000', NULL, 'xavier', NULL, '$2y$10$mLohhdo9aM1cq6TOhScSSuSYY1.owVn4r4NDKvv2i0qYWhEbcAbda', 'x', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-26 20:13:19', '2024-07-26 14:54:25'),
 (29, '24-009', NULL, 'patty', NULL, '$2y$10$VggukLYL5Gk5j01DkV9Y1erOSqM/Nlx/y6LD./hO9qmsif3TmvMT6', 'p', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-05 20:13:19', NULL),
 (30, '18-0589', 'Student', 'patt', 'Patricia Ann E. Bagarra', '$2y$10$LjJqH.1Y8nEE5n/DsueBYeAy2ySon1331AqNnKpfJOTWmVfyjdOca', 'bagarra.patricia@clsu2.edu.ph', '18-0589.png', 'College of Engineering', 'Bachelor of Science in Information Technology (BSIT)', '18-0589.png', 'qqqqqq', 'sDASASD', '+6398888888889', 'qqqqqq', '2024-07-10 20:13:19', '2024-07-26 14:54:39'),
-(31, '24-0001', 'Faculty', 'xavierrr', 'Xavier Carl Astrerohfgh', '$2y$10$l/g3FIamk1U9pYToQgO2aOEW5vKDzmRnGwM36FPqvdL3rHZ/jCAxe', 'qfghgfh@clsu2.edu.ph', '24-0001.png', 'College of Education', 'Bachelor of Physical Education (BPEd)', '24-0001.png', 'qqqdsfsd hfgh', 'www hfghgfh', '+639667495688', 'qqqfdsf hgfh', '2024-07-12 20:13:19', NULL),
+(31, '24-0001', 'Faculty', 'xavierrr', 'Xavier Carl Astrerohfgh', '$2y$10$yJ0uURZDhW72H4bPNodojeUGyg8qu6E./trf9Aa8iK7qCSosHv13G', 'qfghgfh@clsu2.edu.ph', '24-0001.png', 'College of Education', 'Bachelor of Physical Education (BPEd)', '24-0001.png', 'qqqdsfsd hfgh', 'www hfghgfh', '+639667495688', 'qqqfdsf hgfh', '2024-07-12 20:13:19', '2024-08-05 20:32:09'),
 (34, '19-9999', NULL, 'xavieR', NULL, '$2y$10$eBx8YhhtDgYvojtjb22.JOgoyKIeUXeTr9QF2rw7iSLsMerXNcOQS', 'r', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-18 20:13:19', NULL),
 (35, '00-0002', NULL, 'xavierR', NULL, '$2y$10$EvSHzp5967skVKMFoMRLgO.lCFFitSvh.Z0SV/UIoO1VAo6cLwzWq', 'd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-20 20:13:19', NULL),
 (36, '24-0003', 'Faculty', 'pattyy', 'P dsd Bagarra', '$2y$10$Zxtx14a6gsFSQMk5H9kls.gutMqXl7ay68TUuC8Cdf04tkxCr4t5i', 'qqq@clsu2.edu.ph', '24-0003.jpg', 'College of Agriculture', 'Bachelor of Science in Agribusiness (BSAb)', '24-0003.jpg', 'fsdf fsdf fsdf', 'dsf fdsf fsdf', '+639667495644', ' rertret btret', '2024-07-26 20:13:19', NULL),
@@ -317,11 +327,10 @@ INSERT INTO `users` (`id`, `User_ID`, `Role`, `Username`, `FullName`, `Password`
 --
 
 --
--- Indexes for table `activity_timeline`
+-- Indexes for table `activity_log`
 --
-ALTER TABLE `activity_timeline`
-  ADD PRIMARY KEY (`Activity_ID`),
-  ADD KEY `Actor_ID` (`Actor_ID`);
+ALTER TABLE `activity_log`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `categories`
@@ -377,6 +386,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `activity_log`
+--
+ALTER TABLE `activity_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `chat_messages`
