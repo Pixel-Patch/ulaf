@@ -1,6 +1,8 @@
 <?php
 session_start();
+require '../../vendor/autoload.php';
 require 'dbconn.php';
+require 'user-activity-log.php';
 
 function showError($message)
 {
@@ -69,12 +71,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	$imageNamesString = implode(',', $imageNames);
 
-	$stmt = $conn->prepare("INSERT INTO `items` (`Item_Name`, `Image`, `Type`, `Category_ID`, `Description`, `Pin_Location`, `Posted_Date`, `Current_Location`, `Poster_ID`, `Item_Status`, `Latitude`, `Longitude`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	$stmt = $conn->prepare("INSERT INTO items (Item_Name, Image, Type, Category_ID, Description, Pin_Location, Posted_Date, Current_Location, Poster_ID, Item_Status, Latitude, Longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	$stmt->bind_param('ssssssssssss', $itemName, $imageNamesString, $type, $categoryID, $description, $pinLocation, $postedDate, $currentLocation, $posterID, $itemStatus, $latitude, $longitude);
 
 	if ($stmt->execute()) {
-
 		$insertedItemId = $stmt->insert_id; // Fetch the inserted Item_ID
+
+		// Log the add_item activity with the item description
+		$redis = new Predis\Client();
+		logUserActivity($conn, $redis, $posterID, 'add_item', $insertedItemId, null, $itemName);
 
 		echo json_encode([
 			'status' => 'success',

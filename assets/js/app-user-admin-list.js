@@ -60,50 +60,49 @@ $(function () {
             return '';
           }
         },
-        {
-          // User full name and email
-          targets: 1,
-          responsivePriority: 4,
-          render: function (data, type, full, meta) {
-            var $name = full['fullname'],
-              $email = full['email'],
-              $image = full['avatar_image'];
-            if ($image) {
-              // For Avatar image
-              var $output =
-                '<img src="' + assetsPath + 'uploads/admin-avatar/' + $image + '" alt="Avatar" class="rounded-circle">';
-            } else {
-              // For Avatar badge
-              var stateNum = Math.floor(Math.random() * 6);
-              var states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'];
-              var $state = states[stateNum],
-                $name = full['fullname'],
-                $initials = $name.match(/\b\w/g) || [];
-              $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-              $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-            }
-            // Creates full output for row
-            var $row_output =
-              '<div class="d-flex justify-content-start align-items-center user-name">' +
-              '<div class="avatar-wrapper">' +
-              '<div class="avatar me-3">' +
-              $output +
-              '</div>' +
-              '</div>' +
-              '<div class="d-flex flex-column">' +
-              '<a href="' +
-              userView +
-              '" class="text-body text-truncate"><span class="fw-medium">' +
-              $name +
-              '</span></a>' +
-              '<small class="text-muted">' +
-              $email +
-              '</small>' +
-              '</div>' +
-              '</div>';
-            return $row_output;
-          }
-        },{
+    {
+  // User full name and email
+  targets: 1,
+  responsivePriority: 4,
+  render: function (data, type, full, meta) {
+    var $name = full['fullname'],
+        $email = full['email'],
+        $image = full['avatar_image'];
+    if ($image && $image.trim() !== '') {
+      // For Avatar image
+      var $output = '<img src="' + assetsPath + 'uploads/admin-avatar/' + $image + '" alt="Avatar" class="rounded-circle">';
+    } else {
+      // For Avatar badge
+      var stateNum = Math.floor(Math.random() * 6);
+      var states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'];
+      var $state = states[stateNum],
+          $initials = $name.match(/\b\w/g) || [];
+      $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+      $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
+    }
+    // Creates full output for row
+    var $row_output =
+      '<div class="d-flex justify-content-start align-items-center user-name">' +
+      '<div class="avatar-wrapper">' +
+      '<div class="avatar me-3">' +
+      $output +
+      '</div>' +
+      '</div>' +
+      '<div class="d-flex flex-column">' +
+      '<a href="' +
+      userView +
+      '" class="text-body text-truncate"><span class="fw-medium">' +
+      $name +
+      '</span></a>' +
+      '<small class="text-muted">' +
+      $email +
+      '</small>' +
+      '</div>' +
+      '</div>';
+    return $row_output;
+  }
+}
+,{
           // User Role
           targets: 2,
           render: function (data, type, full, meta) {

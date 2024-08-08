@@ -87,7 +87,9 @@ $itemData = $_SESSION['item_data'] ?? [];
                 <div class="mid-content">
                     <h4 class="title">Edit Item Details</h4>
                 </div>
-                <div class="right-content"></div>
+                <div class="right-content">
+                    <i class="ti ti-trash ti-sm" style="font-size: 24px;" data-bs-toggle="modal" data-bs-target="#deleteModal"></i>
+                </div>
             </div>
         </header>
 
@@ -166,6 +168,8 @@ $itemData = $_SESSION['item_data'] ?? [];
                     </div>
                 </form>
             </div>
+
+
             <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div id="alertModalContent" class="modal-content" style="padding: 20px; font-size: large;">
@@ -173,6 +177,28 @@ $itemData = $_SESSION['item_data'] ?? [];
                     </div>
                 </div>
             </div>
+
+            <!-- Delete Confirmation Modal -->
+            <div class="modal fade" id="deleteModal">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Confirmation</h5>
+                            <button class="btn-close" data-bs-dismiss="modal">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="deleteItem(<?php echo $itemId; ?>)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
 
 
@@ -180,16 +206,35 @@ $itemData = $_SESSION['item_data'] ?? [];
         <?php include('menubar.php'); ?>
         <!-- Menubar -->
 
-        <script src="../../assets/js//jquery.js"></script>
+        <script src="../../assets/js/jquery.js"></script>
         <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../../assets/vendor/swiper/swiper-bundle.min.js"></script>
         <script src="../../assets/vendor/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
-        <script src="../../assets/js//dz.carousel.js"></script>
-        <script src="../../assets/js//settings.js"></script>
-        <script src="../../assets/js//custom.js"></script>
+        <script src="../../assets/js/dz.carousel.js"></script>
+        <script src="../../assets/js/settings.js"></script>
+        <script src="../../assets/js/custom.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script src="../../assets/js//select2.js"></script>
-        <script src="../../assets/js//pin-maps.js"></script>
+        <script src="../../assets/js/select2.js"></script>
+        <script src="../../assets/js/pin-maps.js"></script>
+
+        <script>
+            function deleteItem(itemId) {
+                // Make an AJAX request to delete the item
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "delete-item.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        if (xhr.responseText === "success") {
+                            window.location.href = "index.php"; // Redirect to index.php after successful deletion
+                        } else {
+                            alert('Error deleting item. Please try again.');
+                        }
+                    }
+                };
+                xhr.send("itemId=" + itemId);
+            }
+        </script>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {

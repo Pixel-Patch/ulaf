@@ -1,17 +1,30 @@
 <?php
-include 'dbconn.php';
+session_start();
+require '../../vendor/autoload.php';
+require 'dbconn.php';
+require 'user-activity-log.php';
 
-$response = ['status' => 'error', 'alertClass' => 'modal-content alert alert-danger alert-dismissible alert-alt fade show', 'alertTitle' => 'Error!', 'message' => 'System error occurred. Please try again.'];
+$response = [
+	'status' => 'error',
+	'alertClass' => 'modal-content alert alert-danger alert-dismissible alert-alt fade show',
+	'alertTitle' => 'Error!',
+	'message' => 'System error occurred. Please try again.'
+];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$user_id = $_POST['userId'];
-	$username = $_POST['username'];
-	$email = $_POST['email'];
-	$password = $_POST['password'];
-	$confirm_password = $_POST['confirmPassword'];
+	$user_id = $_POST['userId'] ?? '';
+	$username = $_POST['username'] ?? '';
+	$email = $_POST['email'] ?? '';
+	$password = $_POST['password'] ?? '';
+	$confirm_password = $_POST['confirmPassword'] ?? '';
 
 	if ($password !== $confirm_password) {
-		$response = ['status' => 'error', 'alertClass' => 'modal-content alert alert-warning alert-dismissible alert-alt fade show', 'alertTitle' => 'Warning!', 'message' => 'Passwords do not match.'];
+		$response = [
+			'status' => 'error',
+			'alertClass' => 'modal-content alert alert-warning alert-dismissible alert-alt fade show',
+			'alertTitle' => 'Warning!',
+			'message' => 'Passwords do not match.'
+		];
 	} else {
 		// Check if the user ID already exists
 		$stmt = $conn->prepare("SELECT User_ID FROM users WHERE User_ID = ?");
@@ -19,7 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$stmt->execute();
 		$stmt->store_result();
 		if ($stmt->num_rows > 0) {
-			$response = ['status' => 'error', 'alertClass' => 'modal-content alert alert-warning alert-dismissible alert-alt fade show', 'alertTitle' => 'Warning!', 'message' => 'User ID already exists. Please sign in.'];
+			$response = [
+				'status' => 'error',
+				'alertClass' => 'modal-content alert alert-warning alert-dismissible alert-alt fade show',
+				'alertTitle' => 'Warning!',
+				'message' => 'User ID already exists. Please sign in.'
+			];
 			$stmt->close();
 			$conn->close();
 			echo json_encode($response);
@@ -33,7 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$stmt->execute();
 		$stmt->store_result();
 		if ($stmt->num_rows > 0) {
-			$response = ['status' => 'error', 'alertClass' => 'modal-content alert alert-warning alert-dismissible alert-alt fade show', 'alertTitle' => 'Warning!', 'message' => 'Username already exists. Please choose another one.'];
+			$response = [
+				'status' => 'error',
+				'alertClass' => 'modal-content alert alert-warning alert-dismissible alert-alt fade show',
+				'alertTitle' => 'Warning!',
+				'message' => 'Username already exists. Please choose another one.'
+			];
 			$stmt->close();
 			$conn->close();
 			echo json_encode($response);
@@ -47,7 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$stmt->execute();
 		$stmt->store_result();
 		if ($stmt->num_rows > 0) {
-			$response = ['status' => 'error', 'alertClass' => 'modal-content alert alert-warning alert-dismissible alert-alt fade show', 'alertTitle' => 'Warning!', 'message' => 'Email already exists. Please sign in.'];
+			$response = [
+				'status' => 'error',
+				'alertClass' => 'modal-content alert alert-warning alert-dismissible alert-alt fade show',
+				'alertTitle' => 'Warning!',
+				'message' => 'Email already exists. Please sign in.'
+			];
 			$stmt->close();
 			$conn->close();
 			echo json_encode($response);
@@ -62,7 +90,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$stmt = $conn->prepare("INSERT INTO users (User_ID, Username, Email, Password) VALUES (?, ?, ?, ?)");
 		$stmt->bind_param("ssss", $user_id, $username, $email, $hashed_password);
 		if ($stmt->execute()) {
-			$response = ['status' => 'success', 'alertClass' => 'modal-content alert alert-primary alert-dismissible alert-alt fade show', 'alertTitle' => 'Success!', 'message' => 'Account created successfully.'];
+			$response = [
+				'status' => 'success',
+				'alertClass' => 'modal-content alert alert-primary alert-dismissible alert-alt fade show',
+				'alertTitle' => 'Success!',
+				'message' => 'Account created successfully.'
+			];
+
+			// Log the register activity
+			$redis = new Predis\Client();
+			logUserActivity($conn, $redis, $user_id, 'register', null, null, $username);
 		} else {
 			$response['message'] = 'Database error: ' . $stmt->error;
 		}

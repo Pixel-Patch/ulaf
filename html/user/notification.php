@@ -60,19 +60,116 @@ $result = $stmt->get_result();
 			<div class="container pb-0 overflow-hidden">
 				<div class="dz-list notification-list">
 					<ul>
-						<?php while ($row = $result->fetch_assoc()) : ?>
-							<li class="list-items pull_delete">
-								<div class="media">
-									<div class="media-60 m-r10">
-										<img src="../../assets/images/avatar/1.jpg" alt="">
-									</div>
-									<div class="list-content">
-										<h5 class="title"><?php echo htmlspecialchars($row['Notification_Text']); ?></h5>
-										<span class="date"><?php echo date('d M Y', strtotime($row['Timestamp'])); ?></span>
-									</div>
+						<li class="list-items pull_delete">
+							<div class="media">
+								<div class="media-60 m-r10">
+									<img src="assets/images/avatar/1.jpg" alt="">
 								</div>
-							</li>
-						<?php endwhile; ?>
+								<div class="list-content">
+									<h5 class="title">New Arrivals Alert!</h5>
+									<span class="date">15 July 2023</span>
+								</div>
+							</div>
+						</li>
+						<li class="list-items pull_delete">
+							<div class="media">
+								<div class="media-60 m-r10">
+									<img src="assets/images/avatar/2.jpg" alt="">
+								</div>
+								<div class="list-content">
+									<h5 class="title">Flash Sale Announcement</h5>
+									<span class="date">21 July 2023</span>
+								</div>
+							</div>
+						</li>
+						<li class="list-items pull_delete">
+							<div class="media">
+								<div class="media-60 m-r10">
+									<img src="assets/images/avatar/3.jpg" alt="">
+								</div>
+								<div class="list-content">
+									<h5 class="title">Exclusive Discounts Inside</h5>
+									<span class="date">10 March 2023</span>
+								</div>
+							</div>
+						</li>
+						<li class="list-items pull_delete">
+							<div class="media">
+								<div class="media-60 m-r10">
+									<img src="assets/images/avatar/4.jpg" alt="">
+								</div>
+								<div class="list-content">
+									<h5 class="title">Limited Stock - Act Fast!</h5>
+									<span class="date">20 September 2023</span>
+								</div>
+							</div>
+						</li>
+						<li class="list-items pull_delete">
+							<div class="media">
+								<div class="media-60 m-r10">
+									<img src="assets/images/avatar/5.jpg" alt="">
+								</div>
+								<div class="list-content">
+									<h5 class="title">Get Ready to Shop</h5>
+									<span class="date">15 July 2023</span>
+								</div>
+							</div>
+						</li>
+						<li class="list-items pull_delete">
+							<div class="media">
+								<div class="media-60 m-r10">
+									<img src="assets/images/avatar/1.jpg" alt="">
+								</div>
+								<div class="list-content">
+									<h5 class="title">Don't Miss Out on Savings</h5>
+									<span class="date">24 July 2023</span>
+								</div>
+							</div>
+						</li>
+						<li class="list-items pull_delete">
+							<div class="media">
+								<div class="media-60 m-r10">
+									<img src="assets/images/avatar/2.jpg" alt="">
+								</div>
+								<div class="list-content">
+									<h5 class="title">Special Offer Just for You</h5>
+									<span class="date">28 August 2023</span>
+								</div>
+							</div>
+						</li>
+						<li class="list-items pull_delete">
+							<div class="media">
+								<div class="media-60 m-r10">
+									<img src="assets/images/avatar/3.jpg" alt="">
+								</div>
+								<div class="list-content">
+									<h5 class="title">Don't Miss Out on Savings</h5>
+									<span class="date">15 July 2023</span>
+								</div>
+							</div>
+						</li>
+						<li class="list-items pull_delete">
+							<div class="media">
+								<div class="media-60 m-r10">
+									<img src="assets/images/avatar/4.jpg" alt="">
+								</div>
+								<div class="list-content">
+									<h5 class="title">Get Ready to Shop</h5>
+									<span class="date">15 July 2023</span>
+								</div>
+							</div>
+						</li>
+						<li class="list-items pull_delete">
+							<div class="media">
+								<div class="media-60 m-r10">
+									<img src="assets/images/avatar/5.jpg" alt="">
+								</div>
+								<div class="list-content">
+									<h5 class="title">Special Offer Just for You</h5>
+									<span class="date">15 July 2023</span>
+								</div>
+							</div>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -144,8 +241,3 @@ $result = $stmt->get_result();
 </body>
 
 </html>
-
-<?php
-$stmt->close();
-$conn->close();
-?>

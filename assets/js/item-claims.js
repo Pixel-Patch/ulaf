@@ -80,7 +80,7 @@ $(function () {
             return '';
           }
         },
-      {
+    {
   // Product name and product_brand
   targets: 1,
   responsivePriority: 1,
@@ -90,24 +90,35 @@ $(function () {
         $item_type = "Claim #" + full['Claim_ID'],
         $images = full['Proof_Image'].split(','); // Split the images string into an array
 
-    // Truncate description to 25 characters
+    // Truncate item type to 25 characters
     if ($item_type.length > 25) {
       $item_type = $item_type.substring(0, 25) + '...';
     }
 
-    if ($images.length > 0 && $images[0].trim() !== '') {
+    var $output;
+    var imageAvailable = $images.length > 0 && $images[0].trim() !== '';
+
+    if (imageAvailable) {
+      var imageUrl = assetsPath + 'uploads/proofs/' + $images[0].trim();
       // Use only the first image
-      var $output =
-        '<img src="' + assetsPath + 'uploads/proofs/' + $images[0].trim() + 
-        '" alt="Product-' + $id + '" class="rounded-2">';
+      $output = '<img src="' + imageUrl + '" alt="Product Image" class="rounded-2" onerror="this.onerror=null;this.src=\'\';handleImageError(this,\'' + $id + '\');">';
     } else {
-      // For Product badge
+      // For Product badge if there are no images
+      $output = generateBadge($id);
+    }
+
+    // Function to generate badge
+    function generateBadge(id) {
       var stateNum = Math.floor(Math.random() * 6);
       var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-      var $state = states[stateNum],
-          $initials = $id.toString().match(/\b\w/g) || [];
-      $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-      $output = '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
+      var $state = states[stateNum];
+      var $initials = (id.toString().match(/\b\w/g) || []).join('').toUpperCase();
+      return '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
+    }
+
+    // JavaScript function to handle image error
+    window.handleImageError = function(img, id) {
+      img.outerHTML = generateBadge(id);
     }
 
     // Creates full output for Product name and product_brand

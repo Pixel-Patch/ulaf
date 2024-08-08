@@ -2,12 +2,20 @@
 $title = 'Item List - Page | ULAF Admin';
 require 'header.php';
 require 'dbconn.php';
+require '../../vendor/autoload.php'; // Ensure Carbon is loaded
+
+use Carbon\Carbon;
+
+
+// Set the default timezone to Asia/Manila
+date_default_timezone_set('Asia/Manila');
+Carbon::setLocale('en'); // Set the locale for Carbon
 
 // Get user_id from URL
 $user_id = $_GET['user_id'];
 
 // Fetch user activities from the database
-$sql = "SELECT activity_type, item_id, claim_id, timestamp FROM activity_log WHERE user_id = ? ORDER BY timestamp DESC";
+$sql = "SELECT activity_type, description, item_id, claim_id, timestamp FROM activity_log WHERE user_id = ? ORDER BY timestamp DESC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $user_id);
 $stmt->execute();
@@ -18,7 +26,6 @@ while ($row = $result->fetch_assoc()) {
   $activities[] = $row;
 }
 
-
 // Helper function to get activity description
 function getActivityDescription($activity)
 {
@@ -28,23 +35,29 @@ function getActivityDescription($activity)
     case 'logout':
       return 'User logged out';
     case 'add_item':
-      return 'Added a new item (ID: ' . $activity['item_id'] . ')';
+      return 'Added a new item';
     case 'edit_item':
-      return 'Edited an item (ID: ' . $activity['item_id'] . ')';
+      return 'Edited an item';
     case 'delete_item':
-      return 'Deleted an item (ID: ' . $activity['item_id'] . ')';
+      return 'Deleted an item';
     case 'add_claim':
-      return 'Added a new claim (ID: ' . $activity['claim_id'] . ')';
-    case 'edit_claim':
-      return 'Edited a claim (ID: ' . $activity['claim_id'] . ')';
+      return 'Added a new claim';
     case 'delete_claim':
-      return 'Deleted a claim (ID: ' . $activity['claim_id'] . ')';
+      return 'Deleted a claim';
     case 'approve_claim':
-      return 'Approved a claim (ID: ' . $activity['claim_id'] . ')';
+      return 'Approved a claim';
     case 'decline_claim':
-      return 'Declined a claim (ID: ' . $activity['claim_id'] . ')';
+      return 'Declined a claim';
     case 'edit_profile':
       return 'Edited user profile';
+    case 'return_item':
+      return 'Returned item';
+    case 'cregister':
+      return 'User Successfully Completed the Registration!';
+    case 'register':
+      return 'User Successfully Registered!';
+    case 'retrieve_item':
+      return 'Retrieved item';
     default:
       return 'Performed an action';
   }
@@ -54,24 +67,39 @@ function getActivityDescription($activity)
 function getActivityTypeColor($activityType)
 {
   switch ($activityType) {
+
     case 'login':
-    case 'logout':
       return 'primary';
     case 'add_item':
-    case 'edit_item':
-    case 'delete_item':
-      return 'info';
     case 'add_claim':
-    case 'edit_claim':
-    case 'delete_claim':
-      return 'warning';
-    case 'approve_claim':
-    case 'decline_claim':
-      return 'success';
+    case 'return_item':
+    case 'retrieve_item':
+      return 'info';
+    case 'edit_item':
     case 'edit_profile':
+      return 'warning';
+    case 'cregister':
+    case 'register':
+    case 'approve_claim':
+      return 'success';
+    case 'decline_claim':
+    case 'logout':
+    case 'delete_item':
+    case 'delete_claim':
       return 'danger';
     default:
       return 'secondary';
+  }
+}
+
+// Helper function to format the timestamp
+function formatTimestamp($timestamp)
+{
+  $date = Carbon::parse($timestamp);
+  if ($date->diffInDays(Carbon::now()) > 7) {
+    return $date->format('Y-m-d');
+  } else {
+    return $date->diffForHumans();
   }
 }
 
@@ -273,7 +301,34 @@ $conn->close();
 ?>
 
 
+<style>
+  #show-more {
+    color: #a5a3ae;
+    /* Bootstrap's text-muted color */
+    cursor: pointer;
+  }
 
+  #show-more:hover {
+    color: #04764e;
+    text-decoration: underline;
+  }
+
+  #show-more-container {
+    text-align: right;
+    margin-bottom: 20px;
+    margin-right: 20px;
+
+
+  }
+
+  .avatar-initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #fff;
+  }
+</style>
 
 <link rel="stylesheet" href="../../assets/vendor/css/pages/page-user-view.css" />
 
@@ -313,10 +368,21 @@ $conn->close();
                   <div class="card-body">
                     <div class="user-avatar-section">
                       <div class="d-flex align-items-center flex-column">
-                        <img class="img-fluid rounded mb-3 pt-1 mt-4" src="<?php echo '../../assets/uploads/user-avatar/' . $user['Avatar_Image']; ?>" height="100" width="100" alt="User avatar" />
+                        <?php
+                        $avatarImage = isset($user['Avatar_Image']) ? '../../assets/uploads/user-avatar/' . $user['Avatar_Image'] : '';
+                        $avatarExists = !empty($user['Avatar_Image']);
+                        $fullName = isset($user['FullName']) ? $user['FullName'] : 'Unknown User';
+                        $initials = strtoupper($fullName[0]) . (strpos($fullName, ' ') ? strtoupper($fullName[strpos($fullName, ' ') + 1]) : '');
+
+                        if ($avatarExists) {
+                          echo '<img id="userAvatar" class="img-fluid rounded mb-3 pt-1 mt-4" src="' . $avatarImage . '" height="100" width="100" alt="User avatar" onerror="handleImageError(this,\'' . $initials . '\');" />';
+                        } else {
+                          echo '<span class="avatar-initial rounded-2 bg-label-secondary mb-3 pt-1 mt-4">' . $initials . '</span>';
+                        }
+                        ?>
                         <div class="user-info text-center">
-                          <h4 class="mb-2"><?php echo $user['FullName']; ?></h4>
-                          <span class="badge bg-label-secondary mt-1"><?php echo $user['Role']; ?></span>
+                          <h4 class="mb-2"><?php echo $fullName; ?></h4>
+                          <span class="badge bg-label-secondary mt-1"><?php echo isset($user['Role']) ? $user['Role'] : 'No Role'; ?></span>
                         </div>
                       </div>
                     </div>
@@ -361,32 +427,24 @@ $conn->close();
                 <!-- /User Card -->
                 <!-- Plan Card -->
                 <div class="card mb-4">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <span class="badge bg-label-primary">Standard</span>
-                      <div class="d-flex justify-content-center">
-                        <sup class="h6 pricing-currency mt-3 mb-0 me-1 text-primary fw-normal">$</sup>
-                        <h1 class="mb-0 text-primary">99</h1>
-                        <sub class="h6 pricing-duration mt-auto mb-2 text-muted fw-normal">/month</sub>
-                      </div>
-                    </div>
-                    <ul class="ps-3 g-2 my-3">
-                      <li class="mb-2">10 Users</li>
-                      <li class="mb-2">Up to 10 GB storage</li>
-                      <li>Basic Support</li>
+                  <h5 class="card-header">User Activity Timeline</h5>
+                  <div class="card-body pb-0">
+                    <ul id="timeline" class="timeline mb-0">
+                      <?php foreach ($activities as $index => $activity) : ?>
+                        <li class="timeline-item timeline-item-transparent <?php echo $index === count($activities) - 1 ? 'border-transparent' : ''; ?>">
+                          <span class="timeline-point timeline-point-<?php echo getActivityTypeColor($activity['activity_type']); ?>"></span>
+                          <div class="timeline-event">
+                            <div class="timeline-header mb-1">
+                              <h5 class="mb-0"><?php echo getActivityDescription($activity); ?></h5>
+                              <small class="text-muted"><?php echo formatTimestamp($activity['timestamp']); ?></small>
+                            </div>
+                            <p class="mb-2"><?php echo $activity['description']; ?></p>
+                          </div>
+                        </li>
+                      <?php endforeach; ?>
                     </ul>
-                    <div class="d-flex justify-content-between align-items-center mb-1 fw-medium text-heading">
-                      <span>Days</span>
-                      <span>65% Completed</span>
-                    </div>
-                    <div class="progress mb-1" style="height: 8px">
-                      <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <span>4 days remaining</span>
-                    <div class="d-grid w-100 mt-4">
-                      <button class="btn btn-primary" data-bs-target="#upgradePlanModal" data-bs-toggle="modal">
-                        Upgrade Plan
-                      </button>
+                    <div id="show-more-container" class="mt-3">
+                      <span class="text-muted" id="show-more">Show More</span>
                     </div>
                   </div>
                 </div>
@@ -463,31 +521,9 @@ $conn->close();
                   </div>
                 </div>
                 <!-- User's Claims table -->
-
-                <!-- Activity Timeline -->
-                <!-- Activity Timeline -->
-                <div class="card mb-4">
-                  <h5 class="card-header">User Activity Timeline</h5>
-                  <div class="card-body pb-0">
-                    <ul class="timeline mb-0">
-                      <?php foreach ($activities as $activity) : ?>
-                        <li class="timeline-item timeline-item-transparent">
-                          <span class="timeline-point timeline-point-<?php echo getActivityTypeColor($activity['activity_type']); ?>"></span>
-                          <div class="timeline-event">
-                            <div class="timeline-header mb-1">
-                              <h6 class="mb-0"><?php echo getActivityDescription($activity); ?></h6>
-                              <small class="text-muted"><?php echo date('Y-m-d H:i:s', strtotime($activity['timestamp'])); ?></small>
-                            </div>
-                          </div>
-                        </li>
-                      <?php endforeach; ?>
-                    </ul>
-                  </div>
-                </div>
-                <!-- /Activity Timeline -->
-
-                <!-- /Activity Timeline -->
-
+                <!-- <div id="show-more-container" class="mt-3">
+                  <span class="text-muted" id="show-more">Show More</span>
+                </div> -->
 
               </div>
               <!--/ User Content -->
@@ -697,6 +733,43 @@ $conn->close();
   <script src="../../assets/js/modal-edit-user.js"></script>
   <script src="../../assets/js/app-user-view.js"></script>
   <script src="../../assets/js/app-user-view-account.js"></script>
+
+  <script>
+    function handleImageError(img, initials) {
+      img.outerHTML = '<span class="avatar-initial rounded-2 bg-label-secondary mb-3 pt-1 mt-4">' + initials + '</span>';
+    }
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      const activities = <?php echo json_encode($activities); ?>;
+      let shownCount = 0;
+      const increment = 10;
+
+      function showActivities(count) {
+        $('#timeline .timeline-item').hide();
+        $('#timeline .timeline-item').slice(0, count).show();
+        shownCount = count;
+
+        if (shownCount >= activities.length) {
+          $('#show-more').hide();
+        } else {
+          $('#show-more').text(shownCount === 10 ? 'Show More' : 'Show All');
+        }
+      }
+
+      $('#show-more').click(function() {
+        if (shownCount === 10) {
+          showActivities(20);
+        } else {
+          showActivities(activities.length);
+        }
+      });
+
+      // Initially show first 10 activities
+      showActivities(increment);
+    });
+  </script>
   <script>
     document.getElementById('editUserButton').addEventListener('click', function() {
       var userId = this.getAttribute('data-user-id');

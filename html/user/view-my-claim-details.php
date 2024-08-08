@@ -145,6 +145,9 @@ $itemId = $claimDetails['Item_ID'] ?? null;
 				<div class="mid-content">
 					<h4 class="title">Details</h4>
 				</div>
+				<div class="right-content">
+					<i class="ti ti-trash ti-sm" style="font-size: 24px;" data-bs-toggle="modal" data-bs-target="#deleteModal"></i>
+				</div>
 			</div>
 		</header>
 		<!-- Header -->
@@ -365,6 +368,29 @@ $itemId = $claimDetails['Item_ID'] ?? null;
 			</div>
 		</div>
 
+		<!-- Delete Confirmation Modal -->
+		<div class="modal fade" id="deleteModal">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Delete Confirmation</h5>
+						<button class="btn-close" data-bs-dismiss="modal">
+							<i class="fa-solid fa-xmark"></i>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-sm btn-danger" onclick="deleteClaim(<?php echo $claimId; ?>)">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
 	</div>
 	<!--**********************************
     Scripts
@@ -379,6 +405,26 @@ $itemId = $claimDetails['Item_ID'] ?? null;
 	<script src="../../assets/js//dz.carousel.js"></script>
 	<script src="../../assets/js//settings.js"></script>
 	<script src="../../assets/js//custom.js"></script>
+
+	<script>
+		function deleteClaim(claimId) {
+			// Make an AJAX request to delete the item
+			const xhr = new XMLHttpRequest();
+			xhr.open("POST", "delete-claim.php", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					if (xhr.responseText === "success") {
+						window.location.href = "index.php"; // Redirect to index.php after successful deletion
+					} else {
+						alert('Error deleting item. Please try again.');
+					}
+				}
+			};
+			xhr.send("claimId=" + claimId);
+		}
+	</script>
+
 	<script>
 		// get the textarea element for the editpinlocation field
 		const pinTextarea = document.getElementById('editDescription');

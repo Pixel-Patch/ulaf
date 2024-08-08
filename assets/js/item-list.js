@@ -76,7 +76,7 @@ if (dt_product_table.length) {
           return '';
         }
       },
-     {
+  {
   // Product name and product_brand
   targets: 1,
   responsivePriority: 1,
@@ -91,20 +91,30 @@ if (dt_product_table.length) {
       $description = $description.substring(0, 25) + '...';
     }
 
-    if ($images.length > 0 && $images[0].trim() !== '') {
+    var $output;
+    var imageAvailable = $images.length > 0 && $images[0].trim() !== '';
+
+    if (imageAvailable) {
+      var imageUrl = assetsPath + 'uploads/items/' + $images[0].trim();
       // Use only the first image
-      var $output =
-        '<img src="' + assetsPath + 'uploads/items/' + $images[0].trim() + 
-        '" alt="Product-' + $id + '" class="rounded-2">';
+      $output = '<img src="' + imageUrl + '" alt="Product Image" class="rounded-2" onerror="this.onerror=null;this.src=\'\';handleImageError(this,\'' + $name + '\');">';
     } else {
-      // For Product badge
+      // For Product badge if there are no images
+      $output = generateBadge($name);
+    }
+
+    // Function to generate badge
+    function generateBadge(name) {
       var stateNum = Math.floor(Math.random() * 6);
       var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-      var $state = states[stateNum],
-          $name = full['Description'],
-          $initials = $name.match(/\b\w/g) || [];
-      $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-      $output = '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
+      var $state = states[stateNum];
+      var $initials = (name.match(/\b\w/g) || []).join('').toUpperCase();
+      return '<span class="avatar-initial rounded-2 bg-label-' + $state + '">' + $initials + '</span>';
+    }
+
+    // JavaScript function to handle image error
+    window.handleImageError = function(img, name) {
+      img.outerHTML = generateBadge(name);
     }
 
     // Creates full output for Product name and product_brand
@@ -126,7 +136,9 @@ if (dt_product_table.length) {
       '</div>';
     return $row_output;
   }
-},
+}
+
+,
       {
         // item_type
         targets: 2,

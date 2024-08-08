@@ -79,7 +79,6 @@ function logUserActivity($conn, $redis, $userId, $activityType, $itemId = null, 
 // Ensure to log logout activity when the session is destroyed
 function logLogoutActivityOnSessionDestroy()
 {
-    session_start();
     if (isset($_SESSION['user_id'])) {
         $_SESSION['previous_user_id'] = $_SESSION['user_id'];
     }

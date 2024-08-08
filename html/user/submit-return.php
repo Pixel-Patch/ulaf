@@ -1,54 +1,80 @@
 <?php
-// Include database connection
-include 'dbconn.php';
+session_start();
+require '../../vendor/autoload.php';
+require 'dbconn.php';
+require 'user-activity-log.php';
 
-// Define the timezone
-date_default_timezone_set('Asia/Manila');
+$response = array('success' => false, 'message' => '', 'item_id' => null);
 
-// Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Retrieve form data
-    $item_id = $_POST['item_id'];
-    $claimer_id = $_POST['claimer_id'];
-    $claim_id = $_POST['claim_id'];
-    $remarks = $_POST['remarks'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $itemId = filter_var($_POST['item_id'] ?? null, FILTER_VALIDATE_INT);
+    $claimerId = filter_var($_POST['claimer_id'] ?? null, FILTER_VALIDATE_INT);
+    $claimId = filter_var($_POST['claim_id'] ?? null, FILTER_VALIDATE_INT);
+    $remarks = htmlspecialchars($_POST['remarks'] ?? '', ENT_QUOTES, 'UTF-8');
+    $returnedImages = $_FILES['returnedImage'] ?? [];
 
-    // Process uploaded images
-    $returned_images = [];
-    if (isset($_FILES['returnedImage']) && count($_FILES['returnedImage']['name']) > 0) {
-        $upload_directory = 'assets/uploads/returned-proof/';
-        foreach ($_FILES['returnedImage']['name'] as $key => $image_name) {
-            $image_tmp_name = $_FILES['returnedImage']['tmp_name'][$key];
-            $image_path = $upload_directory . basename($image_name);
-            if (move_uploaded_file($image_tmp_name, $image_path)) {
-                $returned_images[] = $image_path;
+    if (!$itemId || !$claimerId || !$claimId || empty($remarks)) {
+        $response['message'] = 'All fields are required.';
+    } else {
+        $uploadDirectory = '../../assets/uploads/returned-proof/';
+        if (!file_exists($uploadDirectory)) {
+            mkdir($uploadDirectory, 0777, true);
+        }
+
+        $uploadedFiles = [];
+        foreach ($returnedImages['name'] as $key => $filename) {
+            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+            $newFilename = $claimId . '-' . $claimerId . '-' . ($key + 1) . '.' . $extension;
+            $targetFilePath = $uploadDirectory . $newFilename;
+            if (move_uploaded_file($returnedImages['tmp_name'][$key], $targetFilePath)) {
+                $uploadedFiles[] = $newFilename;
+            } else {
+                $response['message'] = 'Failed to move uploaded file.';
+                foreach ($uploadedFiles as $file) {
+                    unlink($uploadDirectory . $file);
+                }
+                break;
+            }
+        }
+
+        if (empty($response['message'])) {
+            $returnedImagesJson = json_encode($uploadedFiles);
+            $currentDate = date('Y-m-d H:i:s');
+
+            $claimsQuery = "
+                UPDATE claims 
+                SET Returned_Image=?, Claim_Status='Returned', Verification_Date=?, Remarks=? 
+                WHERE Claim_ID=?";
+            $itemsQuery = "
+                UPDATE items 
+                SET Item_Status='Returned', Retrieved_Date=?, Retrieved_By=? 
+                WHERE Item_ID=?";
+
+            $stmtClaims = $conn->prepare($claimsQuery);
+            $stmtItems = $conn->prepare($itemsQuery);
+
+            if (!$stmtClaims || !$stmtItems) {
+                $response['message'] = 'Failed to prepare statements: ' . $conn->error;
+            } else {
+                $stmtClaims->bind_param('sssi', $returnedImagesJson, $currentDate, $remarks, $claimId);
+                $stmtItems->bind_param('sii', $currentDate, $claimerId, $itemId);
+
+                if ($stmtClaims->execute() && $stmtItems->execute()) {
+                    $response['success'] = true;
+                    $response['message'] = 'Claim updated successfully!';
+                    $response['item_id'] = $itemId;
+
+                    $redis = new Predis\Client();
+                    logUserActivity($conn, $redis, $claimerId, 'return_item', $itemId, $claimId);
+                } else {
+                    $response['message'] = 'An error occurred while updating the claim. Please try again later.';
+                }
             }
         }
     }
-
-    // Convert images array to JSON
-    $returned_images_json = json_encode($returned_images);
-
-    // Current date and time
-    $current_date = date('Y-m-d H:i:s');
-
-    // Update claims table
-    $claims_query = "UPDATE claims 
-                     SET Returned_Image='$returned_images_json', Claim_Status='Returned', Verification_Date='$current_date', Remarks='$remarks' 
-                     WHERE Claim_ID='$claim_id'";
-
-    // Update items table
-    $items_query = "UPDATE items 
-                    SET Item_Status='Returned', Retrieved_Date='$current_date', Retrieved_By='$claimer_id' 
-                    WHERE Item_ID='$item_id'";
-
-    // Execute queries
-    if (mysqli_query($conn, $claims_query) && mysqli_query($conn, $items_query)) {
-        echo json_encode(['success' => true, 'message' => 'Claim updated successfully!', 'item_id' => $item_id]);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Error: ' . mysqli_error($conn)]);
-    }
-
-    // Close the database connection
-    mysqli_close($conn);
+} else {
+    $response['message'] = 'Invalid request method.';
 }
+
+header('Content-Type: application/json');
+echo json_encode($response);

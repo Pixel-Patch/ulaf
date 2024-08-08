@@ -1,6 +1,8 @@
 <?php
 session_start();
+require '../../vendor/autoload.php';
 require 'dbconn.php';
+require 'user-activity-log.php';
 
 function showError($message)
 {
@@ -24,8 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $longitude = $_POST['longitude'];
     $currentLocation = isset($_POST['itemCurrentLocation']) ? $_POST['itemCurrentLocation'] : null;
     $posterID = $_SESSION['user_id'];
-    $postedDate = date('Y-m-d H:i:s');
-    $itemStatus = 'Posted';
     $targetDir = "../../assets/uploads/items/";
 
     if (!$itemName || !$type || !$categoryID || !$description || !$pinLocation || !$latitude || !$longitude) {
@@ -34,6 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($type === 'found' && !$currentLocation) {
         showError('Current location is required for found items');
+    }
+
+    // Fetch the current values of the item
+    $sql = "SELECT * FROM items WHERE Item_ID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $itemID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $oldItem = $result->fetch_assoc();
+    $stmt->close();
+
+    if (!$oldItem) {
+        showError('Item not found');
     }
 
     $imageNames = [];
@@ -85,6 +98,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($stmt->execute()) {
+        // Prepare the log message with changes
+        $changes = [];
+        if ($oldItem['Item_Name'] != $itemName) {
+            $changes[] = "Item Name from '{$oldItem['Item_Name']}' to '{$itemName}'";
+        }
+        if (!empty($imageNames)) {
+            $changes[] = "Images from '{$oldItem['Image']}' to '{$imageNamesString}'";
+        }
+        if ($oldItem['Type'] != $type) {
+            $changes[] = "Type from '{$oldItem['Type']}' to '{$type}'";
+        }
+        if ($oldItem['Category_ID'] != $categoryID) {
+            $changes[] = "Category from '{$oldItem['Category_ID']}' to '{$categoryID}'";
+        }
+        if ($oldItem['Description'] != $description) {
+            $changes[] = "Description from '{$oldItem['Description']}' to '{$description}'";
+        }
+        if ($oldItem['Pin_Location'] != $pinLocation) {
+            $changes[] = "Pin Location from '{$oldItem['Pin_Location']}' to '{$pinLocation}'";
+        }
+        if ($oldItem['Current_Location'] != $currentLocation) {
+            $changes[] = "Current Location from '{$oldItem['Current_Location']}' to '{$currentLocation}'";
+        }
+        if ($oldItem['Latitude'] != $latitude) {
+            $changes[] = "Latitude from '{$oldItem['Latitude']}' to '{$latitude}'";
+        }
+        if ($oldItem['Longitude'] != $longitude) {
+            $changes[] = "Longitude from '{$oldItem['Longitude']}' to '{$longitude}'";
+        }
+
+        // Construct the final log description
+        $changeLog = implode(', ', $changes);
+        $logDescription = "Item '{$itemName}' changes: $changeLog";
+
+        // Log the activity with the detailed change log
+        $redis = new Predis\Client();
+        logUserActivity($conn, $redis, $posterID, 'edit_item', $itemID, null, $itemName, $logDescription);
+
         echo json_encode([
             'status' => 'success',
             'alertClass' => 'modal-content alert alert-success alert-dismissible alert-alt fade show',

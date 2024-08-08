@@ -1,6 +1,8 @@
 <?php
 session_start();
-require('dbconn.php');
+require '../../vendor/autoload.php';
+require 'dbconn.php';
+require 'user-activity-log.php';
 
 if (!isset($_SESSION['user_id'])) {
 	sendResponse('error', 'Error!', 'User is not logged in.', false);
@@ -85,6 +87,10 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("ssssssssssi", $role, $fullName, $avatarImagePath, $college, $course, $clsuIdImagePath, $homeAddress, $clsuAddress, $contact, $socialLinks, $internalId);
 
 if ($stmt->execute()) {
+	// Log the cregister activity
+	$redis = new Predis\Client();
+	logUserActivity($conn, $redis, $userId, 'cregister');
+
 	sendResponse('success', 'Success!', 'User details updated successfully.');
 } else {
 	sendResponse('error', 'Error!', 'Error updating record: ' . $stmt->error, false);

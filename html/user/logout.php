@@ -8,9 +8,9 @@ require 'dbconn.php'; // Include your database connection file
 if (isset($_SESSION['user_id'])) {
 	$user_id = $_SESSION['user_id'];
 
-	// Log the logout activity
+	// Log the logout activity with description
 	$redis = new Predis\Client();
-	logUserActivity($conn, $redis, $user_id, 'logout');
+	logUserActivity($conn, $redis, $user_id, 'logout', 'User logged out');
 
 	// Unset all session variables
 	$_SESSION = array();
@@ -38,12 +38,13 @@ header("Location: sign-in.php");
 exit();
 
 // Function to log user activities
-function logUserActivity($conn, $redis, $userId, $activityType, $itemId = null, $claimId = null)
+function logUserActivity($conn, $redis, $userId, $activityType, $description, $itemId = null, $claimId = null)
 {
 	$timestamp = time();
 	$logEntry = json_encode([
 		'user_id' => $userId,
 		'activity_type' => $activityType,
+		'description' => $description,
 		'timestamp' => $timestamp
 	]);
 
@@ -51,8 +52,8 @@ function logUserActivity($conn, $redis, $userId, $activityType, $itemId = null, 
 	$redis->rpush("user:{$userId}:activities", $logEntry);
 
 	// Log to database
-	$stmt = $conn->prepare("INSERT INTO activity_log (user_id, activity_type, item_id, claim_id, timestamp) VALUES (?, ?, ?, ?, FROM_UNIXTIME(?))");
-	$stmt->bind_param("sssii", $userId, $activityType, $itemId, $claimId, $timestamp);
+	$stmt = $conn->prepare("INSERT INTO activity_log (user_id, activity_type, description, item_id, claim_id, timestamp) VALUES (?, ?, ?, ?, ?, FROM_UNIXTIME(?))");
+	$stmt->bind_param("ssssis", $userId, $activityType, $description, $itemId, $claimId, $timestamp);
 	$stmt->execute();
 	$stmt->close();
 }
