@@ -33,8 +33,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		showError('All fields are required');
 	}
 
-	if ($type === 'found' && !$currentLocation) {
-		showError('Current location is required for found items');
+	// Handle Current Location based on Type
+	if ($type === 'lost') {
+		$currentLocation = null; // Ensure currentLocation is null for lost items
+	} elseif ($type === 'found') {
+		// Ensure currentLocation is one of the allowed values
+		$allowedLocations = ['Reporter', 'USF Office', 'OAd Office'];
+		if (!$currentLocation || !in_array($currentLocation, $allowedLocations)) {
+			showError('Current location is required and must be one of Reporter, USF Office, or OAd Office for found items');
+		}
 	}
 
 	$imageNames = [];

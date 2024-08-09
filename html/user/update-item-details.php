@@ -24,16 +24,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pinLocation = $_POST['editPinLocation'];
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
-    $currentLocation = isset($_POST['itemCurrentLocation']) ? $_POST['itemCurrentLocation'] : null;
     $posterID = $_SESSION['user_id'];
     $targetDir = "../../assets/uploads/items/";
 
+    // Validation
     if (!$itemName || !$type || !$categoryID || !$description || !$pinLocation || !$latitude || !$longitude) {
         showError('All fields are required');
     }
 
-    if ($type === 'found' && !$currentLocation) {
-        showError('Current location is required for found items');
+    // Handle Current_Location based on type
+    if ($type === 'lost') {
+        $currentLocation = null; // Ensure currentLocation is null for lost items
+    } elseif ($type === 'found') {
+        $currentLocation = isset($_POST['itemCurrentLocation']) ? $_POST['itemCurrentLocation'] : null;
+        $allowedLocations = ['Reporter', 'USF Office', 'OAd Office'];
+        if (!$currentLocation || !in_array($currentLocation, $allowedLocations)) {
+            showError('Current location is required and must be one of Reporter, USF Office, or OAd Office for found items');
+        }
+    } else {
+        showError('Invalid item type');
     }
 
     // Fetch the current values of the item

@@ -1,8 +1,11 @@
 <?php
+session_start(); // Start the session to track user activity
+require '../../vendor/autoload.php'; // Include this if using Composer for Predis
 include 'dbconn.php';
+require 'user-activity-log.php';
 
 if (isset($_GET['claimId'])) {
-	$claimId = $_GET['claimId'];
+	$claimId = intval($_GET['claimId']); // Ensure claimId is an integer
 	$status = 'Approved';
 	$verificationDate = new DateTime("now", new DateTimeZone('Asia/Manila'));
 	$formattedDate = $verificationDate->format('Y-m-d H:i:s');
@@ -55,6 +58,12 @@ if (isset($_GET['claimId'])) {
 		} else {
 			throw new Exception("Error preparing item update statement: " . $conn->error);
 		}
+
+		// Log the approval activity
+		$posterID = $_SESSION['user_id']; // Assuming user_id is stored in session
+		$redis = new Predis\Client();
+		$logDescription = "Claim ID #'{$claimId}' has been approved";
+		logUserActivity($conn, $redis, $posterID, 'approve_claim', $itemId, $claimId, null, $logDescription);
 
 		// Commit the transaction
 		$conn->commit();

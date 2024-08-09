@@ -38,10 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     $sql = "SELECT COUNT(*) FROM ulaf.employee WHERE id_number = ? AND id_number != ?";
                     break;
                 case 'editusername':
-                    $sql = "SELECT COUNT(*) FROM ulaf.employee WHERE BINARY username = ? AND username != ?";
+                    $sql = "SELECT COUNT(*) FROM ulaf.employee WHERE BINARY username = ? AND username != ? UNION SELECT COUNT(*) FROM ulaf.users WHERE BINARY username = ? AND username != ?";
                     break;
                 case 'editemail':
-                    $sql = "SELECT COUNT(*) FROM ulaf.employee WHERE LOWER(email) = LOWER(?) AND email != ?";
+                    $sql = "SELECT COUNT(*) FROM ulaf.employee WHERE LOWER(email) = LOWER(?) AND email != ? UNION SELECT COUNT(*) FROM ulaf.users WHERE LOWER(email) = LOWER(?) AND email != ?";
                     break;
                 default:
                     echo json_encode(['valid' => false, 'message' => "Invalid field: {$field}"]);
@@ -52,17 +52,26 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $stmt = mysqli_prepare($conn, $sql);
 
             if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "ss", $value, $currentValue);
+                if ($field == 'edituserid') {
+                    // Bind the parameters for edituserid
+                    mysqli_stmt_bind_param($stmt, "ss", $value, $currentValue);
+                } else {
+                    // Bind the parameters for editusername and editemail
+                    mysqli_stmt_bind_param($stmt, "ssss", $value, $currentValue, $value, $currentValue);
+                }
 
                 // Execute the statement and fetch the result
                 if (mysqli_stmt_execute($stmt)) {
                     mysqli_stmt_bind_result($stmt, $count);
-                    mysqli_stmt_fetch($stmt);
+                    $total_count = 0;
+                    while (mysqli_stmt_fetch($stmt)) {
+                        $total_count += $count;
+                    }
 
-                    // Log the count result
-                    error_log("Count: {$count}");
+                    // Log the total count result
+                    error_log("Total Count: {$total_count}");
 
-                    if ($count > 0) {
+                    if ($total_count > 0) {
                         $result = ['valid' => false, 'message' => 'Value already exists'];
                     } else {
                         $result = ['valid' => true];

@@ -82,6 +82,11 @@ if (dt_project_table.length) {
       $framework = full['Description'],
       $images = full['Image'] ? full['Image'].split(',') : [];
 
+      // Truncate item name to 15 characters with "..." for extras
+    if ($name.length > 15) {
+      $name = $name.substring(0, 15) + '...';
+    }
+
     // Truncate description to 15 characters with "..." for extras
     if ($framework.length > 15) {
       $framework = $framework.substring(0, 15) + '...';
@@ -347,6 +352,11 @@ if (dt_claims_table.length) {
           var $name = full['Item_Name'],
             $framework = full['Proof'],
             $images = full['Image'] ? full['Image'].split(',') : [];
+
+            // Truncate item name to 15 characters with "..." for extras
+    if ($name.length > 15) {
+      $name = $name.substring(0, 15) + '...';
+    }
 
           // Truncate proof to 15 characters with "..." for extras
           if ($framework.length > 15) {
@@ -618,6 +628,12 @@ if (dt_myclaims_table.length) {
           var $name = full['Item_Name'],
             $framework = full['Proof'],
             $images = full['Image'] ? full['Image'].split(',') : [];
+
+
+            // Truncate item name to 15 characters with "..." for extras
+    if ($name.length > 15) {
+      $name = $name.substring(0, 15) + '...';
+    }
 
           // Truncate proof to 15 characters with "..." for extras
           if ($framework.length > 15) {

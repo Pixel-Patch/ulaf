@@ -210,7 +210,7 @@ if ($stmt = $conn->prepare($claimsQuery)) {
 												<div class="dz-info">
 													<br>
 													<div class="dz-head">
-														<p>Claim # <?php echo $claim['Claim_ID']; ?></p>
+														<p style="width:auto" >Claim # <?php echo $claim['Claim_ID']; ?></p>
 														<h6 class="title item-name"><?php echo htmlspecialchars($itemDetails['Item_Name']); ?></h6>
 														<br>
 														<?php

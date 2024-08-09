@@ -22,12 +22,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.users WHERE user_id = ?");
             break;
         case 'addusername':
-            $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.users WHERE username = ?");
+            $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.employee WHERE BINARY username = ? AND username != ? 
+                            UNION 
+                            SELECT COUNT(*) FROM ulaf.users WHERE BINARY Username = ? AND Username != ?");
             break;
         case 'addemail':
             // Trim the value to remove any leading or trailing whitespace
             $value = trim($value);
-            $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.users WHERE email = ?");
+            $stmt = mysqli_prepare($conn, "SELECT COUNT(*) FROM ulaf.employee WHERE LOWER(email) = LOWER(?) AND email != ? 
+                            UNION 
+                            SELECT COUNT(*) FROM ulaf.users WHERE LOWER(Email) = LOWER(?) AND Email != ?");
             break;
         default:
             // Invalid field, return false

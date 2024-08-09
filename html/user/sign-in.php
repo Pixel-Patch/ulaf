@@ -163,7 +163,7 @@
 					if (data.status === 'success') {
 						showAlertModal('alert-primary', 'Success!', data.message);
 						setTimeout(() => {
-							window.location.href = 'index.php';
+							window.location.href = data.redirect; // Redirect to the URL provided in the response
 						}, 2000);
 					} else {
 						showAlertModal(data.alertClass, data.alertTitle, data.message);
@@ -175,6 +175,7 @@
 				});
 		}
 	</script>
+
 
 </body>
 

@@ -11,9 +11,11 @@ function logUserActivity($conn, $redis, $userId, $activityType, $itemId = null, 
 		'edit_item' => $description,
 		'edit_profile' => $description,
 		'delete_item' => $description,
-		'delete_claim' => $description,// This directly uses the description passed from edit_item.php
-		// Add more activity types and descriptions as needed
+		'delete_claim' => $description,
+		'decline_claim' => "Claim ID #'{$claimId}' has been declined.",
+		'approve_claim' => "Claim ID #'{$claimId}' has been approved.",
 	];
+
 
 	// The final description is directly used from the $description parameter for 'edit_item'
 	$description = $activityDescriptions[$activityType];

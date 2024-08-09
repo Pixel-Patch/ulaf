@@ -6,7 +6,6 @@ require '../../vendor/autoload.php'; // Ensure Carbon is loaded
 
 use Carbon\Carbon;
 
-
 // Set the default timezone to Asia/Manila
 date_default_timezone_set('Asia/Manila');
 Carbon::setLocale('en'); // Set the locale for Carbon

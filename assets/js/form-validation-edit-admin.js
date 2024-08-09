@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         editusername: {
           validators: {
             notEmpty: {
-              message: 'The usernaFDGDFGme is required'
+              message: 'The username is required'
             },
             stringLength: {
               min: 4,

@@ -35,10 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     $sql = "SELECT COUNT(*) FROM ulaf.users WHERE User_ID = ? AND User_ID != ?";
                     break;
                 case 'editusername':
-                    $sql = "SELECT COUNT(*) FROM ulaf.users WHERE BINARY Username = ? AND Username != ?";
+                    $sql = "SELECT COUNT(*) FROM ulaf.employee WHERE BINARY username = ? AND username != ? 
+                            UNION 
+                            SELECT COUNT(*) FROM ulaf.users WHERE BINARY Username = ? AND Username != ?";
                     break;
                 case 'editemail':
-                    $sql = "SELECT COUNT(*) FROM ulaf.users WHERE LOWER(Email) = LOWER(?) AND Email != ?";
+                    $sql = "SELECT COUNT(*) FROM ulaf.employee WHERE LOWER(email) = LOWER(?) AND email != ? 
+                            UNION 
+                            SELECT COUNT(*) FROM ulaf.users WHERE LOWER(Email) = LOWER(?) AND Email != ?";
                     break;
             }
 
@@ -47,14 +51,23 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
             // Check if the statement is prepared successfully
             if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "ss", $value, $currentValue);
+                if ($field == 'edituserid') {
+                    // Bind the parameters for edituserid
+                    mysqli_stmt_bind_param($stmt, "ss", $value, $currentValue);
+                } else {
+                    // Bind the parameters for editusername and editemail
+                    mysqli_stmt_bind_param($stmt, "ssss", $value, $currentValue, $value, $currentValue);
+                }
 
                 // Execute the statement and fetch the result
                 if (mysqli_stmt_execute($stmt)) {
                     mysqli_stmt_bind_result($stmt, $count);
-                    mysqli_stmt_fetch($stmt);
+                    $total_count = 0;
+                    while (mysqli_stmt_fetch($stmt)) {
+                        $total_count += $count;
+                    }
 
-                    if ($count > 0) {
+                    if ($total_count > 0) {
                         $result = ['valid' => false, 'message' => 'Value already exists']; // Value exists
                     } else {
                         $result = ['valid' => true]; // Value does not exist, validation passes
@@ -81,3 +94,4 @@ error_log("Result: " . json_encode($result));
 // Return the result as a JSON object
 header('Content-Type: application/json');
 echo json_encode($result);
+?>

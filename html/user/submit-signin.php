@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
 
-require('dbconn.php'); // Include your database connection file
-require '../../vendor/autoload.php'; // Ensure Predis is loaded
+require('dbconn.php');
+require '../../vendor/autoload.php';
 session_start();
 
 $response = [
@@ -25,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 
 	try {
-		$stmt = $conn->prepare('SELECT User_ID, Username, Password FROM users WHERE Username = ? OR Email = ?');
+		// First, check in the employees table
+		$stmt = $conn->prepare('SELECT id, username, password FROM employee WHERE username = ? OR email = ?');
 		if ($stmt === false) {
 			throw new Exception('Prepare statement failed: ' . htmlspecialchars($conn->error));
 		}
@@ -35,26 +36,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$stmt->store_result();
 
 		if ($stmt->num_rows > 0) {
-			$stmt->bind_result($user_id, $username, $hashed_password);
+			$stmt->bind_result($employee_id, $employee_username, $employee_hashed_password);
 			$stmt->fetch();
 
-			if (password_verify($password, $hashed_password)) {
-				$_SESSION['user_id'] = $user_id;
-				$_SESSION['username'] = $username;
+			if (password_verify($password, $employee_hashed_password)) {
+				$_SESSION['user_id'] = $employee_id;
+				$_SESSION['username'] = $employee_username;
+				$_SESSION['user_role'] = 'employee';
 
 				$response['status'] = 'success';
 				$response['alertClass'] = 'alert-primary';
 				$response['alertTitle'] = 'Success!';
-				$response['message'] = 'Login successful! Redirecting...';
+				$response['message'] = 'Login successful! Redirecting to admin page...';
 
-				// Log the login activity with description
+				// Log the login activity
 				$redis = new Predis\Client();
-				logUserActivity($conn, $redis, $user_id, 'login', 'User logged in');
+				logUserActivity($conn, $redis, $employee_id, 'login', 'Employee logged in');
+
+				// Redirect to admin page
+				$response['redirect'] = '../admin/index.php';
 			} else {
 				$response['message'] = 'Invalid username/email or password.';
 			}
 		} else {
-			$response['message'] = 'Invalid username/email or password.';
+			// If not found in employees, check in the users table
+			$stmt->prepare('SELECT User_ID, Username, Password FROM users WHERE Username = ? OR Email = ?');
+			if ($stmt === false) {
+				throw new Exception('Prepare statement failed: ' . htmlspecialchars($conn->error));
+			}
+
+			$stmt->bind_param('ss', $usernameEmail, $usernameEmail);
+			$stmt->execute();
+			$stmt->store_result();
+
+			if ($stmt->num_rows > 0) {
+				$stmt->bind_result($user_id, $user_username, $user_hashed_password);
+				$stmt->fetch();
+
+				if (password_verify($password, $user_hashed_password)) {
+					$_SESSION['user_id'] = $user_id;
+					$_SESSION['username'] = $user_username;
+					$_SESSION['user_role'] = 'user';
+
+					$response['status'] = 'success';
+					$response['alertClass'] = 'alert-primary';
+					$response['alertTitle'] = 'Success!';
+					$response['message'] = 'Login successful! Redirecting to user page...';
+
+					// Log the login activity
+					$redis = new Predis\Client();
+					logUserActivity($conn, $redis, $user_id, 'login', 'User logged in');
+
+					// Redirect to user page
+					$response['redirect'] = 'index.php';
+				} else {
+					$response['message'] = 'Invalid username/email or password.';
+				}
+			} else {
+				$response['message'] = 'Invalid username/email or password.';
+			}
 		}
 
 		$stmt->close();
